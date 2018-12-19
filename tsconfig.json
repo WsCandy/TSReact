@@ -1,0 +1,26 @@
+{
+    "compilerOptions": {
+        "noImplicitAny": true,
+        "module": "esnext",
+        "moduleResolution": "node",
+        "allowSyntheticDefaultImports": true,
+        "target": "es5",
+        "allowJs": false,
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "allowUnreachableCode": false,
+        "strictNullChecks": true,
+        "sourceMap": false,
+        "noImplicitThis": true,
+        "noUnusedParameters": true,
+        "noStrictGenericChecks": false,
+        "removeComments": false,
+        "allowUnusedLabels": false,
+        "noImplicitReturns": true,
+        "strictPropertyInitialization": true,
+        "lib": ["ES2015.Promise", "es6", "DOM", "ES5", "ScriptHost"],
+        "jsx": "react",
+        "baseUrl": "./"
+    },
+    "exclude": ["**/__tests__", "dist"]
+}

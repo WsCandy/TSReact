@@ -59,3 +59,12 @@ typings/
 
 # next.js build output
 .next
+
+# Distribution directory
+dist
+
+# Generated Reports
+reports
+
+# IDE
+.idea
