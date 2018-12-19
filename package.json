@@ -8,9 +8,11 @@
     "license": "MIT",
     "scripts": {
         "precommit": "pretty-quick --staged && lint-staged",
-        "start": "",
+        "start": "NODE_ENV=production node dist/index.js --assets=true",
         "prebuild": "yarn clean",
-        "build": "",
+        "build": "concurrently \"yarn:build:*\"",
+        "build:server": "NODE_ENV=production webpack --config ./.webpack/server.js",
+        "build:client": "NODE_ENV=production webpack --config ./.webpack/client.js",
         "predev": "yarn clean",
         "dev": "concurrently \"yarn:dev:*\"",
         "dev:client": "webpack-dev-server --inline --hot --config ./.webpack/client.js --colors",
@@ -61,10 +63,12 @@
     },
     "dependencies": {
         "@types/webpack": "^4.4.21",
+        "@types/yargs": "^12.0.1",
         "ejs": "^2.6.1",
         "express": "^4.16.4",
         "react": "^16.6.3",
         "react-dom": "^16.6.3",
-        "redux": "^4.0.1"
+        "redux": "^4.0.1",
+        "yargs": "^12.0.5"
     }
 }
