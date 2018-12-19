@@ -36,10 +36,10 @@ module.exports = merge(base, {
         }
     },
     output: {
-        filename: "[name].[hash].js",
-        chunkFilename: "[name].[chunkhash].js",
-        path: path.resolve(__dirname, "../dist/public/assets/"),
-        publicPath: "/assets/"
+        filename: "assets/[name].[hash].js",
+        chunkFilename: "assets/[name].[chunkhash].js",
+        path: path.resolve(__dirname, "../dist/public/"),
+        publicPath: "/"
     },
     plugins: [
         new HtmlWebpackPlugin({
