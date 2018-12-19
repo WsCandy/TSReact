@@ -16,7 +16,7 @@
         "dev:client": "webpack-dev-server --inline --hot --config ./.webpack/client.js --colors",
         "dev:server": "webpack --config ./.webpack/server.js --watch --colors & nodemon watch dist/index.js --exec \"node dist/index.js\"",
         "clean": "rimraf dist",
-        "lint": "eslint src/**/*.ts",
+        "lint": "eslint src/**/* --ext .ts --ext .tsx",
         "pretty": "prettier src/**/*.ts --write"
     },
     "lint-staged": {
