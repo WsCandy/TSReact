@@ -1,5 +1,6 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const HtmlWebpackHarddiskPlugin = require("html-webpack-harddisk-plugin");
+const CopyWebpackPlugin = require("copy-webpack-plugin");
 const path = require("path");
 const base = require("./base.js");
 const merge = require("webpack-merge");
@@ -61,6 +62,15 @@ module.exports = merge(base, {
             ),
             excludeAssets: /\.hot-update.js$/,
             openAnalyzer: false
-        })
+        }),
+        new CopyWebpackPlugin(
+            [
+                {
+                    from: "**/*",
+                    to: path.resolve(__dirname, "../dist/public")
+                }
+            ],
+            { context: path.resolve(__dirname, "../src/client/static/") }
+        )
     ]
 });
