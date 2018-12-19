@@ -1,4 +1,5 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const ScriptExtHtmlWebpackPlugin = require("script-ext-html-webpack-plugin");
 const HtmlWebpackHarddiskPlugin = require("html-webpack-harddisk-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const path = require("path");
@@ -10,7 +11,7 @@ const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
 module.exports = merge(base, {
     target: "web",
     entry: {
-        m: path.resolve(__dirname, "../src/client/index.ts")
+        m: path.resolve(__dirname, "../src/client/index.tsx")
     },
     devServer: {
         host: "0.0.0.0",
@@ -52,6 +53,9 @@ module.exports = merge(base, {
                 collapseWhitespace: true,
                 conservativeCollapse: false
             }
+        }),
+        new ScriptExtHtmlWebpackPlugin({
+            defaultAttribute: "defer"
         }),
         new HtmlWebpackHarddiskPlugin(),
         new BundleAnalyzerPlugin({

@@ -40,7 +40,14 @@ module.exports = merge({
         }
     },
     resolve: {
-        extensions: [".js", ".json", ".ts", ".tsx"]
+        extensions: [".js", ".json", ".ts", ".tsx"],
+        alias: {
+            "@src": path.resolve(__dirname, "../src"),
+            "@server": path.resolve(__dirname, "../src/server"),
+            "@client": path.resolve(__dirname, "../src/client"),
+            "@common": path.resolve(__dirname, "../src/common"),
+            "@containers": path.resolve(__dirname, "../src/common/containers")
+        }
     },
     module: {
         rules: [

@@ -20,7 +20,14 @@
         "strictPropertyInitialization": true,
         "lib": ["ES2015.Promise", "es6", "DOM", "ES5", "ScriptHost"],
         "jsx": "react",
-        "baseUrl": "./"
+        "baseUrl": "./",
+        "paths": {
+            "@src/*": ["src/*"],
+            "@server/*": ["src/server/*"],
+            "@client/*": ["src/client/*"],
+            "@common/*": ["src/common/*"],
+            "@containers/*": ["src/common/containers/*"]
+        }
     },
     "exclude": ["**/__tests__", "dist"]
 }
