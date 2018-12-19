@@ -3,6 +3,8 @@ const HtmlWebpackHarddiskPlugin = require("html-webpack-harddisk-plugin");
 const path = require("path");
 const base = require("./base.js");
 const merge = require("webpack-merge");
+const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
+    .BundleAnalyzerPlugin;
 
 module.exports = merge(base, {
     target: "web",
@@ -50,6 +52,15 @@ module.exports = merge(base, {
                 conservativeCollapse: false
             }
         }),
-        new HtmlWebpackHarddiskPlugin()
+        new HtmlWebpackHarddiskPlugin(),
+        new BundleAnalyzerPlugin({
+            analyzerMode: "static",
+            reportFilename: path.resolve(
+                __dirname,
+                "../reports/client-chunk-report.html"
+            ),
+            excludeAssets: /\.hot-update.js$/,
+            openAnalyzer: false
+        })
     ]
 });

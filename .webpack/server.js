@@ -2,6 +2,8 @@ const path = require("path");
 const base = require("./base.js");
 const merge = require("webpack-merge");
 const webpackNodeExternals = require("webpack-node-externals");
+const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
+    .BundleAnalyzerPlugin;
 
 module.exports = merge(base, {
     target: "node",
@@ -17,5 +19,16 @@ module.exports = merge(base, {
         chunkFilename: "[name].js",
         path: path.resolve(__dirname, "../dist")
     },
-    externals: [webpackNodeExternals()]
+    externals: [webpackNodeExternals()],
+    plugins: [
+        new BundleAnalyzerPlugin({
+            analyzerMode: "static",
+            reportFilename: path.resolve(
+                __dirname,
+                "../reports/server-chunk-report.html"
+            ),
+            excludeAssets: /\.hot-update.js$/,
+            openAnalyzer: false
+        })
+    ]
 });
