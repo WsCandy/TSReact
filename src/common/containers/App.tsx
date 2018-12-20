@@ -11,6 +11,10 @@ const App: React.FunctionComponent<Props> = ({ className }) => (
     </div>
 );
 
-export default styled(App)({
-    color: "#bada55"
-});
+export default styled(App)`
+    color: black;
+
+    @media screen and (max-width: 400px) {
+        color: red;
+    }
+`;
