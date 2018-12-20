@@ -24,6 +24,7 @@
     "rules": {
         "react/jsx-indent": ["error", 4],
         "react/jsx-filename-extension": [1, { "extensions": [".tsx", ".jsx"] }],
+        "react/prop-types": ["off"], // Typescript handles this for me :)
         "typescript/no-unused-vars": "error",
         "import/no-unresolved": "off",
         "import/no-anonymous-default-export": "error",

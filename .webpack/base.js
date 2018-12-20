@@ -57,7 +57,10 @@ module.exports = merge({
                     {
                         loader: "babel-loader",
                         options: {
-                            plugins: ["syntax-dynamic-import"]
+                            plugins: [
+                                "syntax-dynamic-import",
+                                "babel-plugin-styled-components"
+                            ]
                         }
                     },
                     {
