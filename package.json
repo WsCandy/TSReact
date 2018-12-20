@@ -7,7 +7,6 @@
     "author": "Samuel Woodbridge <s-bridge@live.co.uk>",
     "license": "MIT",
     "scripts": {
-        "precommit": "pretty-quick --staged && lint-staged",
         "start": "NODE_ENV=production node dist/index.js --assets=true",
         "prebuild": "yarn clean",
         "build": "concurrently \"yarn:build:*\"",
