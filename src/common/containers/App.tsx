@@ -1,20 +1,15 @@
 import * as React from "react";
-import styled from "styled-components";
+import { Route, Switch } from "react-router-dom";
+import routes from "@common/config/routing/routes";
 
-interface Props {
-    readonly className?: string;
-}
+interface Props {}
 
-const App: React.FunctionComponent<Props> = ({ className }) => (
-    <div className={className}>
-        <p>Hello World!</p>
-    </div>
+const App: React.FunctionComponent<Props> = () => (
+    <Switch>
+        {routes.map(r => (
+            <Route key={r.key} {...r} />
+        ))}
+    </Switch>
 );
 
-export default styled(App)`
-    color: hotpink;
-
-    @media screen and (max-width: 400px) {
-        color: red;
-    }
-`;
+export default App;
