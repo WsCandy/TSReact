@@ -68,3 +68,6 @@ reports
 
 # IDE
 .idea
+
+# Webpack
+.cache-loader

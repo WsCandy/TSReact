@@ -7,6 +7,7 @@ const dev = env !== "production";
 
 module.exports = merge({
     mode: env || "development",
+    context: path.resolve(__dirname, "../"),
     devtool: env === "production" ? "none" : "source-map",
     stats: {
         colors: true,
@@ -54,6 +55,13 @@ module.exports = merge({
             {
                 test: /\.tsx?$/,
                 use: [
+                    { loader: "cache-loader" },
+                    {
+                        loader: "thread-loader",
+                        options: {
+                            workers: require("os").cpus().length - 1
+                        }
+                    },
                     {
                         loader: "babel-loader",
                         options: {
@@ -69,7 +77,8 @@ module.exports = merge({
                             configFile: path.resolve(
                                 __dirname,
                                 "../tsconfig.json"
-                            )
+                            ),
+                            happyPackMode: true
                         }
                     }
                 ]
