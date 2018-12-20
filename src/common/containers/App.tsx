@@ -7,7 +7,7 @@ interface Props {}
 const App: React.FunctionComponent<Props> = () => (
     <Switch>
         {routes.map(r => (
-            <Route key={r.key} {...r} />
+            <Route {...r} />
         ))}
     </Switch>
 );
