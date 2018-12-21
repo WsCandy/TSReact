@@ -1,8 +1,9 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
 import route from "@common/components/higher-order/route";
+import RouteProps from "@common/model/routing/RouteProps";
 
-interface Props {}
+interface Props extends RouteProps {}
 
 const Home: React.FunctionComponent<Props> = () => (
     <div>
@@ -11,4 +12,4 @@ const Home: React.FunctionComponent<Props> = () => (
     </div>
 );
 
-export default route(Home);
+export default route<Props>(Home);

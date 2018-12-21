@@ -8,11 +8,13 @@ const routes: AppRoute[] = [
         path: "/",
         exact: true,
         title: "Hello World!",
+        description: "This is the home page...!",
         component: Home
     },
     {
         key: "404",
-        title: "Page not found! D:",
+        title: "Error 404 - $s not found.",
+        description: "Error 404 - $s not found.",
         component: NotFound
     }
 ];

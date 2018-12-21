@@ -1,17 +1,21 @@
 import React, { ComponentType } from "react";
-import { RouteComponentProps } from "react-router";
 import getMatchedRoute from "@common/util/routes/getMatchedRoute";
 import RouteMethods from "@common/model/routing/RouteMethods";
-import Context from "@common/model/routing/Context";
+import RouteProps from "@common/model/routing/RouteProps";
+import AppRoute from "@common/model/routing/AppRoute";
 
-const route = function<P extends RouteComponentProps<{}, Context>>(
+const route = function<P extends RouteProps>(
     Component: ComponentType,
     routeMethods: RouteMethods<P> = {}
 ) {
     return class extends React.Component<P> {
         componentWillMount(): void {
+            const { location } = this.props;
             const { staticContext } = this.props;
-            const title = this.getTitle();
+            const matchedRoute = getMatchedRoute(location.pathname);
+
+            const title = this.getTitle(matchedRoute);
+            const description = this.getDescription(matchedRoute);
 
             if (typeof document !== "undefined") {
                 document.title = title;
@@ -19,16 +23,23 @@ const route = function<P extends RouteComponentProps<{}, Context>>(
 
             if (typeof staticContext !== "undefined") {
                 staticContext.title = title;
+                staticContext.description = description;
             }
         }
 
-        private getTitle(): string {
-            const { location } = this.props;
-            const { title } = getMatchedRoute(location.pathname);
-
+        private getTitle(matchedRoute: AppRoute): string {
             return routeMethods.getTitle
-                ? routeMethods.getTitle(this.props, title)
-                : title;
+                ? routeMethods.getTitle(this.props, matchedRoute.title)
+                : matchedRoute.title;
+        }
+
+        private getDescription(matchedRoute: AppRoute): string | undefined {
+            return routeMethods.getDescription
+                ? routeMethods.getDescription(
+                    this.props,
+                    matchedRoute.description
+                )
+                : matchedRoute.description;
         }
 
         render() {

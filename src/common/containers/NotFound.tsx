@@ -1,11 +1,8 @@
 import * as React from "react";
-import Context from "@common/model/routing/Context";
 import route from "@common/components/higher-order/route";
-import { RouteComponentProps } from "react-router";
+import RouteProps from "@common/model/routing/RouteProps";
 
-interface Props extends RouteComponentProps {
-    readonly staticContext: Context;
-}
+interface Props extends RouteProps {}
 
 const NotFound: React.FunctionComponent<Props> = ({ staticContext = {} }) => {
     staticContext.status = 404;
@@ -17,8 +14,18 @@ const NotFound: React.FunctionComponent<Props> = ({ staticContext = {} }) => {
     );
 };
 
-const getTitle = ({ location }: Props) => `${location.pathname} not found`;
+const getTitle = ({ location }: Props, title: string) =>
+    title.replace("$s", location.pathname);
 
-export default route(NotFound, {
-    getTitle
+const getDescription = ({ location }: Props, description?: string) => {
+    if (typeof description === "undefined") {
+        return;
+    }
+
+    return description.replace("$s", location.pathname);
+};
+
+export default route<Props>(NotFound, {
+    getTitle,
+    getDescription
 });
