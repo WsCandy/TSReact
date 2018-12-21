@@ -52,6 +52,11 @@ module.exports = merge(base, {
             alwaysWriteToDisk: true,
             minify: {
                 collapseWhitespace: true,
+                removeComments: true,
+                removeRedundantAttributes: true,
+                removeScriptTypeAttributes: true,
+                removeStyleLinkTypeAttributes: true,
+                useShortDoctype: true,
                 conservativeCollapse: false
             }
         }),
