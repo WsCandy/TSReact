@@ -53,6 +53,10 @@ module.exports = merge({
     module: {
         rules: [
             {
+                test: /\.css$/,
+                use: ["cache-loader", "to-string-loader", "css-loader"]
+            },
+            {
                 test: /\.tsx?$/,
                 use: [
                     { loader: "cache-loader" },
@@ -61,7 +65,8 @@ module.exports = merge({
                         options: {
                             plugins: [
                                 "syntax-dynamic-import",
-                                "babel-plugin-styled-components"
+                                "babel-plugin-styled-components",
+                                "babel-plugin-transform-assets"
                             ]
                         }
                     },

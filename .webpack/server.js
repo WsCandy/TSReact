@@ -19,7 +19,11 @@ module.exports = merge(base, {
         chunkFilename: "[name].js",
         path: path.resolve(__dirname, "../dist")
     },
-    externals: [webpackNodeExternals()],
+    externals: [
+        webpackNodeExternals({
+            whitelist: ["ress"]
+        })
+    ],
     plugins: [
         new BundleAnalyzerPlugin({
             analyzerMode: "static",
