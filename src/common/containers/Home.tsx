@@ -9,10 +9,7 @@ const Home: React.FunctionComponent<RouteProps> = props => {
 
     return (
         <div>
-            <p>
-Hello World! -
-                {match.path}
-            </p>
+            <p>Hello World! - {match.path}</p>
             <Link to="/nested/example">Hello!</Link>
 
             {generateRoutes(route.routes)}
