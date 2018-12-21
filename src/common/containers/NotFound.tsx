@@ -1,7 +1,9 @@
 import * as React from "react";
 import Context from "@common/model/routing/Context";
+import route from "@common/components/higher-order/route";
+import { RouteComponentProps } from "react-router";
 
-interface Props {
+interface Props extends RouteComponentProps {
     readonly staticContext: Context;
 }
 
@@ -15,4 +17,8 @@ const NotFound: React.FunctionComponent<Props> = ({ staticContext = {} }) => {
     );
 };
 
-export default NotFound;
+const getTitle = ({ location }: Props) => `${location.pathname} not found`;
+
+export default route(NotFound, {
+    getTitle
+});
