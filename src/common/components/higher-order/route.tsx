@@ -10,12 +10,9 @@ const route = function<P extends RouteProps>(
 ) {
     return class extends React.Component<P> {
         componentWillMount(): void {
-            const { location } = this.props;
-            const { staticContext } = this.props;
+            const { location, staticContext } = this.props;
             const matchedRoute = getMatchedRoute(location.pathname);
-
             const title = this.getTitle(matchedRoute);
-            const description = this.getDescription(matchedRoute);
 
             if (typeof document !== "undefined") {
                 document.title = title;
@@ -23,7 +20,7 @@ const route = function<P extends RouteProps>(
 
             if (typeof staticContext !== "undefined") {
                 staticContext.title = title;
-                staticContext.description = description;
+                staticContext.description = this.getDescription(matchedRoute);
             }
         }
 

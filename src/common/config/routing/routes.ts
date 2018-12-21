@@ -13,8 +13,8 @@ const routes: AppRoute[] = [
     },
     {
         key: "404",
-        title: "Error 404 - $s not found.",
-        description: "Error 404 - $s not found.",
+        title: "Error 404 - $s not found",
+        description: "Error 404 - $s not found",
         component: NotFound
     }
 ];
