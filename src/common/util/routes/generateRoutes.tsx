@@ -2,7 +2,9 @@ import AppRoute from "@common/model/routing/AppRoute";
 import { Route, Switch } from "react-router";
 import React from "react";
 
-const render = (Component: any, props: {}, route: AppRoute) => <Component {...props} route={route} />;
+const render = (Component: any, props: {}, route: AppRoute) => (
+    <Component {...props} route={route} />
+);
 
 const generateRoutes = (routes?: AppRoute[]) => {
     if (typeof routes === "undefined") {
@@ -17,6 +19,7 @@ const generateRoutes = (routes?: AppRoute[]) => {
                     exact={r.exact}
                     strict={r.strict}
                     key={r.key}
+                    sensitive={r.sensitive}
                     render={props => {
                         if (typeof r.render !== "undefined") {
                             return r.render({ ...props });
