@@ -2,9 +2,9 @@ import * as React from "react";
 import route from "@common/components/higher-order/route";
 import RouteProps from "@common/model/routing/RouteProps";
 
-interface Props extends RouteProps {}
-
-const NotFound: React.FunctionComponent<Props> = ({ staticContext = {} }) => {
+const NotFound: React.FunctionComponent<RouteProps> = ({
+    staticContext = {}
+}) => {
     staticContext.status = 404;
 
     return (
@@ -14,10 +14,10 @@ const NotFound: React.FunctionComponent<Props> = ({ staticContext = {} }) => {
     );
 };
 
-const getTitle = ({ location }: Props, title: string) =>
+const getTitle = ({ location }: RouteProps, title: string) =>
     title.replace("$s", location.pathname);
 
-const getDescription = ({ location }: Props, description?: string) => {
+const getDescription = ({ location }: RouteProps, description?: string) => {
     if (typeof description === "undefined") {
         return;
     }
@@ -25,7 +25,7 @@ const getDescription = ({ location }: Props, description?: string) => {
     return description.replace("$s", location.pathname);
 };
 
-export default route<Props>(NotFound, {
+export default route<RouteProps>(NotFound, {
     getTitle,
     getDescription
 });
