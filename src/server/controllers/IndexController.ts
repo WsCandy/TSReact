@@ -5,10 +5,10 @@ import Context from "@common/model/routing/Context";
 const IndexController = async (req: Request, res: Response): Promise<any> => {
     const context: Context = {};
     const params = renderer(req, context);
-    const { title, description } = context;
+    const { title, description, status } = context;
 
-    if (context.status) {
-        res.status(context.status);
+    if (status) {
+        res.status(status);
     }
 
     res.render("index", {
