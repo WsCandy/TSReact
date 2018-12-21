@@ -54,7 +54,12 @@ module.exports = merge({
         rules: [
             {
                 test: /\.css$/,
-                use: ["cache-loader", "to-string-loader", "css-loader"]
+                use: [
+                    "cache-loader",
+                    "to-string-loader",
+                    "css-loader",
+                    "postcss-loader"
+                ]
             },
             {
                 test: /\.tsx?$/,
