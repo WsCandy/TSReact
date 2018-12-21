@@ -6,13 +6,8 @@ import { renderToString } from "react-dom/server";
 import { ServerStyleSheet } from "styled-components";
 import { StaticRouter } from "react-router-dom";
 import Context from "@common/model/routing/Context";
-import AppRoute from "@common/model/routing/AppRoute";
 
-const renderer = (
-    req: Request,
-    context: Context,
-    matchedRoute: AppRoute
-): ViewParams => {
+const renderer = (req: Request, context: Context): Partial<ViewParams> => {
     const app = (
         <StaticRouter location={req.url} context={context}>
             <App />
@@ -23,7 +18,6 @@ const renderer = (
     const appWithStyles = sheet.collectStyles(app);
 
     return {
-        title: matchedRoute.title,
         scripts: "",
         html: renderToString(appWithStyles),
         state: JSON.stringify({}),
