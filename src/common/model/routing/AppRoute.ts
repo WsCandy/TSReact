@@ -5,6 +5,7 @@ interface AppRoute extends RouteProps {
     title: string;
     description?: string;
     preLoad?: () => Promise<any>;
+    routes?: AppRoute[];
 }
 
 export default AppRoute;

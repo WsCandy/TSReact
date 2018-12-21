@@ -1,8 +1,7 @@
-import routes from "@common/config/routing/routes";
 import { matchPath } from "react-router";
 import AppRoute from "@common/model/routing/AppRoute";
 
-const getMatchedRoutes = (path: string): AppRoute[] => {
+const getMatchedRoutes = (path: string, routes: AppRoute[]): AppRoute[] => {
     const matchedRoutes = routes.filter(route => matchPath(path, route));
 
     return matchedRoutes.length > 0

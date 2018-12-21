@@ -1,15 +1,11 @@
 import * as React from "react";
-import { Route, Switch } from "react-router-dom";
 import routes from "@common/config/routing/routes";
+import generateRoutes from "@common/util/routes/generateRoutes";
 
 interface Props {}
 
 const App: React.FunctionComponent<Props> = () => (
-    <Switch>
-        {routes.map(r => (
-            <Route {...r} />
-        ))}
-    </Switch>
+    <div>{generateRoutes(routes)}</div>
 );
 
 export default App;

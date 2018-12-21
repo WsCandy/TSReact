@@ -3,6 +3,7 @@ import getMatchedRoute from "@common/util/routes/getMatchedRoute";
 import RouteMethods from "@common/model/routing/RouteMethods";
 import RouteProps from "@common/model/routing/RouteProps";
 import AppRoute from "@common/model/routing/AppRoute";
+import routes from "@common/config/routing/routes";
 
 const route = function<P extends RouteProps>(
     Component: ComponentType,
@@ -11,7 +12,7 @@ const route = function<P extends RouteProps>(
     return class extends React.Component<P> {
         componentWillMount(): void {
             const { location, staticContext } = this.props;
-            const matchedRoute = getMatchedRoute(location.pathname);
+            const matchedRoute = getMatchedRoute(location.pathname, routes);
             const title = this.getTitle(matchedRoute);
 
             if (typeof document !== "undefined") {

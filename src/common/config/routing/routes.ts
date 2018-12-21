@@ -12,6 +12,21 @@ const routes: AppRoute[] = [
         component: Home
     },
     {
+        key: "nested",
+        path: "/nested",
+        title: "Nested",
+        component: Home,
+        routes: [
+            {
+                key: "nested-example",
+                path: "/nested/example",
+                title: "Nesting Example",
+                exact: true,
+                component: Home
+            }
+        ]
+    },
+    {
         key: "404",
         title: "Error 404 - $s not found",
         description: "Error 404 - $s not found",
