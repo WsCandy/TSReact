@@ -8,12 +8,12 @@ const Home: React.FunctionComponent<RouteProps> = props => {
     const { route, match } = props;
 
     return (
-        <div>
+        <React.Fragment>
             <p>Hello World! - {match.path}</p>
             <Link to="/nested/example">Hello!</Link>
 
             {generateRoutes(route.routes)}
-        </div>
+        </React.Fragment>
     );
 };
 
