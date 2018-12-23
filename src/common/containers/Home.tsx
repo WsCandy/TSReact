@@ -28,6 +28,7 @@ const Home: React.FunctionComponent<Props> = props => {
                 <input
                     type="text"
                     onChange={e => dispatch(setExampleMessage(e.target.value))}
+                    value={example.message}
                 />
             </div>
             {generateRoutes(route.routes)}
