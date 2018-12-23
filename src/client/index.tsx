@@ -2,10 +2,13 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import App from "@containers/App";
 import { BrowserRouter } from "react-router-dom";
+import store from "@client/store";
+
+const clientStore = store();
 
 const app = (
     <BrowserRouter>
-        <App />
+        <App store={clientStore} />
     </BrowserRouter>
 );
 

@@ -6,11 +6,14 @@ import { renderToString } from "react-dom/server";
 import { ServerStyleSheet } from "styled-components";
 import { StaticRouter } from "react-router-dom";
 import Context from "@common/model/routing/Context";
+import store from "@server/store";
 
 const renderer = (req: Request, context: Context): Partial<ViewParams> => {
+    const serverStore = store();
+
     const app = (
         <StaticRouter location={req.url} context={context}>
-            <App />
+            <App store={serverStore} />
         </StaticRouter>
     );
 
@@ -20,7 +23,7 @@ const renderer = (req: Request, context: Context): Partial<ViewParams> => {
     return {
         scripts: "",
         html: renderToString(appWithStyles),
-        state: JSON.stringify({}),
+        state: JSON.stringify(serverStore.getState()),
         styles: sheet.getStyleTags()
     };
 };

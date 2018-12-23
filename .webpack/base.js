@@ -47,7 +47,12 @@ module.exports = merge({
             "@server": path.resolve(__dirname, "../src/server"),
             "@client": path.resolve(__dirname, "../src/client"),
             "@common": path.resolve(__dirname, "../src/common"),
-            "@containers": path.resolve(__dirname, "../src/common/containers")
+            "@util": path.resolve(__dirname, "../src/common/util"),
+            "@model": path.resolve(__dirname, "../src/common/model"),
+            "@containers": path.resolve(__dirname, "../src/common/containers"),
+            "@actions": path.resolve(__dirname, "../src/common/actions"),
+            "@reducers": path.resolve(__dirname, "../src/common/reducers"),
+            "@selectors": path.resolve(__dirname, "../src/common/selectors")
         }
     },
     module: {

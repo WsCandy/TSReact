@@ -26,7 +26,12 @@
             "@server/*": ["src/server/*"],
             "@client/*": ["src/client/*"],
             "@common/*": ["src/common/*"],
-            "@containers/*": ["src/common/containers/*"]
+            "@util/*": ["src/common/util/*"],
+            "@model/*": ["src/common/model/*"],
+            "@containers/*": ["src/common/containers/*"],
+            "@actions/*": ["src/common/actions/*"],
+            "@reducers/*": ["src/common/reducers/*"],
+            "@selectors/*": ["src/common/selectors/*"]
         }
     },
     "exclude": ["**/__tests__", "dist"]
