@@ -1,15 +1,21 @@
-import { compose, createStore, Store } from "redux";
+import {
+    applyMiddleware, compose, createStore, Store
+} from "redux";
 import AppState from "@model/redux/AppState";
 import reducers from "@reducers/index";
+import { routerMiddleware } from "connected-react-router";
+import createBrowserHistory from "history/createBrowserHistory";
+
+const history = createBrowserHistory();
 
 const store = (): Store<AppState> => {
     const composeEnhancers =
         (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
     const store = createStore(
-        reducers,
+        reducers(history),
         (window as any).INITIAL_STATE,
-        composeEnhancers()
+        composeEnhancers(applyMiddleware(routerMiddleware(history)))
     );
 
     if (module.hot) {
@@ -20,7 +26,7 @@ const store = (): Store<AppState> => {
         (window as any).store = store;
 
         module.hot.accept("@reducers", () => {
-            store.replaceReducer(reducers);
+            store.replaceReducer(reducers(history));
         });
     }
 
@@ -28,3 +34,4 @@ const store = (): Store<AppState> => {
 };
 
 export default store;
+export { history };

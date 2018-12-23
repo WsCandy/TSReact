@@ -7,14 +7,17 @@ import { ServerStyleSheet } from "styled-components";
 import { StaticRouter } from "react-router-dom";
 import Context from "@common/model/routing/Context";
 import store from "@server/store";
+import { Provider } from "react-redux";
 
 const renderer = (req: Request, context: Context): Partial<ViewParams> => {
-    const serverStore = store();
+    const serverStore = store(req.url);
 
     const app = (
-        <StaticRouter location={req.url} context={context}>
-            <App store={serverStore} />
-        </StaticRouter>
+        <Provider store={serverStore}>
+            <StaticRouter location={req.url} context={context}>
+                <App />
+            </StaticRouter>
+        </Provider>
     );
 
     const sheet = new ServerStyleSheet();
