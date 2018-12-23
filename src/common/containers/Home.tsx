@@ -4,13 +4,11 @@ import route from "@common/components/higher-order/route";
 import RouteProps from "@common/model/routing/RouteProps";
 import generateRoutes from "@common/util/routes/generateRoutes";
 import AppState from "@model/redux/AppState";
-import { connect } from "react-redux";
-import { Dispatch } from "redux";
+import { connect, DispatchProp } from "react-redux";
 import { ExampleState } from "@reducers/example/example";
 import setExampleMessage from "@actions/example/setExampleMessage";
 
-interface Props extends RouteProps {
-    readonly dispatch: Dispatch;
+interface Props extends RouteProps, DispatchProp {
     readonly example: ExampleState;
 }
 
