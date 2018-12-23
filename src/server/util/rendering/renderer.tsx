@@ -6,12 +6,15 @@ import { renderToString } from "react-dom/server";
 import { ServerStyleSheet } from "styled-components";
 import { StaticRouter } from "react-router-dom";
 import Context from "@common/model/routing/Context";
-import store from "@server/store";
 import { Provider } from "react-redux";
+import AppState from "@model/redux/AppState";
+import { Store } from "redux";
 
-const renderer = (req: Request, context: Context): Partial<ViewParams> => {
-    const serverStore = store(req.url);
-
+const renderer = (
+    req: Request,
+    context: Context,
+    serverStore: Store<AppState>
+): Partial<ViewParams> => {
     const app = (
         <Provider store={serverStore}>
             <StaticRouter location={req.url} context={context}>

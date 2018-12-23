@@ -4,6 +4,7 @@ interface RouteMethods<T> {
         props: T,
         description?: string
     ) => string | undefined;
+    readonly preLoad?: (props: T) => Promise<any>;
 }
 
 export default RouteMethods;

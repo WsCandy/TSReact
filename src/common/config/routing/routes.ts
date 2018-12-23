@@ -1,6 +1,7 @@
 import AppRoute from "@common/model/routing/AppRoute";
 import Home from "@containers/Home";
 import NotFound from "@containers/NotFound";
+import LoadTest from "@containers/LoadTest";
 
 const routes: AppRoute[] = [
     {
@@ -12,19 +13,10 @@ const routes: AppRoute[] = [
         component: Home
     },
     {
-        key: "nested",
-        path: "/nested",
-        title: "Nested",
-        component: Home,
-        routes: [
-            {
-                key: "nested-example",
-                path: "/nested/example",
-                title: "Nesting Example",
-                exact: true,
-                component: Home
-            }
-        ]
+        key: "load-test",
+        path: "/load-test",
+        title: "Load Test",
+        component: LoadTest
     },
     {
         key: "404",

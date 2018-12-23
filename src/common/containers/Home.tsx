@@ -22,7 +22,7 @@ const Home: React.FunctionComponent<Props> = props => {
             <p>
                 {example.message} - {match.path}
             </p>
-            <Link to="/nested/example">Hello!</Link>
+            <Link to="/load-test">Hello!</Link>
 
             <div>
                 <input
@@ -38,4 +38,4 @@ const Home: React.FunctionComponent<Props> = props => {
 
 const mapStateToProps = ({ example }: AppState) => ({ example });
 
-export default route(connect(mapStateToProps)(Home));
+export default connect(mapStateToProps)(route(Home));
