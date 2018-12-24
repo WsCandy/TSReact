@@ -5,7 +5,7 @@ import App from "@containers/App";
 import { renderToString } from "react-dom/server";
 import { ServerStyleSheet } from "styled-components";
 import { StaticRouter } from "react-router-dom";
-import Context from "@common/model/routing/Context";
+import Context from "@common/model/routes/Context";
 import { Provider } from "react-redux";
 import AppState from "@model/redux/AppState";
 import { Store } from "redux";

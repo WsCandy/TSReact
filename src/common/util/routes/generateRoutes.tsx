@@ -1,4 +1,4 @@
-import AppRoute from "@common/model/routing/AppRoute";
+import AppRoute from "@common/model/routes/AppRoute";
 import { Route, Switch } from "react-router";
 import React from "react";
 

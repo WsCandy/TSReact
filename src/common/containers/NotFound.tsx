@@ -1,6 +1,6 @@
 import * as React from "react";
 import route from "@common/components/higher-order/route";
-import RouteProps from "@common/model/routing/RouteProps";
+import RouteProps from "@common/model/routes/RouteProps";
 
 const NotFound: React.FunctionComponent<RouteProps> = ({
     staticContext = {}

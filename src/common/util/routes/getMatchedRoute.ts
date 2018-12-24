@@ -1,4 +1,4 @@
-import AppRoute from "@common/model/routing/AppRoute";
+import AppRoute from "@common/model/routes/AppRoute";
 import getMatchedRoutes from "@common/util/routes/getMatchedRoutes";
 
 const getMatchedRoute = (path: string, routes: AppRoute[]): AppRoute => {

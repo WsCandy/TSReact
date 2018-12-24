@@ -1,12 +1,13 @@
 import * as React from "react";
 import route from "@common/components/higher-order/route";
-import RouteProps from "@common/model/routing/RouteProps";
+import RouteProps from "@common/model/routes/RouteProps";
 import generateRoutes from "@common/util/routes/generateRoutes";
 import AppState from "@model/redux/AppState";
-import { connect, DispatchProp } from "react-redux";
+import { connect } from "react-redux";
 import { ExampleState } from "@reducers/example/example";
 import setExampleMessage from "@actions/example/setExampleMessage";
-import PreloadLink from "@common/components/util/routing/PreloadLink";
+import PreloadLink from "@common/components/util/routes/PreloadLink";
+import DispatchProp from "@model/redux/DispatchProp";
 
 interface Props extends RouteProps, DispatchProp {
     readonly example: ExampleState;

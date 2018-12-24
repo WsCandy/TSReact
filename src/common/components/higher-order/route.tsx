@@ -1,9 +1,9 @@
 import React, { ComponentType } from "react";
 import getMatchedRoute from "@common/util/routes/getMatchedRoute";
-import RouteMethods from "@common/model/routing/RouteMethods";
-import AppRoute from "@common/model/routing/AppRoute";
+import RouteMethods from "@common/model/routes/RouteMethods";
+import AppRoute from "@common/model/routes/AppRoute";
 import routes from "@common/config/routing/routes";
-import RouteProps from "@model/routing/RouteProps";
+import RouteProps from "@model/routes/RouteProps";
 
 const route = function<P extends RouteProps, M = {}>(
     Component: ComponentType,

@@ -1,6 +1,7 @@
 import {
     applyMiddleware, compose, createStore, Store
 } from "redux";
+import thunk from "redux-thunk";
 import AppState from "@model/redux/AppState";
 import reducers from "@reducers/index";
 import { routerMiddleware } from "connected-react-router";
@@ -15,7 +16,7 @@ const store = (): Store<AppState> => {
     const store = createStore(
         reducers(history),
         (window as any).INITIAL_STATE,
-        composeEnhancers(applyMiddleware(routerMiddleware(history)))
+        composeEnhancers(applyMiddleware(routerMiddleware(history), thunk))
     );
 
     if (module.hot) {

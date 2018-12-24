@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import renderer from "@server/util/rendering/renderer";
-import Context from "@common/model/routing/Context";
+import Context from "@common/model/routes/Context";
 import store from "@server/store";
 import getMatchedRoute from "@util/routes/getMatchedRoute";
 import routes from "@common/config/routing/routes";
@@ -17,9 +17,8 @@ const IndexController = async (req: Request, res: Response): Promise<any> => {
         title, description, status, preLoad
     } = context;
 
-    const preLoadMethod = preLoad
-        ? preLoad(serverStore.dispatch, match)
-        : preLoad;
+    const preLoadMethod =
+        preLoad && match ? preLoad(serverStore.dispatch, match) : preLoad;
 
     if (status) {
         res.status(status);

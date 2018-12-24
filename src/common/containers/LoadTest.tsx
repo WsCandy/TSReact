@@ -1,6 +1,6 @@
 import * as React from "react";
 import route from "@common/components/higher-order/route";
-import RouteProps from "@model/routing/RouteProps";
+import RouteProps from "@model/routes/RouteProps";
 import { Dispatch } from "redux";
 import { match } from "react-router";
 

@@ -1,4 +1,4 @@
-import AppRoute from "@common/model/routing/AppRoute";
+import AppRoute from "@common/model/routes/AppRoute";
 import Home from "@containers/Home";
 import NotFound from "@containers/NotFound";
 import LoadTest from "@containers/LoadTest";

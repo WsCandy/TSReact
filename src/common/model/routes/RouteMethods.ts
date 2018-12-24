@@ -1,5 +1,4 @@
-import { Dispatch } from "redux";
-import { match } from "react-router";
+import RoutePreload from "@model/routes/RoutePreload";
 
 interface RouteMethods<P, M = {}> {
     readonly getTitle?: (props: P, title: string) => string;
@@ -7,10 +6,7 @@ interface RouteMethods<P, M = {}> {
         props: P,
         description?: string
     ) => string | undefined;
-    readonly preLoad?: (
-        dispatch: Dispatch,
-        match: match<M> | null
-    ) => Promise<any>;
+    readonly preLoad?: RoutePreload<M>;
 }
 
 export default RouteMethods;
