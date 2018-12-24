@@ -5,9 +5,9 @@ import AppRoute from "@common/model/routes/AppRoute";
 import routes from "@common/config/routing/routes";
 import RouteProps from "@model/routes/RouteProps";
 
-const route = function<P extends RouteProps, M = {}>(
+const route = function<P extends RouteProps>(
     Component: ComponentType,
-    routeMethods: RouteMethods<P, M> = {}
+    routeMethods: RouteMethods<P> = {}
 ): ComponentType {
     return class RouteComponent extends React.Component<P> {
         static preLoad() {

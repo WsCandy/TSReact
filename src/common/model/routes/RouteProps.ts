@@ -2,7 +2,7 @@ import { RouteComponentProps } from "react-router";
 import Context from "@common/model/routes/Context";
 import AppRoute from "@common/model/routes/AppRoute";
 
-interface RouteProps extends RouteComponentProps<any, Context> {
+interface RouteProps<P = {}> extends RouteComponentProps<P, Context> {
     route: AppRoute;
 }
 

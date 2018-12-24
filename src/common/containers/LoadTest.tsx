@@ -4,7 +4,7 @@ import RouteProps from "@model/routes/RouteProps";
 import { Dispatch } from "redux";
 import { match } from "react-router";
 
-interface Props extends RouteProps {}
+interface Props extends RouteProps<Params> {}
 
 interface Params {
     test: string;
@@ -18,12 +18,19 @@ const preLoad = (_: Dispatch, match: match<Params>) => {
     });
 };
 
-const LoadTest: React.FunctionComponent<Props> = () => (
-    <React.Fragment>
-        <p>Load Test, this page should take 2 seconds!</p>
-    </React.Fragment>
-);
+const LoadTest: React.FunctionComponent<Props> = props => {
+    const { match } = props;
 
-export default route<Props, Params>(LoadTest, {
+    return (
+        <React.Fragment>
+            <p>
+                Load Test, this page should take 2 seconds! -{" "}
+                {match.params.test}
+            </p>
+        </React.Fragment>
+    );
+};
+
+export default route<Props>(LoadTest, {
     preLoad
 });
