@@ -10,10 +10,13 @@ const loadRoute = (
     props: PreloadLinkProps,
     match: match
 ): AsyncAction<void> => dispatch => {
-    dispatch(setLoadingState({ isLoading: true }));
-
     let outerReject: (reason?: any) => void;
 
+    // Some requests are so fast it's not worth changing the loading state, add a small delay to prevent unnecessary loading state change on fast requests
+    const delay = setTimeout(
+        () => dispatch(setLoadingState({ isLoading: true })),
+        200
+    );
     const { history, location } = props;
     const promise = new Promise((resolve, reject) => {
         outerReject = reject;
@@ -37,7 +40,10 @@ const loadRoute = (
             return getAction(props);
         })
         .catch(unRegister)
-        .finally(() => dispatch(setLoadingState({ isLoading: false })));
+        .finally(() => {
+            clearTimeout(delay);
+            dispatch(setLoadingState({ isLoading: false }));
+        });
 };
 
 export default loadRoute;
