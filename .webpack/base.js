@@ -1,9 +1,7 @@
 const merge = require("webpack-merge");
-const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 const path = require("path");
 
 const env = process.env.NODE_ENV;
-const dev = env !== "production";
 
 module.exports = merge({
     mode: env || "development",
@@ -14,18 +12,6 @@ module.exports = merge({
         env: true
     },
     optimization: {
-        minimize: !dev,
-        minimizer: [
-            new UglifyJsPlugin({
-                parallel: true,
-                include: /\.js$/,
-                uglifyOptions: {
-                    output: {
-                        comments: false
-                    }
-                }
-            })
-        ],
         splitChunks: {
             automaticNameDelimiter: ".",
             minSize: 30000,
@@ -66,24 +52,18 @@ module.exports = merge({
         rules: [
             {
                 test: /\.css$/,
-                use: [
-                    "cache-loader",
-                    "to-string-loader",
-                    "css-loader",
-                    "postcss-loader"
-                ]
+                use: ["to-string-loader", "css-loader", "postcss-loader"]
             },
             {
                 test: /\.tsx?$/,
                 use: [
-                    { loader: "cache-loader" },
                     {
                         loader: "babel-loader",
                         options: {
                             plugins: [
-                                "syntax-dynamic-import",
                                 "babel-plugin-styled-components",
-                                "babel-plugin-transform-assets"
+                                "syntax-dynamic-import",
+                                "react-loadable/babel"
                             ]
                         }
                     },
@@ -93,8 +73,7 @@ module.exports = merge({
                             configFile: path.resolve(
                                 __dirname,
                                 "../tsconfig.json"
-                            ),
-                            happyPackMode: true
+                            )
                         }
                     }
                 ]

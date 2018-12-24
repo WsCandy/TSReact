@@ -2,6 +2,7 @@ import AppRoute from "@common/model/routes/AppRoute";
 import Home from "@containers/Home";
 import NotFound from "@containers/NotFound";
 import LoadTest from "@containers/LoadTest";
+import LoadableTest from "@containers/LoadableTest";
 
 const routes: AppRoute[] = [
     {
@@ -18,6 +19,13 @@ const routes: AppRoute[] = [
         title: "Load Test",
         exact: true,
         component: LoadTest
+    },
+    {
+        key: "react-loadable",
+        path: "/react-loadable",
+        title: "React Loadable",
+        exact: true,
+        component: LoadableTest
     },
     {
         key: "404",

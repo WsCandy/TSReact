@@ -6,6 +6,8 @@ const CopyWebpackPlugin = require("copy-webpack-plugin");
 const path = require("path");
 const base = require("./base.js");
 const merge = require("webpack-merge");
+const ReactLoadablePlugin = require("react-loadable/webpack")
+    .ReactLoadablePlugin;
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
     .BundleAnalyzerPlugin;
 
@@ -72,6 +74,9 @@ module.exports = merge(base, {
             ),
             excludeAssets: /\.hot-update.js$/,
             openAnalyzer: false
+        }),
+        new ReactLoadablePlugin({
+            filename: path.resolve(__dirname, "../dist/react-loadable.json")
         }),
         new CopyWebpackPlugin(
             [

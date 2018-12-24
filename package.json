@@ -34,7 +34,6 @@
         "@types/react-dom": "^16.0.11",
         "@types/react-redux": "^6.0.11",
         "@types/react-router": "^4.4.3",
-        "@types/redux": "^3.6.0",
         "@types/styled-components": "^4.1.4",
         "@types/webpack": "^4.4.21",
         "@types/webpack-env": "^1.13.6",
@@ -42,7 +41,6 @@
         "babel-loader": "^8.0.4",
         "babel-plugin-styled-components": "^1.10.0",
         "babel-plugin-syntax-dynamic-import": "^6.18.0",
-        "babel-plugin-transform-assets": "^1.0.2",
         "cache-loader": "^1.2.5",
         "concurrently": "^4.1.0",
         "copy-webpack-plugin": "^4.6.0",
@@ -78,6 +76,7 @@
         "webpack-node-externals": "^1.7.2"
     },
     "dependencies": {
+        "@types/react-loadable": "^5.4.2",
         "@types/react-router-dom": "^4.3.1",
         "@types/redux-thunk": "^2.1.0",
         "connected-react-router": "^6.0.0",
@@ -88,6 +87,7 @@
         "lodash": "^4.17.11",
         "react": "^16.6.3",
         "react-dom": "^16.6.3",
+        "react-loadable": "^5.5.0",
         "react-redux": "^6.0.0",
         "react-router": "^4.3.1",
         "react-router-dom": "^4.3.1",

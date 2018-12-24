@@ -41,5 +41,5 @@
             "@selectors/*": ["src/common/selectors/*"]
         }
     },
-    "exclude": ["**/__tests__", "dist"]
+    "exclude": ["**/__tests__", "dist", "./node_modules"]
 }

@@ -9,7 +9,6 @@ import { matchPath } from "react-router";
 const IndexController = async (req: Request, res: Response): Promise<any> => {
     const context: Context = {};
     const serverStore = store(req.url);
-    const params = renderer(req, context, serverStore);
     const matchedRoute = getMatchedRoute(req.path, routes);
     const match = matchPath(req.path, matchedRoute);
 
@@ -25,6 +24,8 @@ const IndexController = async (req: Request, res: Response): Promise<any> => {
     }
 
     Promise.all([preLoadMethod]).then(() => {
+        const params = renderer(req, context, serverStore);
+
         res.render("index", {
             ...params,
             title,

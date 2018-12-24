@@ -24,9 +24,19 @@ const Home: React.FunctionComponent<Props> = props => {
                 {example.message} - {match.path}
             </p>
 
-            <PreloadLink to="/load-test/heya">Hello</PreloadLink>
-
-            <PreloadLink to="/load-test">404</PreloadLink>
+            <ul>
+                <li>
+                    <PreloadLink to="/load-test/heya">Hello</PreloadLink>
+                </li>
+                <li>
+                    <PreloadLink to="/load-test">404</PreloadLink>
+                </li>
+                <li>
+                    <PreloadLink to="/react-loadable">
+                        React Loadable Test
+                    </PreloadLink>
+                </li>
+            </ul>
 
             <div>
                 <input
