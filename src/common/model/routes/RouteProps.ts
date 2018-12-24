@@ -3,7 +3,7 @@ import Context from "@common/model/routes/Context";
 import AppRoute from "@common/model/routes/AppRoute";
 
 interface RouteProps<P = {}> extends RouteComponentProps<P, Context> {
-    route: AppRoute;
+    readonly route: AppRoute;
 }
 
 export default RouteProps;
