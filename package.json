@@ -12,7 +12,7 @@
         "build": "concurrently \"yarn:build:*\"",
         "build:server": "NODE_ENV=production webpack --config ./.webpack/server.js",
         "build:client": "NODE_ENV=production webpack --config ./.webpack/client.js",
-        "predev": "yarn clean",
+        "predev": "yarn clean && touch dist/index.js",
         "dev": "concurrently \"yarn:dev:*\"",
         "dev:client": "webpack-dev-server --inline --hot --config ./.webpack/client.js --colors",
         "dev:server": "webpack --config ./.webpack/server.js --watch --colors & nodemon watch dist/index.js --exec \"node dist/index.js\"",

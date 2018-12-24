@@ -10,6 +10,7 @@ const IndexController = async (req: Request, res: Response): Promise<any> => {
     const context: Context = {};
     const serverStore = store(req.url);
     const matchedRoute = getMatchedRoute(req.path, routes);
+    const params = renderer(req, context, serverStore);
     const match = matchPath(req.path, matchedRoute);
 
     const {
@@ -24,8 +25,6 @@ const IndexController = async (req: Request, res: Response): Promise<any> => {
     }
 
     Promise.all([preLoadMethod]).then(() => {
-        const params = renderer(req, context, serverStore);
-
         res.render("index", {
             ...params,
             title,
