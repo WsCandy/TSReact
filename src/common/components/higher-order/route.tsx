@@ -1,15 +1,19 @@
 import React, { ComponentType } from "react";
 import getMatchedRoute from "@common/util/routes/getMatchedRoute";
 import RouteMethods from "@common/model/routing/RouteMethods";
-import RouteProps from "@common/model/routing/RouteProps";
 import AppRoute from "@common/model/routing/AppRoute";
 import routes from "@common/config/routing/routes";
+import RouteProps from "@model/routing/RouteProps";
 
-const route = function<P extends RouteProps>(
+const route = function<P extends RouteProps, M = {}>(
     Component: ComponentType,
-    routeMethods: RouteMethods<P> = {}
-) {
-    return class extends React.Component<P> {
+    routeMethods: RouteMethods<P, M> = {}
+): ComponentType {
+    return class RouteComponent extends React.Component<P> {
+        static preLoad() {
+            return routeMethods.preLoad;
+        }
+
         componentWillMount(): void {
             const { location, staticContext } = this.props;
             const matchedRoute = getMatchedRoute(location.pathname, routes);
@@ -24,18 +28,18 @@ const route = function<P extends RouteProps>(
                 staticContext.description = this.getDescription(matchedRoute);
 
                 if (typeof routeMethods.preLoad !== "undefined") {
-                    staticContext.preLoad = routeMethods.preLoad(this.props);
+                    staticContext.preLoad = RouteComponent.preLoad();
                 }
             }
         }
 
-        private getTitle(matchedRoute: AppRoute): string {
+        public getTitle(matchedRoute: AppRoute): string {
             return routeMethods.getTitle
                 ? routeMethods.getTitle(this.props, matchedRoute.title)
                 : matchedRoute.title;
         }
 
-        private getDescription(matchedRoute: AppRoute): string | undefined {
+        public getDescription(matchedRoute: AppRoute): string | undefined {
             return routeMethods.getDescription
                 ? routeMethods.getDescription(
                     this.props,

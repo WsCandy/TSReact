@@ -14,8 +14,9 @@ const routes: AppRoute[] = [
     },
     {
         key: "load-test",
-        path: "/load-test",
+        path: "/load-test/:test",
         title: "Load Test",
+        exact: true,
         component: LoadTest
     },
     {

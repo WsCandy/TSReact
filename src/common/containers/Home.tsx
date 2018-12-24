@@ -1,5 +1,4 @@
 import * as React from "react";
-import { Link } from "react-router-dom";
 import route from "@common/components/higher-order/route";
 import RouteProps from "@common/model/routing/RouteProps";
 import generateRoutes from "@common/util/routes/generateRoutes";
@@ -7,6 +6,7 @@ import AppState from "@model/redux/AppState";
 import { connect, DispatchProp } from "react-redux";
 import { ExampleState } from "@reducers/example/example";
 import setExampleMessage from "@actions/example/setExampleMessage";
+import PreloadLink from "@common/components/util/routing/PreloadLink";
 
 interface Props extends RouteProps, DispatchProp {
     readonly example: ExampleState;
@@ -22,7 +22,10 @@ const Home: React.FunctionComponent<Props> = props => {
             <p>
                 {example.message} - {match.path}
             </p>
-            <Link to="/load-test">Hello!</Link>
+
+            <PreloadLink to="/load-test/heya">Hello</PreloadLink>
+
+            <PreloadLink to="/load-test">404</PreloadLink>
 
             <div>
                 <input

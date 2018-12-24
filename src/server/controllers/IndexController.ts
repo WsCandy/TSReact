@@ -2,21 +2,30 @@ import { Request, Response } from "express";
 import renderer from "@server/util/rendering/renderer";
 import Context from "@common/model/routing/Context";
 import store from "@server/store";
+import getMatchedRoute from "@util/routes/getMatchedRoute";
+import routes from "@common/config/routing/routes";
+import { matchPath } from "react-router";
 
 const IndexController = async (req: Request, res: Response): Promise<any> => {
     const context: Context = {};
     const serverStore = store(req.url);
     const params = renderer(req, context, serverStore);
+    const matchedRoute = getMatchedRoute(req.path, routes);
+    const match = matchPath(req.path, matchedRoute);
 
     const {
         title, description, status, preLoad
     } = context;
 
+    const preLoadMethod = preLoad
+        ? preLoad(serverStore.dispatch, match)
+        : preLoad;
+
     if (status) {
         res.status(status);
     }
 
-    Promise.all([preLoad]).then(() => {
+    Promise.all([preLoadMethod]).then(() => {
         res.render("index", {
             ...params,
             title,
