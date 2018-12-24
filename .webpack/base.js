@@ -8,7 +8,7 @@ const dev = env !== "production";
 module.exports = merge({
     mode: env || "development",
     context: path.resolve(__dirname, "../"),
-    devtool: env === "production" ? "none" : "source-map",
+    devtool: env === "production" ? "none" : "eval-source-map",
     stats: {
         colors: true,
         env: true
@@ -28,14 +28,22 @@ module.exports = merge({
         ],
         splitChunks: {
             automaticNameDelimiter: ".",
-            minSize: 20000,
+            minSize: 30000,
+            maxSize: 244000,
             cacheGroups: {
-                reuseExistingChunk: false,
                 lib: {
+                    reuseExistingChunk: true,
                     test: /node_modules/,
-                    name: "lib",
+                    name: "l",
                     chunks: "all",
                     priority: -3
+                },
+                react: {
+                    reuseExistingChunk: true,
+                    test: /react/,
+                    name: "r",
+                    chunks: "all",
+                    priority: -1
                 }
             }
         }
