@@ -1,16 +1,15 @@
 import * as React from "react";
 import route from "@common/components/higher-order/route";
 import RouteProps from "@model/routes/RouteProps";
-import { Dispatch } from "redux";
-import { match } from "react-router";
+import RoutePreload from "@model/routes/RoutePreload";
 
 interface Props extends RouteProps<Params> {}
 
 interface Params {
-    test: string;
+    readonly test: string;
 }
 
-const preLoad = (_: Dispatch, match: match<Params>) => {
+const preLoad: RoutePreload<Params> = (_, match) => {
     console.log(match.params.test);
 
     return new Promise(resolve => {

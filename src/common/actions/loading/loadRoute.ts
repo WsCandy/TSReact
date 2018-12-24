@@ -1,4 +1,3 @@
-import { Dispatch } from "redux";
 import AsyncAction from "@model/redux/AsyncAction";
 import setLoadingState from "@actions/loading/setLoadingState";
 import { match } from "react-router";
@@ -10,7 +9,7 @@ const loadRoute = (
     preLoad: RoutePreload,
     props: PreloadLinkProps,
     match: match
-): AsyncAction<void> => (dispatch: Dispatch) => {
+): AsyncAction<void> => dispatch => {
     dispatch(setLoadingState({ isLoading: true }));
 
     let outerReject: (reason?: any) => void;

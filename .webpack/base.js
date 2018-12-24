@@ -29,7 +29,6 @@ module.exports = merge({
         splitChunks: {
             automaticNameDelimiter: ".",
             minSize: 30000,
-            maxSize: 244000,
             cacheGroups: {
                 lib: {
                     reuseExistingChunk: true,

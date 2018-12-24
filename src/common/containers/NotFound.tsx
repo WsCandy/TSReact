@@ -1,6 +1,8 @@
 import * as React from "react";
 import route from "@common/components/higher-order/route";
 import RouteProps from "@common/model/routes/RouteProps";
+import RouteTitleParser from "@model/routes/RouteTitleParser";
+import RouteDescriptionParser from "@model/routes/RouteDescriptionParser";
 
 const NotFound: React.FunctionComponent<RouteProps> = ({
     staticContext = {}
@@ -14,10 +16,13 @@ const NotFound: React.FunctionComponent<RouteProps> = ({
     );
 };
 
-const getTitle = ({ location }: RouteProps, title: string) =>
+const getTitle: RouteTitleParser<RouteProps> = ({ location }, title) =>
     title.replace("$s", location.pathname);
 
-const getDescription = ({ location }: RouteProps, description?: string) => {
+const getDescription: RouteDescriptionParser<RouteProps> = (
+    { location },
+    description
+) => {
     if (typeof description === "undefined") {
         return;
     }
