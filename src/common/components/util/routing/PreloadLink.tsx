@@ -22,7 +22,9 @@ const action = (props: Props) => {
 };
 
 const onClick = (props: Props) => {
-    const { to, dispatch, location } = props;
+    const {
+        to, dispatch, location, history
+    } = props;
 
     const matchedRoute = getMatchedRoute(to, routes);
     const match = matchPath(to, matchedRoute);
@@ -32,16 +34,31 @@ const onClick = (props: Props) => {
         const load = Component.preLoad();
 
         if (load) {
-            return load(dispatch, match).then(() => {
-                const { pathname } = window.location;
+            let outerReject: (reason?: any) => void;
 
-                // User has transitioned pages since clicking first link
-                if (pathname !== location.pathname) {
-                    return;
-                }
+            const promise = new Promise((resolve, reject) => {
+                outerReject = reject;
 
-                return action(props);
+                return load(dispatch, match).then(resolve);
             });
+
+            const unRegister = history.listen(() => {
+                outerReject();
+            });
+
+            return promise
+                .then(() => {
+                    const { pathname } = window.location;
+
+                    unRegister();
+                    // User has transitioned pages since clicking first link
+                    if (pathname !== location.pathname) {
+                        return;
+                    }
+
+                    return action(props);
+                })
+                .catch(unRegister);
         }
     }
 
