@@ -10,9 +10,13 @@ import {
     RouteComponentProps,
     withRouter
 } from "react-router-dom";
+import AppState from "@model/redux/AppState";
+import { LoadingState } from "@reducers/loading/loading";
+import setLoadingState from "@actions/loading/setLoadingState";
 
 interface Props extends LinkProps, DispatchProp, RouteComponentProps<any> {
     readonly to: string;
+    readonly loading: LoadingState;
 }
 
 const action = (props: Props) => {
@@ -35,6 +39,7 @@ const onClick = (props: Props) => {
 
         if (load) {
             let outerReject: (reason?: any) => void;
+            dispatch(setLoadingState({ isLoading: true }));
 
             const promise = new Promise((resolve, reject) => {
                 outerReject = reject;
@@ -58,7 +63,8 @@ const onClick = (props: Props) => {
 
                     return action(props);
                 })
-                .catch(unRegister);
+                .catch(unRegister)
+                .finally(() => dispatch(setLoadingState({ isLoading: false })));
         }
     }
 
@@ -86,4 +92,6 @@ const PreloadLink: React.FunctionComponent<Props> = props => {
     );
 };
 
-export default connect()(withRouter(PreloadLink));
+const mapStateToProps = ({ loading }: AppState) => ({ loading });
+
+export default connect(mapStateToProps)(withRouter(PreloadLink));

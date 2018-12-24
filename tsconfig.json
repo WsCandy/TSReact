@@ -18,7 +18,14 @@
         "allowUnusedLabels": false,
         "noImplicitReturns": true,
         "strictPropertyInitialization": true,
-        "lib": ["ES2015.Promise", "es6", "DOM", "ES5", "ScriptHost"],
+        "lib": [
+            "es2015.promise",
+            "es6",
+            "dom",
+            "es5",
+            "scripthost",
+            "es2018.promise"
+        ],
         "jsx": "react",
         "baseUrl": "./",
         "paths": {
