@@ -2,6 +2,7 @@ import * as React from "react";
 import route from "@common/components/higher-order/route";
 import RouteProps from "@model/routes/RouteProps";
 import RoutePreload from "@model/routes/RoutePreload";
+import RouteTitleParser from "@model/routes/RouteTitleParser";
 
 interface Props extends RouteProps<Params> {}
 
@@ -17,6 +18,9 @@ const preLoad: RoutePreload<Params> = (_, match) => {
     });
 };
 
+const getTitle: RouteTitleParser<Props> = (props, title) =>
+    title.replace("$s", props.match.params.test);
+
 const LoadTest: React.FunctionComponent<Props> = props => {
     const { match } = props;
 
@@ -31,5 +35,6 @@ const LoadTest: React.FunctionComponent<Props> = props => {
 };
 
 export default route<Props>(LoadTest, {
-    preLoad
+    preLoad,
+    getTitle
 });
