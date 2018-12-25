@@ -17,6 +17,8 @@ const routes: AppRoute[] = [
         key: "load-test",
         path: "/load-test/:test",
         title: "Load Test - $s",
+        description:
+            "A simple test page to test the preLoad method on a route component",
         exact: true,
         component: LoadTest
     },
@@ -24,6 +26,8 @@ const routes: AppRoute[] = [
         key: "react-loadable",
         path: "/react-loadable",
         title: "React Loadable",
+        description:
+            "A simple React Loadable component, to test if the route is preloading correctly",
         exact: true,
         component: LoadableTest
     },
