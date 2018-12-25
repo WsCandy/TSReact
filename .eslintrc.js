@@ -11,19 +11,7 @@ module.exports = {
             webpack: {
                 config: path.resolve(__dirname, ".webpack/base.js")
             }
-        },
-        "import/core-modules": [
-            "_src/",
-            "_server/",
-            "_client/",
-            "_common/",
-            "_util/",
-            "_model/",
-            "_containers/",
-            "_actions/",
-            "_reducers/",
-            "_selectors/"
-        ]
+        }
     },
     overrides: [
         {
