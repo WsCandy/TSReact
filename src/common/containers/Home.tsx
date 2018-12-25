@@ -2,20 +2,27 @@ import * as React from "react";
 import route from "_common/components/higher-order/route";
 import RouteProps from "_common/model/routes/RouteProps";
 import generateRoutes from "_common/util/routes/generateRoutes";
-import AppState from "_model/redux/AppState";
 import { connect } from "react-redux";
 import { ExampleState } from "_reducers/example/example";
 import setExampleMessage from "_actions/example/setExampleMessage";
 import PreloadLink from "_common/components/util/routes/PreloadLink";
-import DispatchProp from "_model/redux/DispatchProp";
+import MapDispatchToProps from "_model/redux/MapDispatchToProps";
+import Action from "_model/redux/actions/Action";
+import MapStateToProps from "_model/redux/MapStateToProps";
 
-interface Props extends RouteProps, DispatchProp {
+interface Actions {
+    readonly setMessage: (message: string) => Action<string>;
+}
+
+interface StateProps {
     readonly example: ExampleState;
 }
 
+interface Props extends RouteProps, Actions, StateProps {}
+
 const Home: React.FunctionComponent<Props> = props => {
     const {
-        route, match, dispatch, example
+        route, match, setMessage, example
     } = props;
 
     return (
@@ -41,7 +48,7 @@ const Home: React.FunctionComponent<Props> = props => {
             <div>
                 <input
                     type="text"
-                    onChange={e => dispatch(setExampleMessage(e.target.value))}
+                    onChange={e => setMessage(e.target.value)}
                     value={example.message}
                 />
             </div>
@@ -50,6 +57,15 @@ const Home: React.FunctionComponent<Props> = props => {
     );
 };
 
-const mapStateToProps = ({ example }: AppState) => ({ example });
+const mapStateToProps: MapStateToProps<StateProps> = ({ example }) => ({
+    example
+});
 
-export default connect(mapStateToProps)(route(Home));
+const mapDispatchToProps: MapDispatchToProps<Actions> = dispatch => ({
+    setMessage: (message: string) => dispatch(setExampleMessage(message))
+});
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(route(Home));

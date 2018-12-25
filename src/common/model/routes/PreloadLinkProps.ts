@@ -1,9 +1,9 @@
 import { LinkProps, RouteComponentProps } from "react-router-dom";
-import DispatchProp from "_model/redux/DispatchProp";
+import PreloadLinkActions from "_model/routes/PreloadLinkActions";
 
 interface PreloadLinkProps
     extends LinkProps,
-        DispatchProp,
+        PreloadLinkActions,
         RouteComponentProps<any> {
     readonly to: string;
 }
