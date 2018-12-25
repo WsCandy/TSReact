@@ -1,9 +1,9 @@
-import AsyncAction from "@model/redux/AsyncAction";
-import setLoadingState from "@actions/loading/setLoadingState";
+import AsyncAction from "_model/redux/AsyncAction";
+import setLoadingState from "_actions/loading/setLoadingState";
 import { match } from "react-router";
-import RoutePreload from "@model/routes/RoutePreload";
-import getAction from "@util/routes/getAction";
-import PreloadLinkProps from "@model/routes/PreloadLinkProps";
+import RoutePreload from "_model/routes/RoutePreload";
+import getAction from "_util/routes/getAction";
+import PreloadLinkProps from "_model/routes/PreloadLinkProps";
 
 const loadRoute = (
     preLoad: RoutePreload,

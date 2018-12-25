@@ -1,10 +1,10 @@
 import * as React from "react";
 import Loadable from "react-loadable";
-import route from "@common/components/higher-order/route";
-import RoutePreload from "@model/routes/RoutePreload";
+import route from "_common/components/higher-order/route";
+import RoutePreload from "_model/routes/RoutePreload";
 
 const LoadableTest = Loadable({
-    loader: () => import("@containers/LoadableContent"),
+    loader: () => import("_containers/LoadableContent"),
     loading: () => <p>Loading</p>
 });
 

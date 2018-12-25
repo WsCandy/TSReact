@@ -1,4 +1,4 @@
-import PreloadLinkProps from "@model/routes/PreloadLinkProps";
+import PreloadLinkProps from "_model/routes/PreloadLinkProps";
 
 const getAction = (props: PreloadLinkProps) => {
     const { replace, history, to } = props;

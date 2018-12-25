@@ -36,16 +36,16 @@ module.exports = merge({
     resolve: {
         extensions: [".js", ".json", ".ts", ".tsx"],
         alias: {
-            "@src": path.resolve(__dirname, "../src"),
-            "@server": path.resolve(__dirname, "../src/server"),
-            "@client": path.resolve(__dirname, "../src/client"),
-            "@common": path.resolve(__dirname, "../src/common"),
-            "@util": path.resolve(__dirname, "../src/common/util"),
-            "@model": path.resolve(__dirname, "../src/common/model"),
-            "@containers": path.resolve(__dirname, "../src/common/containers"),
-            "@actions": path.resolve(__dirname, "../src/common/actions"),
-            "@reducers": path.resolve(__dirname, "../src/common/reducers"),
-            "@selectors": path.resolve(__dirname, "../src/common/selectors")
+            _src: path.resolve(__dirname, "../src"),
+            _server: path.resolve(__dirname, "../src/server"),
+            _client: path.resolve(__dirname, "../src/client"),
+            _common: path.resolve(__dirname, "../src/common"),
+            _util: path.resolve(__dirname, "../src/common/util"),
+            _model: path.resolve(__dirname, "../src/common/model"),
+            _containers: path.resolve(__dirname, "../src/common/containers"),
+            _actions: path.resolve(__dirname, "../src/common/actions"),
+            _reducers: path.resolve(__dirname, "../src/common/reducers"),
+            _selectors: path.resolve(__dirname, "../src/common/selectors")
         }
     },
     module: {

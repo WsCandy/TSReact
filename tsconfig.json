@@ -29,16 +29,16 @@
         "jsx": "react",
         "baseUrl": "./",
         "paths": {
-            "@src/*": ["src/*"],
-            "@server/*": ["src/server/*"],
-            "@client/*": ["src/client/*"],
-            "@common/*": ["src/common/*"],
-            "@util/*": ["src/common/util/*"],
-            "@model/*": ["src/common/model/*"],
-            "@containers/*": ["src/common/containers/*"],
-            "@actions/*": ["src/common/actions/*"],
-            "@reducers/*": ["src/common/reducers/*"],
-            "@selectors/*": ["src/common/selectors/*"]
+            "_src/*": ["src/*"],
+            "_server/*": ["src/server/*"],
+            "_client/*": ["src/client/*"],
+            "_common/*": ["src/common/*"],
+            "_util/*": ["src/common/util/*"],
+            "_model/*": ["src/common/model/*"],
+            "_containers/*": ["src/common/containers/*"],
+            "_actions/*": ["src/common/actions/*"],
+            "_reducers/*": ["src/common/reducers/*"],
+            "_selectors/*": ["src/common/selectors/*"]
         }
     },
     "exclude": ["**/__tests__", "dist", "./node_modules"]

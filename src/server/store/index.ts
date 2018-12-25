@@ -1,6 +1,6 @@
-import reducers from "@reducers/index";
+import reducers from "_reducers/index";
 import { applyMiddleware, createStore, Store } from "redux";
-import AppState from "@model/redux/AppState";
+import AppState from "_model/redux/AppState";
 import createMemoryHistory from "history/createMemoryHistory";
 import thunk from "redux-thunk";
 

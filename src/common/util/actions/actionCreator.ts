@@ -1,5 +1,5 @@
-import ActionType from "@model/redux/actions/ActionType";
-import ActionCreator from "@model/redux/actions/ActionCreator";
+import ActionType from "_model/redux/actions/ActionType";
+import ActionCreator from "_model/redux/actions/ActionCreator";
 
 const actionCreator = <TPayload>(
     type: ActionType<TPayload>

@@ -1,5 +1,5 @@
 import { StaticRouterContext } from "react-router";
-import RoutePreload from "@model/routes/RoutePreload";
+import RoutePreload from "_model/routes/RoutePreload";
 
 interface Context extends StaticRouterContext {
     status?: number;

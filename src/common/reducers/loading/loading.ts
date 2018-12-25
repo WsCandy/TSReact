@@ -1,7 +1,7 @@
 import { Reducer } from "redux";
-import Action from "@model/redux/actions/Action";
-import isAction from "@util/actions/isAction";
-import { SET_LOADING_STATE } from "@actions/loading/setLoadingState";
+import Action from "_model/redux/actions/Action";
+import isAction from "_util/actions/isAction";
+import { SET_LOADING_STATE } from "_actions/loading/setLoadingState";
 
 export interface LoadingState {
     readonly isLoading: boolean;

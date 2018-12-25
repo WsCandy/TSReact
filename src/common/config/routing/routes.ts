@@ -1,8 +1,8 @@
-import AppRoute from "@common/model/routes/AppRoute";
-import Home from "@containers/Home";
-import NotFound from "@containers/NotFound";
-import LoadTest from "@containers/LoadTest";
-import LoadableTest from "@containers/LoadableTest";
+import AppRoute from "_common/model/routes/AppRoute";
+import Home from "_containers/Home";
+import NotFound from "_containers/NotFound";
+import LoadTest from "_containers/LoadTest";
+import LoadableTest from "_containers/LoadableTest";
 
 const routes: AppRoute[] = [
     {

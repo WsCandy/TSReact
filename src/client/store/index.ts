@@ -2,8 +2,8 @@ import {
     applyMiddleware, compose, createStore, Store
 } from "redux";
 import thunk from "redux-thunk";
-import AppState from "@model/redux/AppState";
-import reducers from "@reducers/index";
+import AppState from "_model/redux/AppState";
+import reducers from "_reducers/index";
 import { routerMiddleware } from "connected-react-router";
 import createBrowserHistory from "history/createBrowserHistory";
 
@@ -26,7 +26,7 @@ const store = (): Store<AppState> => {
 
         (window as any).store = store;
 
-        module.hot.accept("@reducers", () => {
+        module.hot.accept("_reducers", () => {
             store.replaceReducer(reducers(history));
         });
     }

@@ -1,8 +1,8 @@
 import * as React from "react";
-import route from "@common/components/higher-order/route";
-import RouteProps from "@model/routes/RouteProps";
-import RoutePreload from "@model/routes/RoutePreload";
-import RouteTitleParser from "@model/routes/RouteTitleParser";
+import route from "_common/components/higher-order/route";
+import RouteProps from "_model/routes/RouteProps";
+import RoutePreload from "_model/routes/RoutePreload";
+import RouteTitleParser from "_model/routes/RouteTitleParser";
 
 interface Props extends RouteProps<Params> {}
 

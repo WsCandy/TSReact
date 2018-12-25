@@ -3,8 +3,8 @@ import * as ReactDOM from "react-dom";
 import Loadable from "react-loadable";
 import "core-js/es6/promise";
 import "core-js/es7/promise";
-import App from "@containers/App";
-import store, { history } from "@client/store";
+import App from "_containers/App";
+import store, { history } from "_client/store";
 import { ConnectedRouter } from "connected-react-router";
 import { Provider } from "react-redux";
 

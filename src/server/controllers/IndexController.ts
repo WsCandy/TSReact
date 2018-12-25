@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
-import renderer from "@server/util/rendering/renderer";
-import Context from "@common/model/routes/Context";
-import store from "@server/store";
-import getMatchedRoute from "@util/routes/getMatchedRoute";
-import routes from "@common/config/routing/routes";
+import renderer from "_server/util/rendering/renderer";
+import Context from "_common/model/routes/Context";
+import store from "_server/store";
+import getMatchedRoute from "_util/routes/getMatchedRoute";
+import routes from "_common/config/routing/routes";
 import { matchPath } from "react-router";
 
 const IndexController = async (req: Request, res: Response): Promise<any> => {

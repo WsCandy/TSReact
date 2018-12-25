@@ -1,12 +1,12 @@
 import * as React from "react";
 import { connect } from "react-redux";
-import getMatchedRoute from "@util/routes/getMatchedRoute";
-import routes from "@common/config/routing/routes";
+import getMatchedRoute from "_util/routes/getMatchedRoute";
+import routes from "_common/config/routing/routes";
 import omit from "lodash/omit";
 import { Link, matchPath, withRouter } from "react-router-dom";
-import loadRoute from "@actions/loading/loadRoute";
-import getAction from "@util/routes/getAction";
-import PreloadLinkProps from "@model/routes/PreloadLinkProps";
+import loadRoute from "_actions/loading/loadRoute";
+import getAction from "_util/routes/getAction";
+import PreloadLinkProps from "_model/routes/PreloadLinkProps";
 
 const onClick = (props: PreloadLinkProps) => {
     const { to, dispatch } = props;

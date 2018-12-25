@@ -1,4 +1,4 @@
-import Theme from "@common/model/theming/Theme";
+import Theme from "_common/model/theming/Theme";
 
 const theme: Theme = {
     primaryColor: "#bada55",

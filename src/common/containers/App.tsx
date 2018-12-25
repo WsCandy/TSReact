@@ -1,12 +1,12 @@
 import * as React from "react";
-import routes from "@common/config/routing/routes";
-import generateRoutes from "@common/util/routes/generateRoutes";
-import Reset from "@common/components/util/css/Reset";
-import theme from "@common/config/theming/theme";
+import routes from "_common/config/routing/routes";
+import generateRoutes from "_common/util/routes/generateRoutes";
+import Reset from "_common/components/util/css/Reset";
+import theme from "_common/config/theming/theme";
 import { ThemeProvider } from "styled-components";
-import AppState from "@model/redux/AppState";
+import AppState from "_model/redux/AppState";
 import { connect } from "react-redux";
-import { LoadingState } from "@reducers/loading/loading";
+import { LoadingState } from "_reducers/loading/loading";
 
 interface Props {
     readonly loading: LoadingState;

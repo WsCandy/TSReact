@@ -1,6 +1,6 @@
-import RoutePreload from "@model/routes/RoutePreload";
-import RouteTitleParser from "@model/routes/RouteTitleParser";
-import RouteDescriptionParser from "@model/routes/RouteDescriptionParser";
+import RoutePreload from "_model/routes/RoutePreload";
+import RouteTitleParser from "_model/routes/RouteTitleParser";
+import RouteDescriptionParser from "_model/routes/RouteDescriptionParser";
 
 interface RouteMethods<P, M = {}> {
     readonly getTitle?: RouteTitleParser<P>;

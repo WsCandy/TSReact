@@ -1,5 +1,5 @@
-import Action from "@model/redux/actions/Action";
-import ActionType from "@model/redux/actions/ActionType";
+import Action from "_model/redux/actions/Action";
+import ActionType from "_model/redux/actions/ActionType";
 
 const isAction = <P>(
     action: Action<any>,

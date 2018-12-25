@@ -1,7 +1,7 @@
 import { Reducer } from "redux";
-import isAction from "@util/actions/isAction";
-import Action from "@model/redux/actions/Action";
-import { SET_EXAMPLE_MESSAGE } from "@actions/example/setExampleMessage";
+import isAction from "_util/actions/isAction";
+import Action from "_model/redux/actions/Action";
+import { SET_EXAMPLE_MESSAGE } from "_actions/example/setExampleMessage";
 
 export interface ExampleState {
     readonly message: string;
