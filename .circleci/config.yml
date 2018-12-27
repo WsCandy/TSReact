@@ -36,7 +36,7 @@ jobs:
       - attach_workspace:
           at: /app
       - restore_cache:
-          key: v1={{ checksum "yarn.lock" }}
+          key: v1-{{ checksum "yarn.lock" }}
       - run:
           name: Lint
           command: yarn lint
