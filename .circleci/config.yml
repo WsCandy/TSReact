@@ -1,0 +1,76 @@
+defaults: &defaults
+  docker:
+    - image: wscandy/ci-base:1.1.0
+  working_directory: /app
+
+version: 2
+jobs:
+  source:
+    <<: *defaults
+    steps:
+      - checkout
+      - persist_to_workspace:
+          root: .
+          paths: .
+  js_deps:
+    docker:
+      - image: propcom/node:11.4
+    working_directory: /app
+    steps:
+      - attach_workspace:
+          at: /app
+      - restore_cache:
+          key: v1-{{ checksum "yarn.lock" }}
+      - run:
+          name: Yarn
+          command: yarn
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-{{ checksum "yarn.lock" }}
+  lint:
+    docker:
+      - image: propcom/node:11.4
+    working_directory: /app
+    steps:
+      - attach_workspace:
+          at: /app
+      - restore_cache:
+          key: v1={{ checksum "yarn.lock" }}
+      - run:
+          name: Lint
+          command: yarn lint
+  build:
+    docker:
+      - image: propcom/node:11.4
+    working_directory: /app
+    steps:
+      - attach_workspace:
+          at: /app
+      - restore_cache:
+          key: v1-{{ checksum "yarn.lock" }}
+      - run:
+          name: Production Build
+          command: yarn build
+      - store_artifacts:
+          path: reports
+          destination: reports
+      - persist_to_workspace:
+          root: .
+          paths:
+            - dist
+
+workflows:
+  version: 2
+  build_deploy:
+    jobs:
+      - source
+      - js_deps:
+          requires:
+            - source
+      - lint:
+          requires:
+            - js_deps
+      - build:
+          requires:
+            - js_deps
