@@ -62,7 +62,7 @@ const mapStateToProps: MapStateToProps<StateProps> = ({ example }) => ({
 });
 
 const mapDispatchToProps: MapDispatchToProps<Actions> = dispatch => ({
-    setMessage: (message: string) => dispatch(setExampleMessage(message))
+    setMessage: message => dispatch(setExampleMessage(message))
 });
 
 export default connect(

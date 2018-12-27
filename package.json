@@ -35,8 +35,11 @@
         "@types/lodash": "^4.14.119",
         "@types/react": "^16.7.17",
         "@types/react-dom": "^16.0.11",
+        "@types/react-loadable": "^5.4.3",
         "@types/react-redux": "^6.0.11",
         "@types/react-router": "^4.4.3",
+        "@types/react-router-dom": "^4.3.1",
+        "@types/redux-thunk": "^2.1.0",
         "@types/styled-components": "^4.1.4",
         "@types/webpack": "^4.4.21",
         "@types/webpack-env": "^1.13.6",
@@ -85,9 +88,6 @@
         "webpack-node-externals": "^1.7.2"
     },
     "dependencies": {
-        "@types/react-loadable": "^5.4.2",
-        "@types/react-router-dom": "^4.3.1",
-        "@types/redux-thunk": "^2.1.0",
         "connected-react-router": "^6.0.0",
         "core-js": "^2.6.1",
         "ejs": "^2.6.1",

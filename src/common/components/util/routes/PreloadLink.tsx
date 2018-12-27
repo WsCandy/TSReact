@@ -32,7 +32,6 @@ const PreloadLink: React.FunctionComponent<PreloadLinkProps> = props => {
     const renderProps = omit(
         props,
         "staticContext",
-        "dispatch",
         "match",
         "history",
         "location",
