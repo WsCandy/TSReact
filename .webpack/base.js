@@ -20,15 +20,15 @@ module.exports = merge({
                     reuseExistingChunk: true,
                     test: /node_modules/,
                     name: "l",
-                    chunks: "all",
-                    priority: -3
+                    chunks: "initial",
+                    priority: -10
                 },
                 react: {
                     reuseExistingChunk: true,
                     test: /react/,
                     name: "r",
-                    chunks: "all",
-                    priority: -1
+                    chunks: "initial",
+                    priority: -9
                 }
             }
         }
