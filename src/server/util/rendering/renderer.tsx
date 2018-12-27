@@ -38,7 +38,6 @@ const renderer = (
     const html = renderToString(appWithStyles);
     const bundles = getBundles(data, modules);
     const scripts = bundles
-        .filter(b => !b.file.match(/\.hot-update.js$/))
         .map(b => `<script src="/${b.file}" defer></script>`)
         .join("");
 
