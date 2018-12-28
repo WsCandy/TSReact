@@ -8,10 +8,13 @@ const usePageY = (): number => {
 
     const onScroll = () => deBounce(() => setPageY(window.pageYOffset));
 
-    useEffect(() => {
-        window.addEventListener("scroll", onScroll);
-        return () => window.removeEventListener("scroll", onScroll);
-    });
+    useEffect(
+        () => {
+            window.addEventListener("scroll", onScroll);
+            return () => window.removeEventListener("scroll", onScroll);
+        },
+        [pageY]
+    );
 
     return pageY;
 };
