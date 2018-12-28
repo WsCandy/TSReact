@@ -1,20 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+import usePageY from "_util/hooks/usePageY";
 
 interface Props {}
 
 const LoadableContent: React.FunctionComponent<Props> = () => {
-    const [count, setCount] = useState(0);
-
-    useEffect(() => {
-        document.title = count.toString(10);
-    });
+    const y = usePageY();
 
     return (
         <React.Fragment>
             <p>Loadable component!</p>
-            <button type="button" onClick={() => setCount(count + 1)}>
-                Increase count... {count}
-            </button>
+            <p>Page scroll y... {y}</p>
         </React.Fragment>
     );
 };
