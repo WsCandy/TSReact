@@ -17,7 +17,7 @@ const loadRoute = (
         () => dispatch(setLoadingState({ isLoading: true })),
         200
     );
-    const { history, location } = props;
+    const { history } = props;
     const promise = new Promise((resolve, reject) => {
         outerReject = reject;
         return preLoad(dispatch, match).then(resolve);
@@ -29,14 +29,7 @@ const loadRoute = (
 
     promise
         .then(() => {
-            const { pathname } = window.location;
             unRegister();
-
-            // User has transitioned pages since clicking first link
-            if (pathname !== location.pathname) {
-                return;
-            }
-
             return getAction(props);
         })
         .catch(unRegister)
