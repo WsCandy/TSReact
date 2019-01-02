@@ -20,23 +20,21 @@ const loadRoute = (
     const { history } = props;
     const promise = new Promise((resolve, reject) => {
         outerReject = reject;
-        return preLoad(dispatch, match).then(resolve);
+        return preLoad(dispatch, match)
+            .then(resolve)
+            .catch(reject);
     });
 
     const unRegister = history.listen(() => {
         outerReject();
     });
 
-    promise
-        .then(() => {
-            unRegister();
-            return getAction(props);
-        })
-        .catch(unRegister)
-        .finally(() => {
-            clearTimeout(delay);
-            dispatch(setLoadingState({ isLoading: false }));
-        });
+    promise.finally(() => {
+        unRegister();
+        clearTimeout(delay);
+        dispatch(setLoadingState({ isLoading: false }));
+        return getAction(props);
+    });
 };
 
 export default loadRoute;
