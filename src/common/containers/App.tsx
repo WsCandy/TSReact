@@ -7,8 +7,9 @@ import { ThemeProvider } from "styled-components";
 import AppState from "_model/redux/AppState";
 import { connect } from "react-redux";
 import { LoadingState } from "_reducers/loading/loading";
+import { RouteComponentProps, withRouter } from "react-router";
 
-interface Props {
+interface Props extends RouteComponentProps {
     readonly loading: LoadingState;
 }
 
@@ -24,4 +25,4 @@ const App: React.FunctionComponent<Props> = ({ loading }) => (
 
 const mapStateToProps = ({ loading }: AppState) => ({ loading });
 
-export default connect(mapStateToProps)(App);
+export default withRouter(connect(mapStateToProps)(App));
