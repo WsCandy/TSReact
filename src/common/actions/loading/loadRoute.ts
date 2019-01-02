@@ -33,7 +33,7 @@ const loadRoute = (
         unRegister();
         clearTimeout(delay);
         dispatch(setLoadingState({ isLoading: false }));
-        return getAction(props);
+        return getAction(props)(props.to);
     });
 };
 
