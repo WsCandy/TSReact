@@ -370,9 +370,9 @@
     source-map "^0.6.0"
 
 "@types/yargs@^12.0.1":
-  version "12.0.4"
-  resolved "https://registry.yarnpkg.com/@types/yargs/-/yargs-12.0.4.tgz#14a37542f01a1ed4d743d5f8bc3f40e63e5835d4"
-  integrity sha512-hBYcOaYPnlAPj2OZbivFFzsW61mN0L3N0Aq4KwRt/ZXlw1c25Srj8413MBu5IhFGOyOdjLi2/qOqtStDTXGs9g==
+  version "12.0.5"
+  resolved "https://registry.yarnpkg.com/@types/yargs/-/yargs-12.0.5.tgz#f4f85fe198e1e9cedc0bb53a8c2d30fb34299e50"
+  integrity sha512-y51XRWWg1GiW4+mV2zmFQUqJT3bX7nuUaXW4j8a2dFvT9ZlaNLjb7ZxcUSDyklt/UBWrW2+31x+hQpRzxaTFzw==
 
 "@webassemblyjs/ast@1.7.11":
   version "1.7.11"
@@ -2338,9 +2338,9 @@ eslint-plugin-jsx-a11y@^6.1.2:
     jsx-ast-utils "^2.0.1"
 
 eslint-plugin-react@^7.11.1:
-  version "7.12.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-react/-/eslint-plugin-react-7.12.0.tgz#fa6701063f2172c3e1db3a22d3db6d8bdc0179af"
-  integrity sha512-OrmXBWGrZ8gvYWO0W4oiLtASxFWVfe2blgy5pvB57YRwylhghUQL5y5w70fysP/CRTt/XJ+FLv/KXhZxbsQwiw==
+  version "7.12.1"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-react/-/eslint-plugin-react-7.12.1.tgz#b9c4639f72469ff317ac31e3bd630d22d0dbf8f4"
+  integrity sha512-1YyXVhp6KSB+xRC1BWzmlA4BH9Wp9jMMBE6AJizxuk+bg/KUJpQGRwsU1/q1pV8rM6oEdLCxunXn7Nfh2BOWBg==
   dependencies:
     array-includes "^3.0.3"
     doctrine "^2.1.0"
