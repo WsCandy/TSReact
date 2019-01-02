@@ -6,6 +6,7 @@ import AppState from "_model/redux/AppState";
 import reducers from "_reducers/index";
 import { routerMiddleware } from "connected-react-router";
 import createBrowserHistory from "history/createBrowserHistory";
+import { enableBatching } from "redux-batched-actions";
 
 const history = createBrowserHistory();
 
@@ -14,7 +15,7 @@ const store = (): Store<AppState> => {
         (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
     const store = createStore(
-        reducers(history),
+        enableBatching(reducers(history)),
         (window as any).INITIAL_STATE,
         composeEnhancers(applyMiddleware(routerMiddleware(history), thunk))
     );
@@ -27,7 +28,7 @@ const store = (): Store<AppState> => {
         (window as any).store = store;
 
         module.hot.accept("_reducers", () => {
-            store.replaceReducer(reducers(history));
+            store.replaceReducer(enableBatching(reducers(history)));
         });
     }
 
