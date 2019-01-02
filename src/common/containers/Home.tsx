@@ -65,7 +65,9 @@ const mapDispatchToProps: MapDispatchToProps<Actions> = dispatch => ({
     setMessage: message => dispatch(setExampleMessage(message))
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(route(Home));
+export default route(
+    connect(
+        mapStateToProps,
+        mapDispatchToProps
+    )(Home)
+);
