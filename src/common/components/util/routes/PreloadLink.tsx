@@ -4,14 +4,14 @@ import getMatchedRoute from "_util/routes/getMatchedRoute";
 import routes from "_common/config/routing/routes";
 import omit from "lodash/omit";
 import { Link, matchPath, withRouter } from "react-router-dom";
-import loadRoute from "_actions/loading/loadRoute";
-import getAction from "_util/routes/getAction";
 import PreloadLinkProps from "_model/routes/PreloadLinkProps";
 import MapDispatchToProps from "_model/redux/MapDispatchToProps";
 import PreloadLinkActions from "_model/routes/PreloadLinkActions";
+import getLoadAction from "_util/routes/getLoadAction";
+import preloadRoute from "_actions/loading/preloadRoute";
 
 const onClick = (props: PreloadLinkProps) => {
-    const { to, loadRoute } = props;
+    const { to, preloadRoute, loadRoute } = props;
 
     const matchedRoute = getMatchedRoute(to, routes);
     const match = matchPath(to, matchedRoute);
@@ -21,11 +21,11 @@ const onClick = (props: PreloadLinkProps) => {
         const load = Component.preLoad();
 
         if (load && match) {
-            return loadRoute(load, props, match);
+            return preloadRoute(load, props, match);
         }
     }
 
-    return getAction(props);
+    return loadRoute(props);
 };
 
 const PreloadLink: React.FunctionComponent<PreloadLinkProps> = props => {
@@ -35,7 +35,8 @@ const PreloadLink: React.FunctionComponent<PreloadLinkProps> = props => {
         "match",
         "history",
         "location",
-        "loadRoute"
+        "loadRoute",
+        "preloadRoute"
     );
 
     return (
@@ -52,8 +53,9 @@ const PreloadLink: React.FunctionComponent<PreloadLinkProps> = props => {
 const mapDispatchToProps: MapDispatchToProps<
     PreloadLinkActions
 > = dispatch => ({
-    loadRoute: (preLoad, props, match) =>
-        dispatch(loadRoute(preLoad, props, match))
+    preloadRoute: (preLoad, props, match) =>
+        dispatch(preloadRoute(preLoad, props, match)),
+    loadRoute: props => dispatch(getLoadAction(props)(props.to))
 });
 
 export default connect(
