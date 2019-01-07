@@ -71,3 +71,6 @@ reports
 
 # Webpack
 .cache-loader
+
+# MacOS
+.DS_Store
