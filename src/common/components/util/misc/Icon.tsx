@@ -8,17 +8,39 @@ interface Props extends ColourProps {
     readonly width: number;
     readonly height: number;
     readonly fill?: boolean;
+    readonly role?: string;
+    readonly title?: string;
+    readonly desc?: string;
 }
 
-const Icon: React.FunctionComponent<Props> = ({ icon, className }) => (
-    <svg viewBox={icon.viewBox} className={className}>
-        <use xlinkHref={`#${icon.id}`} />
-    </svg>
-);
+const BaseIcon: React.FunctionComponent<Props> = props => {
+    const {
+        icon, className, role, title, desc
+    } = props;
 
-export default styled(Icon)`
+    return (
+        <svg
+            viewBox={icon.viewBox}
+            className={className}
+            role={role}
+            aria-labelledby="title desc"
+        >
+            {title ? <title>{title}</title> : null}
+            {desc ? <desc>{desc}</desc> : null}
+            <use xlinkHref={`#${icon.id}`} />
+        </svg>
+    );
+};
+
+const Icon = styled(BaseIcon)`
     width: ${props => props.width}px;
     height: ${props => props.height}px;
     ${props =>
         (props.fill ? colourProps(props, "fill") : colourProps(props, "stroke"))}
 `;
+
+Icon.defaultProps = {
+    role: "image"
+};
+
+export default Icon;
