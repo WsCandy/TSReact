@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" x="0" y="0" width="64" height="64" viewBox="0 0 64 64"
+     enable-background="new 0 0 64 64">
+    <title>47_running_fast</title>
+    <g class="nc-icon-wrapper">
+        <path fill="none" stroke-width="2" stroke-miterlimit="10" d="M40 63H0"/>
+        <path d="M57 56l-3 3h-5c-3.313 0-7-4-7-4L21 34" fill="none"
+              stroke-width="2" stroke-miterlimit="10"/>
+        <path d="M43 34h-4a7 7 0 0 1-7-7v-2h-2L19 36v2l21 21s3.687 4 7 4h12a4 4 0 0 0 4-4c0-1-1-2-1-2l-8-2-8-8V33"
+              fill="none" stroke-width="2" stroke-linejoin="round"
+              stroke-miterlimit="10"/>
+        <path fill="none" stroke-width="2" stroke-miterlimit="10" d="M46 39h-6"/>
+        <path fill="none" stroke-width="2" stroke-miterlimit="10" d="M46 43h-4"/>
+        <path fill="none" stroke-width="2" stroke-miterlimit="10" d="M30 58H14"/>
+        <path fill="none" stroke-width="2" stroke-miterlimit="10" d="M22 52H4"/>
+        <path fill="none" stroke-width="2" stroke-miterlimit="10" d="M20 46h-8"/>
+        <path fill="none" stroke-width="2" stroke-miterlimit="10" d="M24 52h2"/>
+        <path fill="none" stroke-width="2" stroke-miterlimit="10" d="M10 46H8"/>
+        <path fill="none" stroke-width="2" stroke-linecap="round"
+              stroke-miterlimit="10" d="M34 23l6-6L50 1"/>
+        <path fill="none" stroke-width="2" stroke-linecap="round"
+              stroke-miterlimit="10" d="M46 31l1-3 16-16"/>
+    </g>
+</svg>

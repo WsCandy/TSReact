@@ -38,7 +38,8 @@
             "_containers/*": ["src/common/containers/*"],
             "_actions/*": ["src/common/actions/*"],
             "_reducers/*": ["src/common/reducers/*"],
-            "_selectors/*": ["src/common/selectors/*"]
+            "_selectors/*": ["src/common/selectors/*"],
+            "_svg/*": ["src/common/svg/*"]
         }
     },
     "exclude": ["**/__tests__", "dist", "./node_modules"]

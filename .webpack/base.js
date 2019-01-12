@@ -45,11 +45,16 @@ module.exports = merge({
             _containers: path.resolve(__dirname, "../src/common/containers"),
             _actions: path.resolve(__dirname, "../src/common/actions"),
             _reducers: path.resolve(__dirname, "../src/common/reducers"),
-            _selectors: path.resolve(__dirname, "../src/common/selectors")
+            _selectors: path.resolve(__dirname, "../src/common/selectors"),
+            _svg: path.resolve(__dirname, "../src/common/svg")
         }
     },
     module: {
         rules: [
+            {
+                test: /\.svg$/,
+                loader: ["cache-loader", "svg-sprite-loader", "svgo-loader"]
+            },
             {
                 test: /\.css$/,
                 use: [

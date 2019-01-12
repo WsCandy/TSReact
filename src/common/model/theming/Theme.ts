@@ -1,6 +1,10 @@
 interface Theme {
-    primaryColor: string;
-    secondaryColor: string;
+    readonly globalSpacingUnit: number;
+    readonly standardGridColumns: number;
+    readonly siteWidth: string;
+    readonly breakpoints: Breakpoints;
+    readonly sizes: Sizes;
+    readonly colours: Colors;
 }
 
 export default Theme;

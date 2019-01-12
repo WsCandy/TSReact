@@ -9,6 +9,8 @@ import MapDispatchToProps from "_model/redux/MapDispatchToProps";
 import Action from "_model/redux/actions/Action";
 import MapStateToProps from "_model/redux/MapStateToProps";
 import AppSwitch from "_common/components/util/routes/AppSwitch";
+import ex from "_svg/example.svg";
+import Icon from "_common/components/util/misc/Icon";
 
 interface Actions {
     readonly setMessage: (message: string) => Action<string>;
@@ -52,6 +54,8 @@ const Home: React.FunctionComponent<Props> = props => {
                     value={example.message}
                 />
             </div>
+            <Icon icon={ex} height={200} width={200} primary />
+            <Icon icon={ex} height={100} width={100} secondary />
             <AppSwitch routes={route.routes} />
         </React.Fragment>
     );

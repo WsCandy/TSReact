@@ -14,6 +14,7 @@ import path from "path";
 import { getBundles } from "react-loadable/webpack";
 
 const loadable = path.resolve(__dirname, "react-loadable.json");
+const sprite = require("svg-sprite-loader/runtime/sprite.build");
 
 const renderer = (
     req: Request,
@@ -46,7 +47,8 @@ const renderer = (
         scripts,
         html,
         state: JSON.stringify(serverStore.getState()),
-        styles: sheet.getStyleTags()
+        styles: sheet.getStyleTags(),
+        svg: sprite.stringify()
     };
 };
 
