@@ -8,21 +8,28 @@ import { connect } from "react-redux";
 import { LoadingState } from "_reducers/loading/loading";
 import { RouteComponentProps, withRouter } from "react-router";
 import AppSwitch from "_common/components/util/routes/AppSwitch";
+import BaseStyles from "_common/components/util/css/BaseStyles";
+import MapStateToProps from "_model/redux/MapStateToProps";
 
-interface Props extends RouteComponentProps {
+interface StateProps {
     readonly loading: LoadingState;
 }
+
+interface Props extends RouteComponentProps, StateProps {}
 
 const App: React.FunctionComponent<Props> = ({ loading }) => (
     <ThemeProvider theme={theme}>
         <React.Fragment>
             {loading.isLoading ? "Page loading" : "Idle"}
             <Reset />
+            <BaseStyles />
             <AppSwitch routes={routes} />
         </React.Fragment>
     </ThemeProvider>
 );
 
-const mapStateToProps = ({ loading }: AppState) => ({ loading });
+const mapStateToProps: MapStateToProps<StateProps> = ({
+    loading
+}: AppState) => ({ loading });
 
 export default withRouter(connect(mapStateToProps)(App));

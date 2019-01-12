@@ -8,7 +8,8 @@
         "stylelint-config-styled-components"
     ],
     "rules": {
-        "value-no-vendor-prefix": true,
+        "value-no-vendor-prefix": null,
+        "property-no-vendor-prefix": null,
         "color-named": "never",
         "color-hex-length": "short",
         "color-hex-case": "lower",
