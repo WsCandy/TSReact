@@ -54,8 +54,14 @@ const Home: React.FunctionComponent<Props> = props => {
                     value={example.message}
                 />
             </div>
-            <Icon icon={ex} height={200} width={200} primary />
-            <Icon icon={ex} height={100} width={100} secondary />
+            <Icon icon={ex} height={200} width={200} primary title="Running" />
+            <Icon
+                icon={ex}
+                height={100}
+                width={100}
+                secondary
+                title="Running"
+            />
             <AppSwitch routes={route.routes} />
         </React.Fragment>
     );

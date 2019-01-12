@@ -9,7 +9,7 @@ interface Props extends ColourProps {
     readonly height: number;
     readonly fill?: boolean;
     readonly role?: string;
-    readonly title?: string;
+    readonly title: string;
     readonly desc?: string;
 }
 
@@ -25,7 +25,7 @@ const BaseIcon: React.FunctionComponent<Props> = props => {
             role={role}
             aria-labelledby="title desc"
         >
-            {title ? <title>{title}</title> : null}
+            <title>{title}</title>
             {desc ? <desc>{desc}</desc> : null}
             <use xlinkHref={`#${icon.id}`} />
         </svg>
