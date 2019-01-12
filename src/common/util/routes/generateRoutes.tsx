@@ -1,9 +1,15 @@
 import AppRoute from "_common/model/routes/AppRoute";
-import { Route, Switch } from "react-router";
-import React from "react";
+import { Route, RouteComponentProps } from "react-router";
+import React, { ComponentType } from "react";
+import Modal from "_containers/Modal";
 
-const render = (Component: any, props: {}, route: AppRoute) => (
-    <Component {...props} route={route} />
+const render = (props: any, route: AppRoute, Component?: ComponentType<any>) =>
+    (typeof Component !== "undefined" ? (
+        <Component {...props} route={route} />
+    ) : null);
+
+const renderModal = (props: RouteComponentProps<any>, route: AppRoute) => (
+    <Modal>{render(props, route, route.component)}</Modal>
 );
 
 const generateRouteComponent = (route: AppRoute) => (
@@ -15,21 +21,18 @@ const generateRouteComponent = (route: AppRoute) => (
         sensitive={route.sensitive}
         render={props => {
             if (typeof route.render !== "undefined") {
-                return route.render({ ...props });
+                return route.render(props);
             }
 
-            return render(route.component, props, route);
+            return (
+                <React.Fragment>
+                    {route.modal
+                        ? renderModal(props, route)
+                        : render(props, route, route.component)}
+                </React.Fragment>
+            );
         }}
     />
 );
 
-const generateRoutes = (routes?: AppRoute[]) => {
-    if (typeof routes === "undefined") {
-        return null;
-    }
-
-    return <Switch>{routes.map(r => generateRouteComponent(r))}</Switch>;
-};
-
-export default generateRoutes;
 export { render, generateRouteComponent };

@@ -1,7 +1,6 @@
 import * as React from "react";
 import route from "_common/components/higher-order/route";
 import RouteProps from "_common/model/routes/RouteProps";
-import generateRoutes from "_common/util/routes/generateRoutes";
 import { connect } from "react-redux";
 import { ExampleState } from "_reducers/example/example";
 import setExampleMessage from "_actions/example/setExampleMessage";
@@ -9,6 +8,7 @@ import PreloadLink from "_common/components/util/routes/PreloadLink";
 import MapDispatchToProps from "_model/redux/MapDispatchToProps";
 import Action from "_model/redux/actions/Action";
 import MapStateToProps from "_model/redux/MapStateToProps";
+import AppSwitch from "_common/components/util/routes/AppSwitch";
 
 interface Actions {
     readonly setMessage: (message: string) => Action<string>;
@@ -52,7 +52,7 @@ const Home: React.FunctionComponent<Props> = props => {
                     value={example.message}
                 />
             </div>
-            {generateRoutes(route.routes)}
+            <AppSwitch routes={route.routes} />
         </React.Fragment>
     );
 };
