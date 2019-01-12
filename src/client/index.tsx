@@ -3,6 +3,7 @@ import * as ReactDOM from "react-dom";
 import Loadable from "react-loadable";
 import "core-js/es6/promise";
 import "core-js/es7/promise";
+import "core-js/es6/array";
 import App from "_containers/App";
 import store, { history } from "_client/store";
 import { ConnectedRouter } from "connected-react-router";
