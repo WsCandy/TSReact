@@ -1,5 +1,6 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
+const ForkTsCheckerNotifierWebpackPlugin = require("fork-ts-checker-notifier-webpack-plugin");
 const ScriptExtHtmlWebpackPlugin = require("script-ext-html-webpack-plugin");
 const HtmlWebpackHarddiskPlugin = require("html-webpack-harddisk-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
@@ -87,6 +88,12 @@ module.exports = merge(base, {
             ],
             { context: path.resolve(__dirname, "../src/client/static/") }
         ),
-        new ForkTsCheckerWebpackPlugin()
+        new ForkTsCheckerWebpackPlugin({
+            useTypescriptIncrementalApi: true
+        }),
+        new ForkTsCheckerNotifierWebpackPlugin({
+            excludeWarnings: true,
+            skipSuccessful: true
+        })
     ]
 });
