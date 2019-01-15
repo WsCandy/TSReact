@@ -10,26 +10,35 @@ const IndexController = async (req: Request, res: Response): Promise<any> => {
     const context: Context = {};
     const serverStore = store(req.url);
     const matchedRoute = getMatchedRoute(req.path, routes);
-    const params = renderer(req, context, serverStore);
     const match = matchPath(req.path, matchedRoute);
+    const { component } = matchedRoute;
+    const preLoad =
+        component && (component as any).preLoad
+            ? (component as any).preLoad()
+            : undefined;
+
+    if (typeof preLoad !== "undefined" && match) {
+        await preLoad(serverStore.dispatch, match);
+    }
+
+    const render = renderer(req, context, serverStore);
 
     const {
-        title, description, status, preLoad
+        title, description, status, url
     } = context;
 
-    const preLoadMethod =
-        preLoad && match ? preLoad(serverStore.dispatch, match) : preLoad;
+    if (url) {
+        return res.redirect(status || 301, url);
+    }
 
     if (status) {
         res.status(status);
     }
 
-    Promise.all([preLoadMethod]).then(() => {
-        res.render("index", {
-            ...params,
-            title,
-            description
-        });
+    res.render("index", {
+        ...render,
+        title,
+        description
     });
 };
 

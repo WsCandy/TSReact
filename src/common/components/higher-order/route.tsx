@@ -23,10 +23,6 @@ const route = function<P extends RouteProps>(
             if (typeof staticContext !== "undefined") {
                 staticContext.title = title;
                 staticContext.description = this.getDescription(route);
-
-                if (typeof routeMethods.preLoad !== "undefined") {
-                    staticContext.preLoad = RouteComponent.preLoad();
-                }
             }
         }
 
