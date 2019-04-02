@@ -11,6 +11,8 @@ import BaseStyles from "_common/components/util/css/BaseStyles";
 import MapStateToProps from "_model/redux/MapStateToProps";
 import { LoadingState } from "_reducers/loading";
 import RoutesContext from "_components/util/routes/RoutesContext";
+import locales from "_locales/locales";
+import { I18nextProvider } from "react-i18next";
 
 interface StateProps {
     readonly loading: LoadingState;
@@ -20,14 +22,16 @@ interface Props extends RouteComponentProps, StateProps {}
 
 const App: React.FunctionComponent<Props> = ({ loading }) => (
     <ThemeProvider theme={theme}>
-        <React.Fragment>
-            {loading.isLoading ? "Page loading" : "Idle"}
-            <Reset />
-            <BaseStyles />
-            <RoutesContext.Provider value={{ routes }}>
-                <AppSwitch routes={routes} />
-            </RoutesContext.Provider>
-        </React.Fragment>
+        <I18nextProvider i18n={locales}>
+            <React.Fragment>
+                {loading.isLoading ? "Page loading" : "Idle"}
+                <Reset />
+                <BaseStyles />
+                <RoutesContext.Provider value={{ routes }}>
+                    <AppSwitch routes={routes} />
+                </RoutesContext.Provider>
+            </React.Fragment>
+        </I18nextProvider>
     </ThemeProvider>
 );
 

@@ -44,6 +44,7 @@ module.exports = merge({
             _model: path.resolve(__dirname, "../src/common/model"),
             _containers: path.resolve(__dirname, "../src/common/containers"),
             _components: path.resolve(__dirname, "../src/common/components"),
+            _locales: path.resolve(__dirname, "../src/common/locales"),
             _actions: path.resolve(__dirname, "../src/common/actions"),
             _reducers: path.resolve(__dirname, "../src/common/reducers"),
             _selectors: path.resolve(__dirname, "../src/common/selectors"),
