@@ -8,7 +8,8 @@ import PreloadLinkProps from "_model/routes/PreloadLinkProps";
 const preloadRoute = (
     preLoad: RoutePreload,
     props: PreloadLinkProps,
-    match: match
+    match: match,
+    modal: boolean
 ): AsyncAction<void> => dispatch => {
     let outerReject: (reason?: any) => void;
 
@@ -20,9 +21,13 @@ const preloadRoute = (
     const { history } = props;
     const promise = new Promise((resolve, reject) => {
         outerReject = reject;
-        return preLoad(dispatch, match)
-            .then(resolve)
-            .catch(reject);
+        const pl = preLoad(dispatch, { ...match, query: {} });
+
+        if (typeof pl !== "undefined") {
+            return pl.then(resolve).catch(reject);
+        }
+
+        return resolve();
     });
 
     const unRegister = history.listen(() => {
@@ -34,8 +39,8 @@ const preloadRoute = (
         clearTimeout(delay);
 
         // Can't batch these, annoying!
-        dispatch(getLoadAction(props)(props.to));
         dispatch(setLoadingState({ isLoading: false }));
+        dispatch(getLoadAction(props)(props.to, { modal }));
     });
 };
 

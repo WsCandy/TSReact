@@ -30,7 +30,7 @@ const getDescription: RouteDescriptionParser<RouteProps> = (
     return description.replace("$s", location.pathname);
 };
 
-export default route<RouteProps>(NotFound, {
+export default route(NotFound, {
     getTitle,
     getDescription
 });

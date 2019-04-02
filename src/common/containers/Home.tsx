@@ -2,7 +2,7 @@ import * as React from "react";
 import route from "_common/components/higher-order/route";
 import RouteProps from "_common/model/routes/RouteProps";
 import { connect } from "react-redux";
-import { ExampleState } from "_reducers/example/example";
+import { ExampleState } from "_reducers/example";
 import setExampleMessage from "_actions/example/setExampleMessage";
 import PreloadLink from "_common/components/util/routes/PreloadLink";
 import MapDispatchToProps from "_model/redux/MapDispatchToProps";

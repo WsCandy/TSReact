@@ -5,11 +5,11 @@ import Modal from "_containers/Modal";
 
 const render = (props: any, route: AppRoute, Component?: ComponentType<any>) =>
     (typeof Component !== "undefined" ? (
-        <Component {...props} route={route} />
+        <Component key={route.key} {...props} route={route} />
     ) : null);
 
 const renderModal = (props: RouteComponentProps<any>, route: AppRoute) => (
-    <Modal>{render(props, route, route.component)}</Modal>
+    <Modal key={route.key}>{render(props, route, route.component)}</Modal>
 );
 
 const generateRouteComponent = (route: AppRoute) => (
@@ -24,13 +24,9 @@ const generateRouteComponent = (route: AppRoute) => (
                 return route.render(props);
             }
 
-            return (
-                <React.Fragment>
-                    {route.modal
-                        ? renderModal(props, route)
-                        : render(props, route, route.component)}
-                </React.Fragment>
-            );
+            return route.modal
+                ? renderModal(props, route)
+                : render(props, route, route.component);
         }}
     />
 );

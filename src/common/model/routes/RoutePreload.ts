@@ -1,9 +1,9 @@
-import { Dispatch } from "redux";
-import { match } from "react-router";
+import Dispatch from "_model/redux/Dispatch";
+import Match from "_model/misc/Match";
 
 type RoutePreload<M = {}> = (
     dispatch: Dispatch,
-    match: match<M>
-) => Promise<any>;
+    match: Match<M>
+) => Promise<any> | void;
 
 export default RoutePreload;

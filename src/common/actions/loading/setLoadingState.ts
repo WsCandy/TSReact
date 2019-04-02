@@ -1,4 +1,4 @@
-import { LoadingState } from "_reducers/loading/loading";
+import { LoadingState } from "_reducers/loading";
 import actionCreator from "_util/actions/actionCreator";
 import ActionType from "_model/redux/actions/ActionType";
 

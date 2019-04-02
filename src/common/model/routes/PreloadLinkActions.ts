@@ -7,7 +7,8 @@ interface PreloadLinkActions {
     readonly preloadRoute: (
         preLoad: RoutePreload,
         props: PreloadLinkProps,
-        match: match
+        match: match,
+        modal: boolean
     ) => void;
     readonly loadRoute: (props: PreloadLinkProps) => CallHistoryMethodAction;
 }

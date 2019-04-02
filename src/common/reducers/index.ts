@@ -1,9 +1,9 @@
 import { combineReducers } from "redux";
 import AppState from "_common/model/redux/AppState";
-import example from "_reducers/example/example";
+import example from "_reducers/example";
 import { connectRouter } from "connected-react-router";
 import { History } from "history";
-import loading from "_reducers/loading/loading";
+import loading from "_reducers/loading";
 
 const reducers = (history: History) =>
     combineReducers<AppState>({

@@ -1,6 +1,6 @@
-import { ExampleState } from "_reducers/example/example";
+import { ExampleState } from "_reducers/example";
 import { RouterState } from "connected-react-router";
-import { LoadingState } from "_reducers/loading/loading";
+import { LoadingState } from "_reducers/loading";
 
 interface AppState {
     readonly example: ExampleState;

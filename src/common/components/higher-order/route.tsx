@@ -2,12 +2,17 @@ import React, { ComponentType } from "react";
 import RouteMethods from "_common/model/routes/RouteMethods";
 import AppRoute from "_common/model/routes/AppRoute";
 import RouteProps from "_model/routes/RouteProps";
+import { connect } from "react-redux";
 
-const route = function<P extends RouteProps>(
+interface StateProps {}
+
+type Props = RouteProps & StateProps;
+
+const route = function(
     Component: ComponentType,
-    routeMethods: RouteMethods<P> = {}
-): ComponentType<P> {
-    return class RouteComponent extends React.Component<P> {
+    routeMethods: RouteMethods<RouteProps> = {}
+): ComponentType<RouteProps> {
+    class RouteComponent extends React.Component<Props> {
         static preLoad() {
             return routeMethods.preLoad;
         }
@@ -44,7 +49,9 @@ const route = function<P extends RouteProps>(
         render() {
             return <Component {...this.props} />;
         }
-    };
+    }
+
+    return connect()(RouteComponent);
 };
 
 export default route;

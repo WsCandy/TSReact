@@ -34,7 +34,7 @@ const LoadTest: React.FunctionComponent<Props> = props => {
     );
 };
 
-export default route<Props>(LoadTest, {
+export default route(LoadTest, {
     preLoad,
     getTitle
 });

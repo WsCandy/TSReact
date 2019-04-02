@@ -23,6 +23,8 @@ module.exports = {
     parser: "typescript-eslint-parser",
     plugins: ["typescript"],
     rules: {
+        "react/no-find-dom-node": "off",
+        "react/button-has-type": "off",
         "react/jsx-indent": ["error", 4],
         "react/jsx-one-expression-per-line": "off",
         "react/jsx-indent-props": ["error", 4],
@@ -30,6 +32,16 @@ module.exports = {
             "error",
             { extensions: [".tsx", ".jsx"] }
         ],
+        "jsx-a11y/label-has-associated-control": [
+            2,
+            {
+                labelComponents: ["Label"],
+                labelAttributes: ["label"],
+                controlComponents: ["Input"],
+                depth: 3
+            }
+        ],
+        "jsx-a11y/label-has-for": "off",
         "react/prop-types": ["off"], // Typescript handles this for me :)
         "typescript/no-unused-vars": "error",
         "import/no-anonymous-default-export": "error",
@@ -77,6 +89,7 @@ module.exports = {
             {
                 allowTernary: true
             }
-        ]
+        ],
+        camelcase: ["off"]
     }
 };

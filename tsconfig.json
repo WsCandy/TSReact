@@ -37,6 +37,7 @@
             "_util/*": ["src/common/util/*"],
             "_model/*": ["src/common/model/*"],
             "_containers/*": ["src/common/containers/*"],
+            "_components/*": ["src/common/components/*"],
             "_actions/*": ["src/common/actions/*"],
             "_reducers/*": ["src/common/reducers/*"],
             "_selectors/*": ["src/common/selectors/*"],

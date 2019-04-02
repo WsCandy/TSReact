@@ -5,11 +5,12 @@ import theme from "_common/config/theming/theme";
 import { ThemeProvider } from "styled-components";
 import AppState from "_model/redux/AppState";
 import { connect } from "react-redux";
-import { LoadingState } from "_reducers/loading/loading";
 import { RouteComponentProps, withRouter } from "react-router";
 import AppSwitch from "_common/components/util/routes/AppSwitch";
 import BaseStyles from "_common/components/util/css/BaseStyles";
 import MapStateToProps from "_model/redux/MapStateToProps";
+import { LoadingState } from "_reducers/loading";
+import RoutesContext from "_components/util/routes/RoutesContext";
 
 interface StateProps {
     readonly loading: LoadingState;
@@ -23,7 +24,9 @@ const App: React.FunctionComponent<Props> = ({ loading }) => (
             {loading.isLoading ? "Page loading" : "Idle"}
             <Reset />
             <BaseStyles />
-            <AppSwitch routes={routes} />
+            <RoutesContext.Provider value={{ routes }}>
+                <AppSwitch routes={routes} />
+            </RoutesContext.Provider>
         </React.Fragment>
     </ThemeProvider>
 );
