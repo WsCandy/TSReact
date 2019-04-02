@@ -10,12 +10,12 @@ import styled, {
 import getBreakpointValue from "_common/components/util/css/getBreakpointValue";
 import generateMediaQuery from "_common/components/util/css/generateMediaQuery";
 
-interface GridProps {
+type GridProps = {
     readonly columns: BreakpointProp<number | string[]>;
     readonly withRows?: BreakpointProp<number | string[]>;
     readonly colGap?: number;
     readonly rowGap?: number;
-}
+};
 
 interface Props extends ThemeProps<Theme>, GridProps {}
 
@@ -111,4 +111,3 @@ const Grid: React.FunctionComponent<Props> = props => {
 };
 
 export default withTheme(Grid);
-export { GridProps };
