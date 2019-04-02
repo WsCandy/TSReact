@@ -5,7 +5,7 @@ import thunk from "redux-thunk";
 import AppState from "_model/redux/AppState";
 import reducers from "_reducers/index";
 import { routerMiddleware } from "connected-react-router";
-import createBrowserHistory from "history/createBrowserHistory";
+import { createBrowserHistory } from "history";
 import { enableBatching } from "redux-batched-actions";
 
 const history = createBrowserHistory();

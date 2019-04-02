@@ -1,3 +1,9 @@
 {
-    "translations": {}
+    "translations": {
+        "general": {
+            "hello": "Hello!",
+            "hello_plural": "Hello Everyone!",
+            "message": "{{message}} - Path: {{path}}"
+        }
+    }
 }

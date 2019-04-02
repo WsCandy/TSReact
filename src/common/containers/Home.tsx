@@ -11,6 +11,7 @@ import MapStateToProps from "_model/redux/MapStateToProps";
 import AppSwitch from "_common/components/util/routes/AppSwitch";
 import ex from "_svg/example.svg";
 import Icon from "_common/components/util/misc/Icon";
+import { Trans } from "react-i18next";
 
 interface Actions {
     readonly setMessage: (message: string) => Action<string>;
@@ -30,12 +31,17 @@ const Home: React.FunctionComponent<Props> = props => {
     return (
         <React.Fragment>
             <p>
-                {example.message} - {match.path}
+                <Trans
+                    i18nKey="general.message"
+                    values={{ message: example.message, path: match.path }}
+                />
             </p>
 
             <ul>
                 <li>
-                    <PreloadLink to="/load-test/heya">Hello</PreloadLink>
+                    <PreloadLink to="/load-test/heya">
+                        <Trans i18nKey="general.hello" count={2} />
+                    </PreloadLink>
                 </li>
                 <li>
                     <PreloadLink to="/load-test">404</PreloadLink>
