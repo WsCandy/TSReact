@@ -7,6 +7,8 @@ import reducers from "_reducers/index";
 import { routerMiddleware } from "connected-react-router";
 import { createBrowserHistory } from "history";
 import { enableBatching } from "redux-batched-actions";
+import analyticsMiddleware from "_client/middleware/analyticsMiddleware";
+import serviceMiddleware from "_client/middleware/serviceMiddleware";
 
 const history = createBrowserHistory();
 
@@ -17,7 +19,14 @@ const store = (): Store<AppState> => {
     const store = createStore(
         enableBatching(reducers(history)),
         (window as any).INITIAL_STATE,
-        composeEnhancers(applyMiddleware(routerMiddleware(history), thunk))
+        composeEnhancers(
+            applyMiddleware(
+                routerMiddleware(history),
+                thunk,
+                analyticsMiddleware,
+                serviceMiddleware
+            )
+        )
     );
 
     if (module.hot) {
