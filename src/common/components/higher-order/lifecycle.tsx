@@ -14,6 +14,10 @@ const lifecycle = function<T>(
     lifecycle: Lifecycle<T>
 ): ComponentType<T> {
     return class LC extends React.Component<T> {
+        private componentDidScroll?: (props: T, node: HTMLElement) => void;
+
+        private componentUnmount?: (props: T) => void;
+
         constructor(props: T) {
             super(props);
 
@@ -51,10 +55,6 @@ const lifecycle = function<T>(
                     this
                 ) as HTMLElement)
             );
-
-        private componentDidScroll?: (props: T, node: HTMLElement) => void;
-
-        private componentUnmount?: (props: T) => void;
 
         render() {
             return <Component {...this.props} />;

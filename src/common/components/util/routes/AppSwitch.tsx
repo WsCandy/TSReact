@@ -20,6 +20,8 @@ interface Props extends RouteComponentProps<any>, StateProps {
 }
 
 class AppSwitch extends React.Component<Props> {
+    private previousLocation: Location | undefined;
+
     componentWillUpdate(newProps: Props): void {
         const { location, history, routes } = this.props;
 
@@ -45,8 +47,6 @@ class AppSwitch extends React.Component<Props> {
             this.previousLocation = location;
         }
     }
-
-    private previousLocation: Location | undefined;
 
     shouldRenderContainer(route: AppRoute): boolean {
         return (
