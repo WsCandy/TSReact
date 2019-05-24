@@ -59,46 +59,6 @@ jobs:
           root: .
           paths:
             - dist
-  build_image:
-    <<: *defaults
-    steps:
-      - setup_remote_docker:
-          docker_layer_caching: true
-      - attach_workspace:
-          at: ~/app
-      - run:
-          name: Build Image
-          command: make -f .circleci/Makefile build
-      - run:
-          name: Save Image
-          command: make -f .circleci/Makefile save
-      - persist_to_workspace:
-          root: .
-          paths:
-            - docker_cache
-  push_image:
-    <<: *defaults
-    steps:
-      - setup_remote_docker:
-          docker_layer_caching: true
-      - attach_workspace:
-          at: ~/app
-      - run:
-          name: Restore Image
-          command: make -f .circleci/Makefile restore
-      - run:
-          name: Push Image
-          command: make -f .circleci/Makefile push VERSION=${CIRCLE_BUILD_NUM}
-  deploy:
-    docker:
-      - image: wscandy/ci-aws:1.1.0
-    working_directory: ~/app
-    steps:
-      - attach_workspace:
-          at: ~/app
-      - run:
-          name: ECS Deploy
-          command: ./deploy/deploy.sh -t ${CIRCLE_PREVIOUS_BUILD_NUM}
 
 workflows:
   version: 2
