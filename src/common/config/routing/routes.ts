@@ -29,7 +29,10 @@ const routes: AppRoute[] = [
         description:
             "A simple React Loadable component, to test if the route is preloading correctly",
         exact: true,
-        component: LoadableTest
+        component: LoadableTest,
+        modal: {
+            path: "/"
+        }
     },
     {
         key: "404",

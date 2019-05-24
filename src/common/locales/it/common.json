@@ -1,5 +1,8 @@
 {
     "common": {
-        "hello-world": "Ciao Mondo!"
+        "hello-world": "Ciao Mondo!",
+        "general": {
+            "close": "Vicino"
+        }
     }
 }

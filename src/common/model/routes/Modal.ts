@@ -1,9 +1,7 @@
-/* eslint-disable */
-import { ComponentType } from "react";
-import RouteProps from "_model/routes/RouteProps";
-
-interface Modal<P extends RouteProps> {
-    readonly container?: ComponentType<P>;
+interface M {
+    readonly path: string;
 }
+
+type Modal = M;
 
 export default Modal;
