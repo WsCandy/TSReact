@@ -1,7 +1,7 @@
 defaults: &defaults
   docker:
-    - image: wscandy/ci-base:1.1.0
-  working_directory: /app
+    - image: wscandy/ci-docker:1.1.0
+  working_directory: ~/app
 
 version: 2
 jobs:
@@ -14,11 +14,11 @@ jobs:
           paths: .
   js_deps:
     docker:
-      - image: propcom/node:11.4
-    working_directory: /app
+      - image: circleci/node:11.4
+    working_directory: ~/app
     steps:
       - attach_workspace:
-          at: /app
+          at: ~/app
       - restore_cache:
           key: v1-{{ checksum "yarn.lock" }}
       - run:
@@ -30,11 +30,11 @@ jobs:
           key: v1-{{ checksum "yarn.lock" }}
   lint:
     docker:
-      - image: propcom/node:11.4
-    working_directory: /app
+      - image: circleci/node:11.4
+    working_directory: ~/app
     steps:
       - attach_workspace:
-          at: /app
+          at: ~/app
       - restore_cache:
           key: v1-{{ checksum "yarn.lock" }}
       - run:
@@ -42,11 +42,11 @@ jobs:
           command: yarn lint
   build:
     docker:
-      - image: propcom/node:11.4
-    working_directory: /app
+      - image: circleci/node:11.4
+    working_directory: ~/app
     steps:
       - attach_workspace:
-          at: /app
+          at: ~/app
       - restore_cache:
           key: v1-{{ checksum "yarn.lock" }}
       - run:
@@ -59,6 +59,46 @@ jobs:
           root: .
           paths:
             - dist
+  build_image:
+    <<: *defaults
+    steps:
+      - setup_remote_docker:
+          docker_layer_caching: true
+      - attach_workspace:
+          at: ~/app
+      - run:
+          name: Build Image
+          command: make -f .circleci/Makefile build
+      - run:
+          name: Save Image
+          command: make -f .circleci/Makefile save
+      - persist_to_workspace:
+          root: .
+          paths:
+            - docker_cache
+  push_image:
+    <<: *defaults
+    steps:
+      - setup_remote_docker:
+          docker_layer_caching: true
+      - attach_workspace:
+          at: ~/app
+      - run:
+          name: Restore Image
+          command: make -f .circleci/Makefile restore
+      - run:
+          name: Push Image
+          command: make -f .circleci/Makefile push VERSION=${CIRCLE_BUILD_NUM}
+  deploy:
+    docker:
+      - image: wscandy/ci-aws:1.1.0
+    working_directory: ~/app
+    steps:
+      - attach_workspace:
+          at: ~/app
+      - run:
+          name: ECS Deploy
+          command: ./deploy/deploy.sh -t ${CIRCLE_PREVIOUS_BUILD_NUM}
 
 workflows:
   version: 2
@@ -74,3 +114,28 @@ workflows:
       - build:
           requires:
             - js_deps
+      - build_image:
+          requires:
+            - lint
+            - build
+          context: wscandy
+          filters:
+            branches:
+              only:
+                - master
+      - push_image:
+          requires:
+            - build_image
+          context: wscandy
+          filters:
+            branches:
+              only:
+                - master
+      - deploy:
+          requires:
+            - push_image
+          context: wscandy
+          filters:
+            branches:
+              only:
+                - master
