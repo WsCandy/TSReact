@@ -43,7 +43,8 @@
             "_actions/*": ["src/common/actions/*"],
             "_reducers/*": ["src/common/reducers/*"],
             "_selectors/*": ["src/common/selectors/*"],
-            "_svg/*": ["src/common/svg/*"]
+            "_svg/*": ["src/common/svg/*"],
+            "_images/*": ["src/client/images/*"]
         }
     },
     "include": ["src/**/*"],

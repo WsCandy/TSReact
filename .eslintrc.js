@@ -23,6 +23,7 @@ module.exports = {
     parser: "typescript-eslint-parser",
     plugins: ["typescript"],
     rules: {
+        "global-require": "off",
         "react/no-find-dom-node": "off",
         "react/button-has-type": "off",
         "react/jsx-indent": ["error", 4],

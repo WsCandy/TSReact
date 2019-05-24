@@ -12,6 +12,7 @@ import AppSwitch from "_common/components/util/routes/AppSwitch";
 import ex from "_svg/example.svg";
 import Icon from "_common/components/util/misc/Icon";
 import { Trans } from "react-i18next";
+import Picture from "_components/util/misc/Picture";
 
 interface Actions {
     readonly setMessage: (message: string) => Action<string>;
@@ -30,6 +31,7 @@ const Home: React.FunctionComponent<Props> = props => {
 
     return (
         <React.Fragment>
+            <Picture img={require("_images/test.jpg")} alt="Test!" lazyLoad />
             <p>
                 <Trans
                     i18nKey="general.message"
