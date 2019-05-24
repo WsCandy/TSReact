@@ -1,14 +1,16 @@
-import { LinkProps, RouteComponentProps } from "react-router-dom";
+import { RouteComponentProps } from "react-router-dom";
 import PreloadLinkActions from "_model/routes/PreloadLinkActions";
 import AppRoute from "_model/routes/AppRoute";
+import { AnchorHTMLAttributes } from "react";
 
 interface PreloadLinkProps
-    extends LinkProps,
+    extends AnchorHTMLAttributes<HTMLAnchorElement>,
         PreloadLinkActions,
         RouteComponentProps<any> {
-    readonly to: string;
+    readonly href: string;
     readonly onClick?: () => void;
     readonly routes?: AppRoute[];
+    readonly replace?: boolean;
 }
 
 export default PreloadLinkProps;

@@ -39,15 +39,15 @@ const Home: React.FunctionComponent<Props> = props => {
 
             <ul>
                 <li>
-                    <PreloadLink to="/load-test/heya">
+                    <PreloadLink href="/load-test/heya">
                         <Trans i18nKey="general.hello" count={2} />
                     </PreloadLink>
                 </li>
                 <li>
-                    <PreloadLink to="/load-test">404</PreloadLink>
+                    <PreloadLink href="/load-test">404</PreloadLink>
                 </li>
                 <li>
-                    <PreloadLink to="/react-loadable">
+                    <PreloadLink href="/react-loadable">
                         React Loadable Test
                     </PreloadLink>
                 </li>

@@ -40,7 +40,7 @@ const preloadRoute = (
 
         // Can't batch these, annoying!
         dispatch(setLoadingState({ isLoading: false }));
-        dispatch(getLoadAction(props)(props.to, { modal }));
+        dispatch(getLoadAction(props)(props.href, { modal }));
     });
 };
 
