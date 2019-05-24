@@ -9,7 +9,7 @@ interface AppRoute extends RouteProps {
     readonly description?: string;
     readonly component?: ComponentType<RouteProps & RP>;
     readonly routes?: AppRoute[];
-    readonly modal?: Modal<RP> | boolean;
+    readonly modal?: Modal<RP>;
 }
 
 export default AppRoute;

@@ -23,7 +23,7 @@ const BaseIcon: React.FunctionComponent<Props> = props => {
             viewBox={icon.viewBox}
             className={className}
             role={role}
-            aria-labelledby="title desc"
+            aria-label={title}
         >
             <title>{title}</title>
             {desc ? <desc>{desc}</desc> : null}
@@ -33,6 +33,7 @@ const BaseIcon: React.FunctionComponent<Props> = props => {
 };
 
 const Icon = styled(BaseIcon)`
+    display: block;
     width: ${props => props.width}px;
     height: ${props => props.height}px;
     ${props =>
@@ -40,7 +41,7 @@ const Icon = styled(BaseIcon)`
 `;
 
 Icon.defaultProps = {
-    role: "image"
+    role: "img"
 };
 
 export default Icon;

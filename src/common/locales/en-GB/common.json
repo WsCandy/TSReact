@@ -1,5 +1,8 @@
 {
     "common": {
-        "hello-world": "Hello World!"
+        "hello-world": "Hello World!",
+        "general": {
+            "close": "Close"
+        }
     }
 }
