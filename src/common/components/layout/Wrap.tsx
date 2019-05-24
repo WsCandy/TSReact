@@ -1,11 +1,10 @@
 import styled, { css, ThemeProps } from "styled-components";
 import Theme from "_model/theming/Theme";
+import flexProps from "_util/styles/flexProps";
 
-interface Props extends ThemeProps<Theme> {
-    readonly justifyContent?: string;
-    readonly alignItems?: string;
+interface Props extends ThemeProps<Theme>, FlexProps {
     readonly withGutter?: boolean;
-    readonly row?: boolean;
+    readonly page?: boolean;
 }
 
 const Wrap = styled.div<Props>`
@@ -13,22 +12,18 @@ const Wrap = styled.div<Props>`
     flex-direction: ${props => (props.row ? "row" : "column")};
     width: 100%;
 
-    ${props =>
-        props.alignItems &&
-        css`
-            align-items: ${props.alignItems};
-        `}
+    ${props => flexProps(props)}
 
     ${props =>
         props.withGutter &&
         css`
-            padding: 0 ${props.theme.globalSpacingUnit / 2}px;
+            padding: 0 ${props.theme.globalSpacingUnit}px;
         `}
     
     ${props =>
-        props.justifyContent &&
+        props.page &&
         css`
-            justify-content: ${props.justifyContent};
+            padding-top: 96px;
         `}
 `;
 

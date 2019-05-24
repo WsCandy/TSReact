@@ -37,7 +37,8 @@ const generateColumns = (
     props: Props
 ): FlattenSimpleInterpolation => {
     const { theme, colGap } = props;
-    const colSpacing = colGap || theme.globalSpacingUnit;
+    const colSpacing =
+        typeof colGap !== "undefined" ? colGap : theme.globalSpacingUnit;
 
     if (Array.isArray(columns)) {
         return css`
@@ -59,9 +60,10 @@ const generateRows = (
     props: Props
 ): FlattenSimpleInterpolation => {
     const { rowGap, theme } = props;
-    const rowSpacing = rowGap || theme.globalSpacingUnit;
+    const rowSpacing =
+        typeof rowGap !== "undefined" ? rowGap : theme.globalSpacingUnit;
 
-    if (typeof rows !== "number") {
+    if (Array.isArray(rows)) {
         return css`
             -ms-grid-rows: ${ieCustomGridTemplate(rowSpacing, rows)};
             grid-template-rows: ${rows.join(" ")};

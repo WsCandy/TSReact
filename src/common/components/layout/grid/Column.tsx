@@ -9,13 +9,13 @@ import Theme from "_model/theming/Theme";
 import GridContext from "_common/components/layout/grid/context/GridContext";
 import generateMediaQuery from "_common/components/util/css/generateMediaQuery";
 import getBreakpointValue from "_common/components/util/css/getBreakpointValue";
+import flexProps from "_util/styles/flexProps";
 
-interface Props extends ThemeProps<Theme> {
+interface Props extends ThemeProps<Theme>, FlexProps {
     readonly starts: BreakpointProp<number>;
     readonly spans?: BreakpointProp<number>;
     readonly startsRow?: BreakpointProp<number>;
     readonly spansRows?: BreakpointProp<number>;
-    readonly flex?: boolean;
 }
 
 interface StyledProps extends Props {
@@ -45,12 +45,9 @@ const getRowSpan = (value: number): FlattenSimpleInterpolation => css`
 `;
 
 const StyledColumn = styled.div<StyledProps>`
-    ${props =>
-        props.flex &&
-        css`
-            display: flex;
-        `};
-
+    overflow: hidden;
+    ${props => flexProps(props)};
+    
     ${props => [
         getColSpan(getBreakpointValue(props.gridColumns, props.spans)),
         getColStart(getBreakpointValue(1, props.starts))

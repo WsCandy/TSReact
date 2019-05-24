@@ -86,8 +86,7 @@ module.exports = merge({
                             configFile: path.resolve(
                                 __dirname,
                                 "../tsconfig.json"
-                            ),
-                            happyPackMode: true
+                            )
                         }
                     }
                 ]
