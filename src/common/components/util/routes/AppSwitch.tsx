@@ -1,18 +1,14 @@
 import * as React from "react";
 import { Location } from "history";
 import AppRoute from "_model/routes/AppRoute";
-import {
-    matchPath,
-    RouteComponentProps,
-    Switch,
-    withRouter
-} from "react-router";
+import { RouteComponentProps, Switch, withRouter } from "react-router";
 import { generateRouteComponent } from "_util/routes/generateRoutes";
 import getMatchedRoute from "_util/routes/getMatchedRoute";
 import { connect } from "react-redux";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import ScrollToTop from "_util/routes/ScrollToTop";
 import Overlay from "_components/util/misc/Overlay";
+import get404Route from "_util/routes/get404Route";
 
 interface StateProps {}
 
@@ -60,69 +56,25 @@ class AppSwitch extends React.Component<Props> {
             return location;
         }
 
+        if (!this.previousLocation && location.state.modal) {
+            return { ...location, pathname: "/", state: {} };
+        }
+
         return this.previousLocation;
     }
 
-    private shouldRenderContainer(route: AppRoute): boolean {
-        return (
-            typeof this.previousLocation === "undefined" &&
-            typeof route.modal === "object" &&
-            (typeof route.modal.path !== "undefined" ||
-                typeof route.modal.container !== "undefined")
-        );
-    }
+    private getRouteFromPath(route: AppRoute) {
+        const { routes } = this.props;
 
-    private renderContainer(route: AppRoute, location: Location) {
-        if (typeof route.modal !== "object") {
-            return null;
+        if (typeof route.modal === "undefined") {
+            return get404Route();
         }
-
-        if (typeof route.modal.path !== "undefined") {
-            return this.renderContainerFromPath(route, route.modal.path);
-        }
-
-        if (typeof route.modal.container !== "undefined") {
-            return this.renderContainerFromComponent(route, location);
-        }
-
-        return null;
-    }
-
-    private renderContainerFromPath(route: AppRoute, path: string) {
-        const { match, routes } = this.props;
-        const m = matchPath(path, route) || match;
 
         if (typeof routes === "undefined") {
-            return null;
+            return get404Route();
         }
 
-        const r = getMatchedRoute(path, routes);
-
-        if (typeof r.component === "undefined") {
-            return null;
-        }
-
-        return <r.component {...this.props} route={r} match={m} />;
-    }
-
-    private renderContainerFromComponent(route: AppRoute, location: Location) {
-        const { match } = this.props;
-        const m = matchPath(location.pathname, route) || match;
-
-        if (
-            typeof route.modal === "object" &&
-            typeof route.modal.container !== "undefined"
-        ) {
-            return (
-                <route.modal.container
-                    {...this.props}
-                    route={route}
-                    match={m}
-                />
-            );
-        }
-
-        return null;
+        return getMatchedRoute(route.modal.path, routes);
     }
 
     render(): React.ReactNode {
@@ -142,25 +94,24 @@ class AppSwitch extends React.Component<Props> {
                 ? this.previousLocation
                 : location;
 
-        const route = getMatchedRoute(loc.pathname, routes);
         const targetRoute = getMatchedRoute(location.pathname, routes);
+        const route = this.getRouteFromPath(targetRoute);
         const coreRoutes = routes.filter(route => !route.modal);
         const modalRoutes = routes.filter(route => route.modal);
 
         return (
-            <React.Fragment>
+            <>
                 {!isModal ? <ScrollToTop /> : null}
-                {this.shouldRenderContainer(route) ? (
-                    this.renderContainer(route, loc)
-                ) : (
-                    <Switch location={loc}>
-                        {coreRoutes.map(r =>
-                            (route.key === "404"
-                                ? generateRouteComponent(route)
-                                : generateRouteComponent(r))
-                        )}
-                    </Switch>
-                )}
+                <Switch location={loc}>
+                    {coreRoutes.map(r =>
+                        (r.key === "404"
+                            ? generateRouteComponent({
+                                ...route,
+                                path: undefined
+                            })
+                            : generateRouteComponent(r))
+                    )}
+                </Switch>
                 <TransitionGroup>
                     {typeof targetRoute.modal !== "undefined" ? (
                         <CSSTransition
@@ -179,7 +130,7 @@ class AppSwitch extends React.Component<Props> {
                         </CSSTransition>
                     ) : null}
                 </TransitionGroup>
-            </React.Fragment>
+            </>
         );
     }
 }

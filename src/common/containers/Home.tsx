@@ -32,7 +32,7 @@ const Home: React.FunctionComponent<Props> = props => {
     } = props;
 
     return (
-        <React.Fragment>
+        <>
             <Heading>{t("hello-world")}</Heading>
             <Picture img={require("_images/test.jpg")} alt="Test!" lazyLoad />
             <p>
@@ -74,7 +74,7 @@ const Home: React.FunctionComponent<Props> = props => {
                 title="Running"
             />
             <AppSwitch routes={route.routes} />
-        </React.Fragment>
+        </>
     );
 };
 

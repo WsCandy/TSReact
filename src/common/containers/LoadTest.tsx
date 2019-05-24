@@ -25,12 +25,12 @@ const LoadTest: React.FunctionComponent<Props> = props => {
     const { match } = props;
 
     return (
-        <React.Fragment>
+        <>
             <p>
                 Load Test, this page should take 2 seconds! -{" "}
                 {match.params.test}
             </p>
-        </React.Fragment>
+        </>
     );
 };
 

@@ -25,14 +25,14 @@ interface Props extends RouteComponentProps, StateProps {
 const App: React.FunctionComponent<Props> = ({ loading, locales }) => (
     <ThemeProvider theme={theme}>
         <I18nextProvider i18n={locales}>
-            <React.Fragment>
+            <>
                 {loading.isLoading ? "Page loading" : "Idle"}
                 <Reset />
                 <BaseStyles />
                 <RoutesContext.Provider value={{ routes }}>
                     <AppSwitch routes={routes} />
                 </RoutesContext.Provider>
-            </React.Fragment>
+            </>
         </I18nextProvider>
     </ThemeProvider>
 );

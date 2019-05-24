@@ -4,12 +4,11 @@ import Scrollable from "_components/util/misc/Scrollable";
 import Wrap from "_components/layout/Wrap";
 import ModalClose from "_components/util/routes/ModalClose";
 import M from "_model/routes/Modal";
-import RouteProps from "_model/routes/RouteProps";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { RouteComponentProps, withRouter } from "react-router";
 
 interface Props extends RouteComponentProps {
-    readonly modal?: M<RouteProps>;
+    readonly modal?: M;
 }
 
 const ModalContent = styled.div`

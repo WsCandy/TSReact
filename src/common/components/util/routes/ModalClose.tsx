@@ -1,17 +1,17 @@
 import * as React from "react";
 import PreloadLink from "_components/util/routes/PreloadLink";
 import Modal from "_model/routes/Modal";
-import RouteProps from "_model/routes/RouteProps";
 import { useTranslation } from "react-i18next";
 import styled from "styled-components";
 import Icon from "_components/util/misc/Icon";
 import { RouteComponentProps, withRouter } from "react-router";
+import close from "_svg/close.svg";
 
 interface Props extends RouteComponentProps {
-    readonly modal?: Modal<RouteProps>;
+    readonly modal?: Modal;
 }
 
-const getBackPath = (modal?: Modal<RouteProps>): string => {
+const getBackPath = (modal?: Modal): string => {
     if (typeof modal !== "object") {
         return "/";
     }
@@ -58,7 +58,7 @@ const ModalClose: React.FunctionComponent<Props> = props => {
             <StyledIcon
                 tertiary
                 fill
-                icon={require("_svg/close.svg")}
+                icon={close}
                 height={13}
                 width={13}
                 title={t("general.close")}
