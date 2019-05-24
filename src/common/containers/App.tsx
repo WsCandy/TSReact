@@ -11,16 +11,18 @@ import BaseStyles from "_common/components/util/css/BaseStyles";
 import MapStateToProps from "_model/redux/MapStateToProps";
 import { LoadingState } from "_reducers/loading";
 import RoutesContext from "_components/util/routes/RoutesContext";
-import locales from "_locales/locales";
 import { I18nextProvider } from "react-i18next";
+import i18next from "i18next";
 
 interface StateProps {
     readonly loading: LoadingState;
 }
 
-interface Props extends RouteComponentProps, StateProps {}
+interface Props extends RouteComponentProps, StateProps {
+    readonly locales: i18next.i18n;
+}
 
-const App: React.FunctionComponent<Props> = ({ loading }) => (
+const App: React.FunctionComponent<Props> = ({ loading, locales }) => (
     <ThemeProvider theme={theme}>
         <I18nextProvider i18n={locales}>
             <React.Fragment>

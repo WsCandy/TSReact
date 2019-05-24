@@ -5,9 +5,21 @@ import store from "_server/store";
 import getMatchedRoute from "_util/routes/getMatchedRoute";
 import routes from "_common/config/routing/routes";
 import { matchPath } from "react-router";
+import config from "_locales/config";
 
 const IndexController = async (req: Request, res: Response): Promise<any> => {
-    const context: Context = {};
+    const supportedLanguages = Object.keys(config.resources);
+    const lang: string =
+        supportedLanguages.indexOf(req.i18n.language) > -1
+            ? req.i18n.language
+            : config.fallbackLng[0];
+
+    await req.i18n.changeLanguage(lang);
+
+    const context: Context = {
+        language: lang
+    };
+
     const serverStore = store(req.url);
     const matchedRoute = getMatchedRoute(req.path, routes);
     const match = matchPath(req.path, matchedRoute);
@@ -24,7 +36,7 @@ const IndexController = async (req: Request, res: Response): Promise<any> => {
     const render = renderer(req, context, serverStore);
 
     const {
-        title, description, status, url
+        title, description, status, url, language
     } = context;
 
     if (url) {
@@ -38,7 +50,8 @@ const IndexController = async (req: Request, res: Response): Promise<any> => {
     res.render("index", {
         ...render,
         title,
-        description
+        description,
+        language
     });
 };
 

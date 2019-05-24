@@ -1,6 +1,8 @@
 import express, { Router } from "express";
 import yargs from "yargs";
 import Loadable from "react-loadable";
+import middleware from "i18next-express-middleware";
+import locales from "_server/locales/locales";
 import config from "./config/config";
 import IndexController from "./controllers/IndexController";
 
@@ -9,6 +11,8 @@ const args = yargs.argv;
 
 const server = express();
 const router = Router();
+
+server.use(middleware.handle(locales));
 router.get("*", IndexController);
 server.set("port", config.port);
 server.set("view engine", config.engine);
