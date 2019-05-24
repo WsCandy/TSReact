@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="<%- language %>%>">
+<html lang="<%- language %>">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -14,6 +14,6 @@
 
 <main id="main"><%- html %></main>
 <%- svg %>
-<script>window.INITIAL_STATE = <%- state %>;</script>
+<script id="state-script">window.INITIAL_STATE = <%- state %>;</script>
 </body>
 </html>

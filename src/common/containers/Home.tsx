@@ -14,6 +14,8 @@ import Icon from "_common/components/util/misc/Icon";
 import { Trans, useTranslation } from "react-i18next";
 import Picture from "_components/util/misc/Picture";
 import Heading from "_components/typography/Heading";
+import Wrap from "_components/layout/Wrap";
+import Container from "_components/layout/Container";
 
 interface Actions {
     readonly setMessage: (message: string) => Action<string>;
@@ -32,49 +34,61 @@ const Home: React.FunctionComponent<Props> = props => {
     } = props;
 
     return (
-        <>
-            <Heading>{t("hello-world")}</Heading>
-            <Picture img={require("_images/test.jpg")} alt="Test!" lazyLoad />
-            <p>
-                <Trans
-                    i18nKey="general.message"
-                    values={{ message: example.message, path: match.path }}
+        <Wrap alignItems="center">
+            <Container>
+                <Heading>{t("hello-world")}</Heading>
+                <Picture
+                    img={require("_images/test.jpg")}
+                    alt={t("hello-world")}
+                    lazyLoad
                 />
-            </p>
+                <p>
+                    <Trans
+                        i18nKey="general.message"
+                        values={{ message: example.message, path: match.path }}
+                    />
+                </p>
 
-            <ul>
-                <li>
-                    <PreloadLink href="/load-test/heya">
-                        <Trans i18nKey="general.hello" count={2} />
-                    </PreloadLink>
-                </li>
-                <li>
-                    <PreloadLink href="/load-test">404</PreloadLink>
-                </li>
-                <li>
-                    <PreloadLink href="/react-loadable">
-                        React Loadable Test
-                    </PreloadLink>
-                </li>
-            </ul>
+                <ul>
+                    <li>
+                        <PreloadLink href="/load-test/heya">
+                            <Trans i18nKey="general.hello" count={2} />
+                        </PreloadLink>
+                    </li>
+                    <li>
+                        <PreloadLink href="/load-test">404</PreloadLink>
+                    </li>
+                    <li>
+                        <PreloadLink href="/react-loadable">
+                            React Loadable Test
+                        </PreloadLink>
+                    </li>
+                </ul>
 
-            <div>
-                <input
-                    type="text"
-                    onChange={e => setMessage(e.target.value)}
-                    value={example.message}
+                <div>
+                    <input
+                        type="text"
+                        onChange={e => setMessage(e.target.value)}
+                        value={example.message}
+                    />
+                </div>
+                <Icon
+                    icon={ex}
+                    height={200}
+                    width={200}
+                    primary
+                    title="Running"
                 />
-            </div>
-            <Icon icon={ex} height={200} width={200} primary title="Running" />
-            <Icon
-                icon={ex}
-                height={100}
-                width={100}
-                secondary
-                title="Running"
-            />
-            <AppSwitch routes={route.routes} />
-        </>
+                <Icon
+                    icon={ex}
+                    height={100}
+                    width={100}
+                    secondary
+                    title="Running"
+                />
+                <AppSwitch routes={route.routes} />
+            </Container>
+        </Wrap>
     );
 };
 

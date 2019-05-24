@@ -20,7 +20,6 @@ const NoScriptPic = styled(LoadedImage)`
 const WrapDiv = styled.div`
     position: relative;
     overflow: hidden;
-    z-index: -1;
 `;
 
 const Picture: React.FunctionComponent<Props> = props => {

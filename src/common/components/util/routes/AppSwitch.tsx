@@ -112,7 +112,7 @@ class AppSwitch extends React.Component<Props> {
                             : generateRouteComponent(r))
                     )}
                 </Switch>
-                <TransitionGroup>
+                <TransitionGroup component={null}>
                     {typeof targetRoute.modal !== "undefined" ? (
                         <CSSTransition
                             classNames="fade"

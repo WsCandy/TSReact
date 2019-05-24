@@ -61,7 +61,7 @@ module.exports = merge({
                     adapter: require("responsive-loader/sharp"),
                     placeholder: true,
                     placeholderSize: 50,
-                    sizes: [1920],
+                    sizes: [600, 980, 1920],
                     name: "[name].[hash]-[width].[ext]",
                     outputPath: "img"
                 }
