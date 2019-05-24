@@ -5,7 +5,7 @@ interface Props extends ThemeProps<Theme> {}
 
 const BaseStyles = createGlobalStyle<Props>`
     html {
-        color: ${props => props.theme.colours.quandary};
+        color: #000;
         font-family: Source Sans Pro, Regular, sans-serif;
         font-size: 62.5%;
         -webkit-font-smoothing: antialiased;

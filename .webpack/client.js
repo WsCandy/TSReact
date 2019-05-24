@@ -7,6 +7,9 @@ const CopyWebpackPlugin = require("copy-webpack-plugin");
 const path = require("path");
 const base = require("./base.js");
 const merge = require("webpack-merge");
+const { InjectManifest } = require("workbox-webpack-plugin");
+const imageminMozjpeg = require("imagemin-mozjpeg");
+const ImageminPlugin = require("imagemin-webpack-plugin").default;
 const ReactLoadablePlugin = require("react-loadable/webpack")
     .ReactLoadablePlugin;
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
@@ -94,6 +97,21 @@ module.exports = merge(base, {
         new ForkTsCheckerNotifierWebpackPlugin({
             excludeWarnings: true,
             skipSuccessful: true
+        }),
+        new InjectManifest({
+            swDest: "service-worker.js",
+            swSrc: "src/client/service-worker.js",
+            exclude: [/.*\.(?:jpg|ejs|json|txt)$/]
+        }),
+        new ImageminPlugin({
+            test: /\.(jpe?g|png|gif)$/,
+            pngquant: { quality: [0.5, 0.5] },
+            plugins: [
+                imageminMozjpeg({
+                    quality: 60,
+                    progressive: true
+                })
+            ]
         })
     ]
 });

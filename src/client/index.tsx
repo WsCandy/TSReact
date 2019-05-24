@@ -8,13 +8,14 @@ import App from "_containers/App";
 import store, { history } from "_client/store";
 import { ConnectedRouter } from "connected-react-router";
 import { Provider } from "react-redux";
+import locales from "_client/locales/locales";
 
 const clientStore = store();
 
 const app = (
     <Provider store={clientStore}>
         <ConnectedRouter history={history}>
-            <App />
+            <App locales={locales} />
         </ConnectedRouter>
     </Provider>
 );
@@ -26,3 +27,9 @@ if (module.hot) {
 Loadable.preloadReady().then(() => {
     ReactDOM.hydrate(app, document.getElementById("main"));
 });
+
+if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+        navigator.serviceWorker.register("/service-worker.js");
+    });
+}

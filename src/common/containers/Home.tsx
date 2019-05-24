@@ -11,7 +11,9 @@ import MapStateToProps from "_model/redux/MapStateToProps";
 import AppSwitch from "_common/components/util/routes/AppSwitch";
 import ex from "_svg/example.svg";
 import Icon from "_common/components/util/misc/Icon";
-import { Trans } from "react-i18next";
+import { Trans, useTranslation } from "react-i18next";
+import Picture from "_components/util/misc/Picture";
+import Heading from "_components/typography/Heading";
 
 interface Actions {
     readonly setMessage: (message: string) => Action<string>;
@@ -24,12 +26,15 @@ interface StateProps {
 interface Props extends RouteProps, Actions, StateProps {}
 
 const Home: React.FunctionComponent<Props> = props => {
+    const [t] = useTranslation();
     const {
         route, match, setMessage, example
     } = props;
 
     return (
         <React.Fragment>
+            <Heading>{t("hello-world")}</Heading>
+            <Picture img={require("_images/test.jpg")} alt="Test!" lazyLoad />
             <p>
                 <Trans
                     i18nKey="general.message"
@@ -39,15 +44,15 @@ const Home: React.FunctionComponent<Props> = props => {
 
             <ul>
                 <li>
-                    <PreloadLink to="/load-test/heya">
+                    <PreloadLink href="/load-test/heya">
                         <Trans i18nKey="general.hello" count={2} />
                     </PreloadLink>
                 </li>
                 <li>
-                    <PreloadLink to="/load-test">404</PreloadLink>
+                    <PreloadLink href="/load-test">404</PreloadLink>
                 </li>
                 <li>
-                    <PreloadLink to="/react-loadable">
+                    <PreloadLink href="/react-loadable">
                         React Loadable Test
                     </PreloadLink>
                 </li>

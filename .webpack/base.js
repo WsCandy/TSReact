@@ -48,11 +48,24 @@ module.exports = merge({
             _actions: path.resolve(__dirname, "../src/common/actions"),
             _reducers: path.resolve(__dirname, "../src/common/reducers"),
             _selectors: path.resolve(__dirname, "../src/common/selectors"),
-            _svg: path.resolve(__dirname, "../src/common/svg")
+            _svg: path.resolve(__dirname, "../src/common/svg"),
+            _images: path.resolve(__dirname, "../src/client/images")
         }
     },
     module: {
         rules: [
+            {
+                test: /\.(jpe?g|png)$/i,
+                loader: "responsive-loader",
+                options: {
+                    adapter: require("responsive-loader/sharp"),
+                    placeholder: true,
+                    placeholderSize: 50,
+                    sizes: [1920],
+                    name: "[name].[hash]-[width].[ext]",
+                    outputPath: "img"
+                }
+            },
             {
                 test: /\.svg$/,
                 loader: ["cache-loader", "svg-sprite-loader", "svgo-loader"]
@@ -86,8 +99,7 @@ module.exports = merge({
                             configFile: path.resolve(
                                 __dirname,
                                 "../tsconfig.json"
-                            ),
-                            happyPackMode: true
+                            )
                         }
                     }
                 ]

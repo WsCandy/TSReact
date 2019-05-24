@@ -5,6 +5,7 @@ interface Context extends StaticRouterContext {
     title?: string;
     description?: string;
     url?: string;
+    language?: string;
 }
 
 export default Context;

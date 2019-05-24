@@ -1,5 +1,5 @@
 import React from "react";
-import usePageY from "_util/hooks/usePageY";
+import usePageY from "_common/hooks/usePageY";
 
 interface Props {}
 

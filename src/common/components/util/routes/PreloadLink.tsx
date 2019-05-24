@@ -1,7 +1,6 @@
 import * as React from "react";
 import { connect } from "react-redux";
 import getMatchedRoute from "_util/routes/getMatchedRoute";
-import omit from "lodash/omit";
 import { Link, matchPath, withRouter } from "react-router-dom";
 import MapDispatchToProps from "_model/redux/MapDispatchToProps";
 import PreloadLinkActions from "_model/routes/PreloadLinkActions";
@@ -9,21 +8,19 @@ import getLoadAction from "_util/routes/getLoadAction";
 import preloadRoute from "_actions/loading/preLoadRoute";
 import RoutesContext from "_components/util/routes/RoutesContext";
 import AppRoute from "_model/routes/AppRoute";
-
-/* eslint-disable-next-line */
 import PreloadLinkProps from "_model/routes/PreloadLinkProps";
 
-const navigate = (props: Props, routes: AppRoute[]) => {
+const navigate = (props: PreloadLinkProps, routes: AppRoute[]) => {
     const {
-        to, preloadRoute, loadRoute, location
+        href, preloadRoute, loadRoute, location
     } = props;
 
-    if (location.pathname === to) {
+    if (location.pathname === href) {
         return;
     }
 
-    const matchedRoute = getMatchedRoute(to, routes);
-    const match = matchPath(to, matchedRoute);
+    const matchedRoute = getMatchedRoute(href, routes);
+    const match = matchPath(href, matchedRoute);
     const Component = matchedRoute.component as any;
 
     if (Component && Component.preLoad) {
@@ -34,32 +31,21 @@ const navigate = (props: Props, routes: AppRoute[]) => {
         }
     }
 
-    return loadRoute(props);
+    return loadRoute(props, { modal: !!matchedRoute.modal });
 };
 
-interface StateProps {}
-
-type Props = PreloadLinkProps & StateProps;
-
-const PreloadLink: React.FunctionComponent<Props> = props => {
-    const { onClick } = props;
-
-    const renderProps = omit(
-        props,
-        "staticContext",
-        "match",
-        "history",
-        "location",
-        "loadRoute",
-        "preloadRoute",
-        "routes"
-    );
+const PreloadLink: React.FunctionComponent<PreloadLinkProps> = props => {
+    const {
+        onClick, href, children, title, className
+    } = props;
 
     return (
         <RoutesContext.Consumer>
             {context => (
                 <Link
-                    {...renderProps}
+                    to={href}
+                    title={title}
+                    className={className}
                     onClick={e => {
                         if (context.routes) {
                             e.preventDefault();
@@ -68,7 +54,9 @@ const PreloadLink: React.FunctionComponent<Props> = props => {
                                 : navigate(props, context.routes);
                         }
                     }}
-                />
+                >
+                    {children}
+                </Link>
             )}
         </RoutesContext.Consumer>
     );
@@ -79,7 +67,8 @@ const mapDispatchToProps: MapDispatchToProps<
 > = dispatch => ({
     preloadRoute: (preLoad, props, match, modal) =>
         dispatch(preloadRoute(preLoad, props, match, modal)),
-    loadRoute: props => dispatch(getLoadAction(props)(props.to))
+    loadRoute: (props, state) =>
+        dispatch(getLoadAction(props)(props.href, state))
 });
 
 export default connect(

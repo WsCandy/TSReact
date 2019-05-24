@@ -17,16 +17,12 @@ const theme: Theme = {
     colours: {
         primary: "#77878B",
         secondary: "#119DA4",
-        tertiary: "#F3F4F4",
-        quandary: "#373E40"
+        tertiary: "#F3F4F4"
     },
     sizes: {
         alpha: "8.8rem",
         beta: "6.7rem",
-        gamma: "5rem",
-        delta: "3.7rem",
-        epsilon: "2.8rem",
-        zeta: "2.1rem"
+        gamma: "5rem"
     }
 };
 

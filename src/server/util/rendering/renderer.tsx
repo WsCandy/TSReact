@@ -28,7 +28,7 @@ const renderer = (
         <Loadable.Capture report={moduleName => modules.push(moduleName)}>
             <Provider store={serverStore}>
                 <StaticRouter location={req.url} context={context}>
-                    <App />
+                    <App locales={req.i18n} />
                 </StaticRouter>
             </Provider>
         </Loadable.Capture>

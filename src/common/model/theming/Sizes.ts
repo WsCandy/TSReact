@@ -1,3 +1,3 @@
-type SizeKeys = "alpha" | "beta" | "gamma" | "delta" | "epsilon" | "zeta";
+type SizeKeys = "alpha" | "beta" | "gamma";
 
 type Sizes = { [key in SizeKeys]: string };
