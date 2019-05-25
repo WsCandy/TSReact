@@ -11,6 +11,7 @@ interface Props {
     readonly img: ImageImport;
     readonly className?: string;
     readonly lazyLoad?: boolean;
+    readonly cover?: boolean;
 }
 
 const NoScriptPic = styled(LoadedImage)`
@@ -29,7 +30,7 @@ const Picture: React.FunctionComponent<Props> = props => {
     const [complete, setComplete] = useState(false);
 
     const {
-        className, lazyLoad, img, alt
+        className, lazyLoad, img, alt, cover
     } = props;
 
     if (lazyLoad) {
@@ -52,6 +53,7 @@ const Picture: React.FunctionComponent<Props> = props => {
                 height={img.height}
                 lazyLoad={lazyLoad}
                 blur={!complete}
+                cover={cover}
             />
 
             {lazyLoad ? (
@@ -63,6 +65,7 @@ const Picture: React.FunctionComponent<Props> = props => {
                             height={img.height}
                             width={img.width}
                             alt={alt}
+                            cover={cover}
                         />
                     </noscript>
 
@@ -82,6 +85,7 @@ const Picture: React.FunctionComponent<Props> = props => {
                                     width={img.width}
                                     alt={alt}
                                     onLoad={() => setLoaded(true)}
+                                    cover={cover}
                                 />
                             )}
                         </>

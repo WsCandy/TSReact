@@ -1,14 +1,25 @@
 // stylelint-disable
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
-const LoadedImage = styled.img`
+interface Props {
+    readonly cover?: boolean;
+}
+
+const LoadedImage = styled.img<Props>`
     position: absolute;
     top: 0;
     left: 0;
     z-index: 1;
     opacity: 0;
     width: 100%;
-    height: auto;
+    height: 100%;
+    display: block;
+
+    ${props =>
+        props.cover &&
+        css`
+            object-fit: cover;
+        `}
 
     &.fade-enter {
         will-change: opacity;

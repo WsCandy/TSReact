@@ -3,6 +3,7 @@ import styled, { css } from "styled-components";
 type Props = {
     readonly lazyLoad?: boolean;
     readonly blur?: boolean;
+    readonly cover?: boolean;
 };
 
 const Placeholder = styled.img<Props>`
@@ -15,6 +16,13 @@ const Placeholder = styled.img<Props>`
         props.blur &&
         css`
             filter: blur(15px);
+        `}
+
+    ${props =>
+        props.cover &&
+        css`
+            height: 100%;
+            object-fit: cover;
         `}
 `;
 
