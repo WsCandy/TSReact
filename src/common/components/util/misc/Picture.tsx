@@ -48,6 +48,7 @@ const Picture: React.FunctionComponent<Props> = props => {
         <WrapDiv ref={ref} className={className}>
             <Placeholder
                 src={lazyLoad ? img.placeholder : img.src}
+                srcSet={lazyLoad ? undefined : img.srcSet}
                 alt={alt}
                 width={img.width}
                 height={img.height}
