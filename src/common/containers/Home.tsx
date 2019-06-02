@@ -51,8 +51,26 @@ const Home: React.FunctionComponent<Props> = props => {
 
                 <ul>
                     <li>
+                        <PreloadLink href="mailto:test@email.com">
+                            Mailto Test
+                        </PreloadLink>
+                    </li>
+                    <li>
+                        <PreloadLink
+                            href="https://github.com/WsCandy"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            External link test
+                        </PreloadLink>
+                    </li>
+                    <li>
                         <PreloadLink href="/load-test/heya">
-                            <Trans i18nKey="general.hello" count={2} />
+                            <Trans
+                                i18nKey="hello-world"
+                                count={2}
+                                values={{ count: 2 }}
+                            />
                         </PreloadLink>
                     </li>
                     <li>
@@ -60,7 +78,7 @@ const Home: React.FunctionComponent<Props> = props => {
                     </li>
                     <li>
                         <PreloadLink href="/react-loadable">
-                            React Loadable Test
+                            React Loadable Test - Modal
                         </PreloadLink>
                     </li>
                 </ul>

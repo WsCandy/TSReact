@@ -9,6 +9,7 @@ import preloadRoute from "_actions/loading/preLoadRoute";
 import RoutesContext from "_components/util/routes/RoutesContext";
 import AppRoute from "_model/routes/AppRoute";
 import PreloadLinkProps from "_model/routes/PreloadLinkProps";
+import _omit from "lodash/omit";
 
 const navigate = (props: PreloadLinkProps, routes: AppRoute[]) => {
     const {
@@ -34,10 +35,28 @@ const navigate = (props: PreloadLinkProps, routes: AppRoute[]) => {
     return loadRoute(props, { modal: !!matchedRoute.modal });
 };
 
+const omitProps = [
+    "history",
+    "match",
+    "location",
+    "staticContext",
+    "loadRoute",
+    "preloadRoute"
+];
+
+const shouldDisable = (href: string): boolean => {
+    const protocol = href.split(":")[0];
+    return protocol.match(/^(https?|mailto)$/) !== null;
+};
+
 const PreloadLink: React.FunctionComponent<PreloadLinkProps> = props => {
     const {
         onClick, href, children, title, className
     } = props;
+
+    if (shouldDisable(href)) {
+        return <a {..._omit(props, omitProps)}>{children}</a>;
+    }
 
     return (
         <RoutesContext.Consumer>

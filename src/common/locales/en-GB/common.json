@@ -1,6 +1,7 @@
 {
     "common": {
-        "hello-world": "Hello World!",
+        "hello-world": "Hello World! {{ count }}",
+        "hello-world_plural": "Hello Worlds! {{ count }}",
         "general": {
             "close": "Close"
         }
