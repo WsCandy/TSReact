@@ -28,7 +28,7 @@ Loadable.preloadReady().then(() => {
     ReactDOM.hydrate(app, document.getElementById("main"));
 });
 
-if ("serviceWorker" in navigator) {
+if (!module.hot && "serviceWorker" in navigator) {
     window.addEventListener("load", () => {
         navigator.serviceWorker.register("/service-worker.js");
     });
