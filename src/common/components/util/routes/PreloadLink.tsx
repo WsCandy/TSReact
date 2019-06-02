@@ -17,6 +17,7 @@ const navigate = (props: PreloadLinkProps, routes: AppRoute[]) => {
     } = props;
 
     if (location.pathname === href) {
+        window.scrollTo(0, 0);
         return;
     }
 
