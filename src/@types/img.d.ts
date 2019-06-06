@@ -1,4 +1,4 @@
-declare type ImageImport = {
+declare interface ImageImport {
     readonly src: string;
     readonly srcSet: string;
     readonly height: number;
@@ -10,7 +10,7 @@ declare type ImageImport = {
         readonly width: number;
         readonly path: string;
     }[];
-};
+}
 
 declare module "*.jpg" {
     const content: ImageImport;

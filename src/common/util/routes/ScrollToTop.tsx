@@ -2,7 +2,7 @@ import React from "react";
 import { RouteComponentProps, withRouter } from "react-router";
 
 class ScrollToTop extends React.Component<RouteComponentProps> {
-    componentDidUpdate(prevProps: RouteComponentProps) {
+    public componentDidUpdate(prevProps: RouteComponentProps) {
         const { location } = this.props;
 
         if (typeof window !== "undefined" && location !== prevProps.location) {
@@ -10,7 +10,7 @@ class ScrollToTop extends React.Component<RouteComponentProps> {
         }
     }
 
-    render() {
+    public render() {
         const { children } = this.props;
         return children || null;
     }

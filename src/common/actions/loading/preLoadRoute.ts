@@ -1,9 +1,11 @@
 import AsyncAction from "_model/redux/AsyncAction";
 import setLoadingState from "_actions/loading/setLoadingState";
-import { match } from "react-router";
 import RoutePreload from "_model/routes/RoutePreload";
 import getLoadAction from "_util/routes/getLoadAction";
 import PreloadLinkProps from "_model/routes/PreloadLinkProps";
+
+// eslint-disable-next-line
+import { match } from "react-router";
 
 const preloadRoute = (
     preLoad: RoutePreload,

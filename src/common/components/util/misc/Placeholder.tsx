@@ -1,10 +1,10 @@
 import styled, { css } from "styled-components";
 
-type Props = {
+interface Props {
     readonly lazyLoad?: boolean;
     readonly blur?: boolean;
     readonly cover?: boolean;
-};
+}
 
 const Placeholder = styled.img<Props>`
     z-index: 0;

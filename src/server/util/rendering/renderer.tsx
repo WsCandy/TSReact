@@ -12,9 +12,9 @@ import AppState from "_model/redux/AppState";
 import { Store } from "redux";
 import path from "path";
 import { getBundles } from "react-loadable/webpack";
+import sprite from "svg-sprite-loader/runtime/sprite.build";
 
 const loadable = path.resolve(__dirname, "react-loadable.json");
-const sprite = require("svg-sprite-loader/runtime/sprite.build");
 
 const renderer = (
     req: Request,

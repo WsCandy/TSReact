@@ -19,10 +19,18 @@ module.exports = {
             excludedFiles: "*.ejs"
         }
     ],
-    extends: "airbnb",
-    parser: "typescript-eslint-parser",
-    plugins: ["typescript"],
+    extends: [
+        "airbnb",
+        "plugin:@typescript-eslint/recommended",
+        "prettier",
+        "prettier/@typescript-eslint"
+    ],
+    parser: "@typescript-eslint/parser",
+    plugins: ["@typescript-eslint"],
     rules: {
+        "@typescript-eslint/explicit-function-return-type": "off",
+        "@typescript-eslint/no-non-null-assertion": "off",
+        "@typescript-eslint/no-explicit-any": "off",
         "global-require": "off",
         "react/no-find-dom-node": "off",
         "react/button-has-type": "off",
@@ -44,7 +52,6 @@ module.exports = {
         ],
         "jsx-a11y/label-has-for": "off",
         "react/prop-types": ["off"], // Typescript handles this for me :)
-        "typescript/no-unused-vars": "error",
         "import/no-anonymous-default-export": "error",
         "comma-dangle": [
             "error",

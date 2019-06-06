@@ -4,20 +4,18 @@ import AppRoute from "_common/model/routes/AppRoute";
 import RouteProps from "_model/routes/RouteProps";
 import { connect } from "react-redux";
 
-interface StateProps {}
-
-type Props = RouteProps & StateProps;
+type Props = RouteProps;
 
 const route = function(
     Component: ComponentType,
     routeMethods: RouteMethods<RouteProps> = {}
 ): ComponentType<RouteProps> {
     class RouteComponent extends React.Component<Props> {
-        static preLoad() {
+        public static preLoad() {
             return routeMethods.preLoad;
         }
 
-        componentWillMount(): void {
+        public componentWillMount(): void {
             const { staticContext, route } = this.props;
             const title = this.getTitle(route);
 
@@ -46,7 +44,7 @@ const route = function(
                 : matchedRoute.description;
         }
 
-        render() {
+        public render() {
             return <Component {...this.props} />;
         }
     }

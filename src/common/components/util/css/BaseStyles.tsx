@@ -1,9 +1,7 @@
 import { createGlobalStyle, ThemeProps } from "styled-components";
 import Theme from "_model/theming/Theme";
 
-interface Props extends ThemeProps<Theme> {}
-
-const BaseStyles = createGlobalStyle<Props>`
+const BaseStyles = createGlobalStyle<ThemeProps<Theme>>`
     html {
         color: #000;
         font-family: "Helvetica", sans-serif;

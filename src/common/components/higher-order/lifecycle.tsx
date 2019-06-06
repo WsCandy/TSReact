@@ -2,12 +2,12 @@ import React, { ComponentType } from "react";
 import * as ReactDOM from "react-dom";
 import deBounce from "_util/misc/deBounce";
 
-export type Lifecycle<T> = {
+export interface Lifecycle<T> {
     readonly componentWillMount?: (props: T) => void;
     readonly componentUnmount?: (props: T) => void;
     readonly componentDidMount?: (props: T) => void;
     readonly componentDidScroll?: (props: T, node?: HTMLElement) => void;
-};
+}
 
 const lifecycle = function<T>(
     Component: ComponentType,
@@ -18,16 +18,16 @@ const lifecycle = function<T>(
 
         private componentUnmount?: (props: T) => void;
 
-        constructor(props: T) {
+        public constructor(props: T) {
             super(props);
 
             // We don't want the lifecycle events on the server, we handle server pre-loading with the preload method on the route.
             if (typeof window !== "undefined") {
                 Object.keys(lifecycle).forEach((method: keyof Lifecycle<T>) => {
                     this[method] = (...args: any[]) =>
-                        (args.length === 0
+                        args.length === 0
                             ? lifecycle[method]!(props)
-                            : lifecycle[method]!.call(this, ...args));
+                            : lifecycle[method]!.call(this, ...args);
                 });
             }
 
@@ -36,7 +36,7 @@ const lifecycle = function<T>(
             }
         }
 
-        componentWillUnmount() {
+        public componentWillUnmount() {
             if (
                 typeof window !== "undefined" &&
                 typeof this.componentDidScroll !== "undefined"
@@ -56,7 +56,7 @@ const lifecycle = function<T>(
                 ) as HTMLElement)
             );
 
-        render() {
+        public render() {
             return <Component {...this.props} />;
         }
     };

@@ -4,7 +4,7 @@ import RouteProps from "_model/routes/RouteProps";
 import RoutePreload from "_model/routes/RoutePreload";
 import RouteTitleParser from "_model/routes/RouteTitleParser";
 
-interface Props extends RouteProps<Params> {}
+type Props = RouteProps<Params>;
 
 interface Params {
     readonly test: string;

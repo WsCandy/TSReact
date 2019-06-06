@@ -10,12 +10,12 @@ import styled, {
 import getBreakpointValue from "_common/components/util/css/getBreakpointValue";
 import generateMediaQuery from "_common/components/util/css/generateMediaQuery";
 
-type GridProps = {
+interface GridProps {
     readonly columns: BreakpointProp<number | string[]>;
     readonly withRows?: BreakpointProp<number | string[]>;
     readonly colGap?: number;
     readonly rowGap?: number;
-};
+}
 
 interface Props extends ThemeProps<Theme>, GridProps {}
 
@@ -25,7 +25,7 @@ const ieGridTemplate = (gap: number, number: number, size: string): string =>
 const ieCustomGridTemplate = (gap: number, template: string[]): string => {
     const values = template
         .map((value, index) =>
-            (index < template.length - 1 ? [value, `${gap}px`] : [value])
+            index < template.length - 1 ? [value, `${gap}px`] : [value]
         )
         .reduce((a, b) => a.concat(b), []);
 
@@ -91,9 +91,9 @@ const StyledGrid = styled.div<Props>`
             props
         )}
     ${props =>
-        (props.withRows
+        props.withRows
             ? generateRows(getBreakpointValue(1, props.withRows), props)
-            : generateRows(getBreakpointValue(1, 1), props))}
+            : generateRows(getBreakpointValue(1, 1), props)}
     
     ${props => [
         generateMediaQuery(generateColumns, props, props.columns),

@@ -20,7 +20,7 @@ const ScrollableWrap = styled(Wrap)`
 `;
 
 class Scrollable extends React.Component<{}, {}> {
-    componentDidMount() {
+    public componentDidMount() {
         const node = ReactDOM.findDOMNode(this) as HTMLElement | null;
 
         if (node) {
@@ -28,7 +28,7 @@ class Scrollable extends React.Component<{}, {}> {
         }
     }
 
-    componentWillUnmount() {
+    public componentWillUnmount() {
         const node = ReactDOM.findDOMNode(this) as HTMLElement | null;
 
         if (node) {
@@ -36,7 +36,7 @@ class Scrollable extends React.Component<{}, {}> {
         }
     }
 
-    render() {
+    public render() {
         const { children } = this.props;
 
         return (

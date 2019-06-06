@@ -10,20 +10,18 @@ import ScrollToTop from "_util/routes/ScrollToTop";
 import Overlay from "_components/util/misc/Overlay";
 import get404Route from "_util/routes/get404Route";
 
-interface StateProps {}
-
-interface Props extends RouteComponentProps<any>, StateProps {
+interface Props extends RouteComponentProps<any> {
     readonly routes?: AppRoute[];
 }
 
 class AppSwitch extends React.Component<Props> {
     private previousLocation: Location | undefined;
 
-    componentDidMount(): void {
+    public componentDidMount(): void {
         this.previousLocation = this.getPreviousLocation();
     }
 
-    componentWillUpdate(newProps: Props): void {
+    public componentWillUpdate(newProps: Props): void {
         this.previousLocation = this.getPreviousLocation(newProps);
     }
 
@@ -77,7 +75,7 @@ class AppSwitch extends React.Component<Props> {
         return getMatchedRoute(route.modal.path, routes);
     }
 
-    render(): React.ReactNode {
+    public render(): React.ReactNode {
         const { location, routes } = this.props;
 
         if (typeof routes === "undefined") {
@@ -104,12 +102,12 @@ class AppSwitch extends React.Component<Props> {
                 {!isModal ? <ScrollToTop /> : null}
                 <Switch location={loc}>
                     {coreRoutes.map(r =>
-                        (r.key === "404"
+                        r.key === "404"
                             ? generateRouteComponent({
                                 ...route,
                                 path: undefined
                             })
-                            : generateRouteComponent(r))
+                            : generateRouteComponent(r)
                     )}
                 </Switch>
                 <TransitionGroup component={null}>
