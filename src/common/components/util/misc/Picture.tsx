@@ -29,9 +29,7 @@ const Picture: React.FunctionComponent<Props> = props => {
     const [loaded, setLoaded] = useState(false);
     const [complete, setComplete] = useState(false);
 
-    const {
-        className, lazyLoad, img, alt, cover
-    } = props;
+    const { className, lazyLoad, img, alt, cover } = props;
 
     if (lazyLoad) {
         useHydrateClientRender();
@@ -55,6 +53,7 @@ const Picture: React.FunctionComponent<Props> = props => {
                 lazyLoad={lazyLoad}
                 blur={!complete}
                 cover={cover}
+                complete={complete}
             />
 
             {lazyLoad ? (
@@ -72,7 +71,7 @@ const Picture: React.FunctionComponent<Props> = props => {
 
                     <CSSTransition
                         classNames="fade"
-                        timeout={300}
+                        timeout={600}
                         enter={lazyLoad}
                         in={visible && loaded}
                         onEntered={() => setComplete(true)}

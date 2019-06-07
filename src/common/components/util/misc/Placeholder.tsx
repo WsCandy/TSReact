@@ -4,6 +4,7 @@ interface Props {
     readonly lazyLoad?: boolean;
     readonly blur?: boolean;
     readonly cover?: boolean;
+    readonly complete?: boolean;
 }
 
 const Placeholder = styled.img<Props>`
@@ -11,18 +12,26 @@ const Placeholder = styled.img<Props>`
     width: 100%;
     height: auto;
     display: block;
-    ${props =>
-        props.lazyLoad &&
-        props.blur &&
+    transform: scale(1.05);
+    
+    ${({ lazyLoad, blur }) =>
+        lazyLoad &&
+        blur &&
         css`
             filter: blur(15px);
         `}
 
-    ${props =>
-        props.cover &&
+    ${({ cover }) =>
+        cover &&
         css`
             height: 100%;
             object-fit: cover;
+        `}
+    
+    ${({ complete }) =>
+        complete &&
+        css`
+            visibility: hidden;
         `}
 `;
 
