@@ -5,8 +5,10 @@ import locales from "_server/locales/locales";
 import IndexController from "_server/controllers/IndexController";
 import config from "_server/config/config";
 import SiteMapController from "_server/controllers/SiteMapController";
+import yargs from "yargs";
 
 const env = process.env.NODE_ENV;
+const args = yargs.argv;
 
 const server = express();
 const router = Router();
@@ -18,7 +20,7 @@ server.set("port", config.port);
 server.set("view engine", config.engine);
 server.set("views", config.views);
 
-if (env !== "production") {
+if (env !== "production" || args.assets === "true") {
     server.use(express.static("dist/public"));
 }
 
