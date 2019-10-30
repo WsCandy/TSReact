@@ -1,6 +1,5 @@
 const merge = require("webpack-merge");
 const path = require("path");
-
 const env = process.env.NODE_ENV;
 
 module.exports = merge({
@@ -11,34 +10,13 @@ module.exports = merge({
         colors: true,
         env: true
     },
-    optimization: {
-        splitChunks: {
-            automaticNameDelimiter: ".",
-            minSize: 30000,
-            cacheGroups: {
-                lib: {
-                    reuseExistingChunk: true,
-                    test: /node_modules/,
-                    name: "l",
-                    chunks: "initial",
-                    priority: -10
-                },
-                react: {
-                    reuseExistingChunk: true,
-                    test: /react/,
-                    name: "r",
-                    chunks: "initial",
-                    priority: -9
-                }
-            }
-        }
-    },
     resolve: {
         extensions: [".js", ".json", ".ts", ".tsx"],
         alias: {
             _src: path.resolve(__dirname, "../src"),
             _server: path.resolve(__dirname, "../src/server"),
             _client: path.resolve(__dirname, "../src/client"),
+            _images: path.resolve(__dirname, "../src/client/images"),
             _common: path.resolve(__dirname, "../src/common"),
             _util: path.resolve(__dirname, "../src/common/util"),
             _model: path.resolve(__dirname, "../src/common/model"),
@@ -48,27 +26,35 @@ module.exports = merge({
             _actions: path.resolve(__dirname, "../src/common/actions"),
             _reducers: path.resolve(__dirname, "../src/common/reducers"),
             _selectors: path.resolve(__dirname, "../src/common/selectors"),
-            _svg: path.resolve(__dirname, "../src/common/svg"),
-            _images: path.resolve(__dirname, "../src/client/images")
+            _svg: path.resolve(__dirname, "../src/common/svg")
         }
     },
     module: {
         rules: [
             {
                 test: /\.(jpe?g|png)$/i,
-                loader: "responsive-loader",
-                options: {
-                    adapter: require("responsive-loader/sharp"),
-                    placeholder: true,
-                    placeholderSize: 50,
-                    sizes: [600, 720, 1440, 2880],
-                    name: "[name].[hash]-[width].[ext]",
-                    outputPath: "img"
-                }
+                use: [
+                    "cache-loader",
+                    {
+                        loader: "responsive-loader",
+                        options: {
+                            adapter: require("responsive-loader/sharp"),
+                            placeholder: true,
+                            placeholderSize: 50,
+                            sizes:
+                                env === "production"
+                                    ? [600, 980, 1440, 2880]
+                                    : null,
+                            name: "[name].[hash]-[width].[ext]",
+                            publicPath: "/img",
+                            outputPath: "public/img"
+                        }
+                    }
+                ]
             },
             {
                 test: /\.svg$/,
-                loader: ["cache-loader", "svg-sprite-loader", "svgo-loader"]
+                loader: ["svg-sprite-loader", "svgo-loader"]
             },
             {
                 test: /\.css$/,
@@ -99,14 +85,11 @@ module.exports = merge({
                             configFile: path.resolve(
                                 __dirname,
                                 "../tsconfig.json"
-                            )
+                            ),
+                            transpileOnly: true
                         }
                     }
                 ]
-            },
-            {
-                test: /\.ejs$/,
-                use: "raw-loader"
             }
         ]
     }

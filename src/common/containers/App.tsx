@@ -20,6 +20,7 @@ interface StateProps {
 
 interface Props extends RouteComponentProps, StateProps {
     readonly locales: i18next.i18n;
+    readonly is404?: boolean;
 }
 
 const App: React.FunctionComponent<Props> = ({ loading, locales }) => (

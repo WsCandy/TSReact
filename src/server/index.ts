@@ -1,13 +1,11 @@
 import express, { Router } from "express";
-import yargs from "yargs";
 import Loadable from "react-loadable";
 import middleware from "i18next-express-middleware";
 import locales from "_server/locales/locales";
-import config from "./config/config";
-import IndexController from "./controllers/IndexController";
+import IndexController from "_server/controllers/IndexController";
+import config from "_server/config/config";
 
 const env = process.env.NODE_ENV;
-const args = yargs.argv;
 
 const server = express();
 const router = Router();
@@ -18,7 +16,7 @@ server.set("port", config.port);
 server.set("view engine", config.engine);
 server.set("views", config.views);
 
-if (env === "production" && args.assets === "true") {
+if (env !== "production") {
     server.use(express.static("dist/public"));
 }
 
