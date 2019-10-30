@@ -13,7 +13,7 @@ const ScrollableWrap = styled(Wrap)`
     padding-bottom: ${props => props.theme.globalSpacingUnit * 2}px;
     -webkit-overflow-scrolling: touch;
 
-    ${props => mq(props.theme, "tabletPort")`
+    ${props => mq(props)("tabletPort")`
         padding-top: ${props.theme.globalSpacingUnit * 6}px;
         padding-bottom: ${props.theme.globalSpacingUnit * 6}px;
     `}

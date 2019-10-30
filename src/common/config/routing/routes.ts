@@ -1,8 +1,8 @@
 import AppRoute from "_common/model/routes/AppRoute";
 import Home from "_containers/Home";
-import NotFound from "_containers/NotFound";
 import LoadTest from "_containers/LoadTest";
 import LoadableTest from "_containers/LoadableTest";
+import get404Route from "_util/routes/get404Route";
 
 const routes: AppRoute[] = [
     {
@@ -34,12 +34,7 @@ const routes: AppRoute[] = [
             path: "/"
         }
     },
-    {
-        key: "404",
-        title: "Error 404 - $s not found",
-        description: "Error 404 - $s not found",
-        component: NotFound
-    }
+    get404Route()
 ];
 
 export default routes;

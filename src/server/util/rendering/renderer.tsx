@@ -14,6 +14,7 @@ import path from "path";
 import { getBundles } from "react-loadable/webpack";
 import sprite from "svg-sprite-loader/runtime/sprite.build";
 import getAppUrl from "_util/misc/getAppUrl";
+import appConfig from "_common/config/appConfig";
 
 const loadable = path.resolve(__dirname, "react-loadable.json");
 
@@ -46,11 +47,10 @@ const renderer = (
         .join("");
 
     const og = {
-        title: "Bua Fit - Discover Outdoor Fitness Classes in London",
-        description:
-            "Find & book London's best group outdoor fitness classes with Bua Fit",
+        title: appConfig.site_name,
+        description: appConfig.default_description,
         url: getAppUrl(req.url),
-        image: "https://buafit.co.uk/img/social-image.jpg"
+        image: getAppUrl("/img/social-image.jpg")
     };
 
     return {
