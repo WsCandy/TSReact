@@ -5,17 +5,16 @@ import styled from "styled-components";
 import Wrap from "_components/layout/Wrap";
 import Container from "_components/layout/Container";
 import mq from "_util/styles/mq";
+import globalPadding from "_util/styles/globalPadding";
 
 const ScrollableWrap = styled(Wrap)`
     overflow-y: scroll;
     height: 100%;
-    padding-top: ${props => props.theme.globalSpacingUnit * 2}px;
-    padding-bottom: ${props => props.theme.globalSpacingUnit * 2}px;
+    ${props => globalPadding(props, 2)("top", "bottom")};
     -webkit-overflow-scrolling: touch;
 
     ${props => mq(props)("tabletPort")`
-        padding-top: ${props.theme.globalSpacingUnit * 6}px;
-        padding-bottom: ${props.theme.globalSpacingUnit * 6}px;
+        ${globalPadding(props, 6)("top", "bottom")}
     `}
 `;
 

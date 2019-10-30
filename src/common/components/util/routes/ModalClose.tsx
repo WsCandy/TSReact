@@ -5,6 +5,7 @@ import styled from "styled-components";
 import Icon from "_components/util/misc/Icon";
 import close from "_svg/close.svg";
 import { RouteComponentProps, withRouter } from "react-router";
+import globalMargin from "_util/styles/globalMargin";
 
 interface Props extends RouteComponentProps {
     readonly modal?: Modal;
@@ -26,7 +27,7 @@ const StyledLink = styled(PreloadLink)`
     display: flex;
     align-items: center;
     color: ${props => props.theme.colours.tertiary};
-    margin-bottom: ${props => props.theme.globalSpacingUnit / 2}px;
+    ${props => globalMargin(props, 0.5)("bottom")}
     font-size: 1.8rem;
     font-weight: bold;
     text-transform: uppercase;
@@ -38,7 +39,7 @@ const StyledLink = styled(PreloadLink)`
 `;
 
 const StyledIcon = styled(Icon)`
-    margin-right: ${props => props.theme.globalSpacingUnit / 3}px;
+    ${props => globalMargin(props, 0.33)("right")};
 `;
 
 const ModalClose: React.FunctionComponent<Props> = props => {
