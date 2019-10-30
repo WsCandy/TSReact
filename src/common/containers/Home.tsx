@@ -28,18 +28,18 @@ interface StateProps {
 interface Props extends RouteProps, Actions, StateProps {}
 
 const Home: React.FunctionComponent<Props> = props => {
-    const [t] = useTranslation();
-    const {
-        route, match, setMessage, example
-    } = props;
+    const [t, i18n] = useTranslation();
+    const { route, match, setMessage, example } = props;
 
     return (
         <Wrap alignItems="center">
             <Container>
-                <Heading>{t("hello-world")}</Heading>
+                <Heading>
+                    <Trans i18nKey="hello_world" />
+                </Heading>
                 <Picture
                     img={require("_images/test.jpg")}
-                    alt={t("hello-world")}
+                    alt={t("hello_world")}
                     lazyLoad
                 />
                 <p>
@@ -50,6 +50,27 @@ const Home: React.FunctionComponent<Props> = props => {
                 </p>
 
                 <ul>
+                    <li>
+                        <Trans i18nKey="language" />
+                        <button
+                            onClick={() =>
+                                i18n.changeLanguage("en-gb", () => {
+                                    document.cookie = "i18next=en-gb";
+                                })
+                            }
+                        >
+                            <Trans i18nKey="english" />
+                        </button>
+                        <button
+                            onClick={() =>
+                                i18n.changeLanguage("it", () => {
+                                    document.cookie = "i18next=it";
+                                })
+                            }
+                        >
+                            <Trans i18nKey="italian" />
+                        </button>
+                    </li>
                     <li>
                         <PreloadLink href="mailto:test@email.com">
                             Mailto Test
@@ -67,7 +88,7 @@ const Home: React.FunctionComponent<Props> = props => {
                     <li>
                         <PreloadLink href="/load-test/heya">
                             <Trans
-                                i18nKey="hello-world"
+                                i18nKey="hello_world"
                                 count={2}
                                 values={{ count: 2 }}
                             />

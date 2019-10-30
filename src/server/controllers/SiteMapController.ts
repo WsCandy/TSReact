@@ -18,7 +18,7 @@ const SiteMapController = async (req: Request, res: Response): Promise<any> => {
 
     await req.i18n.changeLanguage(lang);
 
-    const urls = routes
+    const urls = routes(req.i18n)
         .filter(v => v.path)
         .filter(v => v.priority)
         .map(v => ({

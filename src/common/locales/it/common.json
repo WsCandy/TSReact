@@ -1,8 +1,12 @@
 {
     "common": {
-        "hello-world": "Ciao Mondo!",
+        "hello_world": "Ciao Mondo!",
+        "hello_world_plural": "Ciao Mondi! {{ count }}",
+        "language": "Linguaggio:",
+        "english": "Inglesse",
+        "italian": "Italiano",
         "general": {
-            "close": "Vicino"
+            "close": "Chiudi"
         }
     }
 }

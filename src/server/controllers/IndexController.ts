@@ -22,7 +22,7 @@ const IndexController = async (req: Request, res: Response): Promise<any> => {
         language: lang
     };
 
-    const matchedRoute = getMatchedRoute(req.path, routes);
+    const matchedRoute = getMatchedRoute(req.path, routes(req.i18n));
     const { component } = matchedRoute;
     const match = { query: req.query, ...matchPath(req.path, matchedRoute) };
 
