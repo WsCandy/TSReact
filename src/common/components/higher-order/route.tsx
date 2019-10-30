@@ -40,7 +40,7 @@ const route = function(
                 this.setTitles(this.props);
             });
 
-            if (match.url !== window.location.pathname) {
+            if (match.url !== window.location.pathname && match.isExact) {
                 return;
             }
 
