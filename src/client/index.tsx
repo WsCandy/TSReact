@@ -1,5 +1,5 @@
 import * as React from "react";
-import * as ReactDOM from "react-dom";
+import ReactDOM, { unmountComponentAtNode } from "react-dom";
 import Loadable from "react-loadable";
 import "core-js/es6/promise";
 import "core-js/es7/promise";
@@ -12,7 +12,7 @@ import locales from "_client/locales/locales";
 
 const clientStore = store();
 
-const app = (
+const app = () => (
     <Provider store={clientStore}>
         <ConnectedRouter history={history}>
             <App locales={locales} />
@@ -20,13 +20,20 @@ const app = (
     </Provider>
 );
 
-if (module.hot) {
-    module.hot.accept();
-}
-
 Loadable.preloadReady().then(() => {
-    ReactDOM.hydrate(app, document.getElementById("main"));
+    ReactDOM.hydrate(app(), document.getElementById("main"));
 });
+
+if (module.hot) {
+    module.hot.accept("_containers/App", () => {
+        const node = document.getElementById("main");
+
+        if (node) {
+            unmountComponentAtNode(node);
+            ReactDOM.hydrate(app(), node);
+        }
+    });
+}
 
 if (!module.hot && "serviceWorker" in navigator) {
     window.addEventListener("load", () => {

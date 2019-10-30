@@ -27,16 +27,18 @@ const App: React.FunctionComponent<Props> = ({ loading, locales }) => {
     const r = routes(locales);
     return (
         <ThemeProvider theme={theme}>
-            <I18nextProvider i18n={locales}>
-                <>
-                    {loading.isLoading ? "Page loading" : "Idle"}
-                    <Reset />
-                    <BaseStyles />
-                    <RoutesContext.Provider value={{ routes: r }}>
-                        <AppSwitch routes={r} />
-                    </RoutesContext.Provider>
-                </>
-            </I18nextProvider>
+            <>
+                <Reset />
+                <BaseStyles />
+                <I18nextProvider i18n={locales}>
+                    <>
+                        {loading.isLoading ? "Page loading" : "Idle"}
+                        <RoutesContext.Provider value={{ routes: r }}>
+                            <AppSwitch routes={r} />
+                        </RoutesContext.Provider>
+                    </>
+                </I18nextProvider>
+            </>
         </ThemeProvider>
     );
 };
