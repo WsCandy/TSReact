@@ -3,12 +3,11 @@ import styled from "styled-components";
 import Scrollable from "_components/util/misc/Scrollable";
 import Wrap from "_components/layout/Wrap";
 import ModalClose from "_components/util/routes/ModalClose";
-import M from "_model/routes/Modal";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { RouteComponentProps, withRouter } from "react-router";
 
 interface Props extends RouteComponentProps {
-    readonly modal?: M;
+    readonly modal?: Modal;
 }
 
 const ModalContent = styled.div`
@@ -44,7 +43,11 @@ const Modal: React.FunctionComponent<Props> = props => {
                     timeout={800}
                     appear={history.action !== "POP"}
                 >
-                    <ModalWrap flex alignItems="flex-end">
+                    <ModalWrap
+                        flex
+                        alignItems="flex-end"
+                        onMouseDown={e => e.stopPropagation()}
+                    >
                         <ModalClose modal={modal} />
                         <ModalContent>{children}</ModalContent>
                     </ModalWrap>

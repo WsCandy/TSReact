@@ -13,14 +13,17 @@ import { Store } from "redux";
 import path from "path";
 import { getBundles } from "react-loadable/webpack";
 import sprite from "svg-sprite-loader/runtime/sprite.build";
+import getAppUrl from "_util/misc/getAppUrl";
+import appConfig from "_common/config/appConfig";
 
 const loadable = path.resolve(__dirname, "react-loadable.json");
 
 const renderer = (
     req: Request,
     context: Context,
-    serverStore: Store<AppState>
-): Partial<ViewParams> => {
+    serverStore: Store<AppState>,
+    is404?: boolean
+): ViewParams => {
     const modules: string[] = [];
     const data = __non_webpack_require__(loadable);
 
@@ -28,7 +31,7 @@ const renderer = (
         <Loadable.Capture report={moduleName => modules.push(moduleName)}>
             <Provider store={serverStore}>
                 <StaticRouter location={req.url} context={context}>
-                    <App locales={req.i18n} />
+                    <App locales={req.i18n} is404={is404} />
                 </StaticRouter>
             </Provider>
         </Loadable.Capture>
@@ -36,19 +39,30 @@ const renderer = (
 
     const sheet = new ServerStyleSheet();
     const appWithStyles = sheet.collectStyles(app);
-    const html = renderToString(appWithStyles);
+    const appRender = renderToString(appWithStyles);
     const bundles = getBundles(data, modules);
     const scripts = bundles
         .filter(b => !b.file.match(/\.hot-update.js$/))
-        .map(b => `<script src="/${b.file}" defer></script>`)
+        .map(b => `<script src="/${b.file}" async></script>`)
         .join("");
+
+    const og = {
+        title: appConfig.site_name,
+        description: appConfig.default_description,
+        url: getAppUrl(req.url),
+        image: getAppUrl("/img/social-image.jpg")
+    };
 
     return {
         scripts,
-        html,
+        html: appRender,
         state: JSON.stringify(serverStore.getState()),
         styles: sheet.getStyleTags(),
-        svg: sprite.stringify()
+        svg: sprite.stringify(),
+        og: {
+            ...og,
+            ...context.og
+        }
     };
 };
 

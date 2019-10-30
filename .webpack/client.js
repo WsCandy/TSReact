@@ -4,21 +4,67 @@ const ForkTsCheckerNotifierWebpackPlugin = require("fork-ts-checker-notifier-web
 const ScriptExtHtmlWebpackPlugin = require("script-ext-html-webpack-plugin");
 const HtmlWebpackHarddiskPlugin = require("html-webpack-harddisk-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
+const imageminMozjpeg = require("imagemin-mozjpeg");
+const ImageminPlugin = require("imagemin-webpack-plugin").default;
 const path = require("path");
 const base = require("./base.js");
 const merge = require("webpack-merge");
 const { InjectManifest } = require("workbox-webpack-plugin");
-const imageminMozjpeg = require("imagemin-mozjpeg");
-const ImageminPlugin = require("imagemin-webpack-plugin").default;
 const ReactLoadablePlugin = require("react-loadable/webpack")
     .ReactLoadablePlugin;
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
     .BundleAnalyzerPlugin;
+const TerserPlugin = require("terser-webpack-plugin");
+const env = process.env.NODE_ENV;
 
-module.exports = merge(base, {
+const config = merge(base, {
     target: "web",
     entry: {
         m: path.resolve(__dirname, "../src/client/index.tsx")
+    },
+    optimization: {
+        minimize: env === "production",
+        minimizer: [
+            new TerserPlugin({
+                extractComments: true
+            })
+        ],
+        splitChunks: {
+            automaticNameDelimiter: ".",
+            cacheGroups: {
+                components: {
+                    reuseExistingChunk: false,
+                    test: /components/,
+                    name: "c",
+                    chunks: "initial",
+                    priority: -11,
+                    enforce: true
+                },
+                lib: {
+                    reuseExistingChunk: false,
+                    test: /node_modules/,
+                    name: "l",
+                    chunks: "initial",
+                    priority: -10,
+                    enforce: true
+                },
+                react: {
+                    reuseExistingChunk: false,
+                    test: /react/,
+                    name: "r",
+                    chunks: "initial",
+                    priority: -9,
+                    enforce: true
+                },
+                dom: {
+                    reuseExistingChunk: false,
+                    test: /react-dom/,
+                    name: "rd",
+                    chunks: "initial",
+                    priority: -8
+                }
+            }
+        }
     },
     devServer: {
         host: "0.0.0.0",
@@ -52,8 +98,11 @@ module.exports = merge(base, {
     plugins: [
         new HtmlWebpackPlugin({
             filename: path.resolve(__dirname, "../dist/index.ejs"),
-            template: "src/client/index.ejs",
-            inject: "head",
+            template: `!!handlebars-loader?helperDirs=${path.resolve(
+                __dirname,
+                "../src/client/helpers"
+            )}!src/client/index.ejs`,
+            inject: false,
             chunksSortMode: "none",
             alwaysWriteToDisk: true,
             minify: {
@@ -67,7 +116,8 @@ module.exports = merge(base, {
             }
         }),
         new ScriptExtHtmlWebpackPlugin({
-            defaultAttribute: "defer"
+            defer: /m.([0-9a-f]+).js/,
+            defaultAttribute: "async"
         }),
         new HtmlWebpackHarddiskPlugin(),
         new BundleAnalyzerPlugin({
@@ -92,7 +142,7 @@ module.exports = merge(base, {
             { context: path.resolve(__dirname, "../src/client/static/") }
         ),
         new ForkTsCheckerWebpackPlugin({
-            useTypescriptIncrementalApi: true
+            workers: 1
         }),
         new ForkTsCheckerNotifierWebpackPlugin({
             excludeWarnings: true,
@@ -104,8 +154,9 @@ module.exports = merge(base, {
             exclude: [/.*\.(?:jpg|ejs|json|txt)$/]
         }),
         new ImageminPlugin({
+            disable: env !== "production",
             test: /\.(jpe?g|png|gif)$/,
-            pngquant: { quality: [0.5, 0.5] },
+            pngquant: { quality: "50-75" },
             plugins: [
                 imageminMozjpeg({
                     quality: 60,
@@ -115,3 +166,5 @@ module.exports = merge(base, {
         })
     ]
 });
+
+module.exports = config;

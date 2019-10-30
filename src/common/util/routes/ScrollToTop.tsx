@@ -1,9 +1,17 @@
 import React from "react";
 import { RouteComponentProps, withRouter } from "react-router";
 
-class ScrollToTop extends React.Component<RouteComponentProps> {
+interface Props extends RouteComponentProps {
+    readonly scroll?: boolean;
+}
+
+class ScrollToTop extends React.Component<Props> {
     public componentDidUpdate(prevProps: RouteComponentProps) {
-        const { location } = this.props;
+        const { location, history, scroll } = this.props;
+
+        if (typeof scroll !== "undefined" || history.action === "POP") {
+            return;
+        }
 
         if (typeof window !== "undefined" && location !== prevProps.location) {
             window.scrollTo(0, 0);

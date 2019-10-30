@@ -1,7 +1,3 @@
-interface M {
+interface Modal {
     readonly path: string;
 }
-
-type Modal = M;
-
-export default Modal;

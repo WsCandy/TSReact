@@ -1,6 +1,7 @@
 defaults: &defaults
   docker:
     - image: wscandy/ci-docker:1.1.0
+  resource_class: small
   working_directory: ~/app
 
 version: 2
@@ -14,7 +15,8 @@ jobs:
           paths: .
   js_deps:
     docker:
-      - image: circleci/node:11.4
+      - image: circleci/node:12.13
+    resource_class: small
     working_directory: ~/app
     steps:
       - attach_workspace:
@@ -30,7 +32,8 @@ jobs:
           key: v1-{{ checksum "yarn.lock" }}
   lint:
     docker:
-      - image: circleci/node:11.4
+      - image: circleci/node:12.13
+    resource_class: small
     working_directory: ~/app
     steps:
       - attach_workspace:
@@ -42,7 +45,7 @@ jobs:
           command: yarn lint
   build:
     docker:
-      - image: circleci/node:11.4
+      - image: circleci/node:12.13
     working_directory: ~/app
     steps:
       - attach_workspace:

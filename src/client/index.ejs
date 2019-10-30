@@ -6,8 +6,21 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <title><%- title %></title>
     <meta name="description" content="<%- description %>">
+
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content="<%- og.url %>"/>
+    <meta property="og:title" content="<%- og.title %>"/>
+    <meta property="og:description" content="<%- og.description %>"/>
+    <meta property="og:image" content="<%- og.image %>"/>
     <link type="text/plain" rel="author" href="/humans.txt" />
     <%- scripts %>
+    {{#each htmlWebpackPlugin.files.chunks}}
+    {{#match this.entry}}
+    <script src="{{../this.entry}}" defer></script>
+    {{else}}
+    <script src="{{../this.entry}}" async></script>
+    {{/match}}
+    {{/each}}
     <%- styles %>
 </head>
 <body>

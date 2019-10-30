@@ -13,12 +13,6 @@ module.exports = {
             }
         }
     },
-    overrides: [
-        {
-            files: ["src/**/*"],
-            excludedFiles: "*.ejs"
-        }
-    ],
     extends: [
         "airbnb",
         "plugin:@typescript-eslint/recommended",
@@ -30,6 +24,7 @@ module.exports = {
     rules: {
         "@typescript-eslint/explicit-function-return-type": "off",
         "@typescript-eslint/no-non-null-assertion": "off",
+        "@typescript-eslint/camelcase": "off",
         "@typescript-eslint/no-explicit-any": "off",
         "global-require": "off",
         "react/no-find-dom-node": "off",
@@ -41,29 +36,8 @@ module.exports = {
             "error",
             { extensions: [".tsx", ".jsx"] }
         ],
-        "jsx-a11y/label-has-associated-control": [
-            2,
-            {
-                labelComponents: ["Label"],
-                labelAttributes: ["label"],
-                controlComponents: ["Input"],
-                depth: 3
-            }
-        ],
-        "jsx-a11y/label-has-for": "off",
-        "react/prop-types": ["off"], // Typescript handles this for me :)
+        "react/prop-types": ["off"],
         "import/no-anonymous-default-export": "error",
-        "comma-dangle": [
-            "error",
-            {
-                arrays: "never",
-                objects: "never",
-                imports: "never",
-                exports: "never",
-                functions: "never"
-            }
-        ],
-        "comma-style": ["error", "last"],
         "prefer-arrow-callback": "error",
         "arrow-parens": "off",
         "space-before-function-paren": "off",
@@ -80,7 +54,6 @@ module.exports = {
         "no-new": "off",
         "wrap-iife": "off",
         "class-methods-use-this": "off",
-        quotes: ["error", "double"],
         "no-underscore-dangle": "off",
         "no-use-before-define": ["error", "nofunc"],
         "no-loop-func": "off",
@@ -90,7 +63,6 @@ module.exports = {
         "max-len": "off",
         "one-var": "off",
         "func-names": [1, "never"],
-        indent: ["error", 4],
         "no-mixed-spaces-and-tabs": "error",
         "no-unused-expressions": [
             "error",

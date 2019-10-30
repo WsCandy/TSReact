@@ -1,22 +1,13 @@
-import RoutePreload from "_model/routes/RoutePreload";
-import PreloadLinkProps from "_model/routes/PreloadLinkProps";
-import { match } from "react-router";
-import { CallHistoryMethodAction } from "connected-react-router";
 import { History } from "history";
-
-import LocationState = History.LocationState;
+import AppRoute from "_model/routes/AppRoute";
 
 interface PreloadLinkActions {
-    readonly preloadRoute: (
-        preLoad: RoutePreload,
-        props: PreloadLinkProps,
-        match: match,
-        modal: boolean
+    readonly preload: (
+        path: string,
+        history: History,
+        routes: AppRoute[] | null,
+        replace?: boolean
     ) => void;
-    readonly loadRoute: (
-        props: PreloadLinkProps,
-        state: LocationState
-    ) => CallHistoryMethodAction;
 }
 
 export default PreloadLinkActions;

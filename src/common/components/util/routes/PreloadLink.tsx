@@ -1,40 +1,19 @@
 import * as React from "react";
 import { connect } from "react-redux";
-import getMatchedRoute from "_util/routes/getMatchedRoute";
-import { Link, matchPath, withRouter } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import MapDispatchToProps from "_model/redux/MapDispatchToProps";
 import PreloadLinkActions from "_model/routes/PreloadLinkActions";
-import getLoadAction from "_util/routes/getLoadAction";
-import preloadRoute from "_actions/loading/preLoadRoute";
 import RoutesContext from "_components/util/routes/RoutesContext";
-import AppRoute from "_model/routes/AppRoute";
 import PreloadLinkProps from "_model/routes/PreloadLinkProps";
 import _omit from "lodash/omit";
+import preload from "_actions/loading/preload";
+import MapStateToProps from "_model/redux/MapStateToProps";
 
-const navigate = (props: PreloadLinkProps, routes: AppRoute[]) => {
-    const {
-        href, preloadRoute, loadRoute, location
-    } = props;
+interface StateProps {
+    readonly isLoading: boolean;
+}
 
-    if (location.pathname === href) {
-        window.scrollTo(0, 0);
-        return;
-    }
-
-    const matchedRoute = getMatchedRoute(href, routes);
-    const match = matchPath(href, matchedRoute);
-    const Component = matchedRoute.component as any;
-
-    if (Component && Component.preLoad) {
-        const load = Component.preLoad();
-
-        if (load && match) {
-            return preloadRoute(load, props, match, !!matchedRoute.modal);
-        }
-    }
-
-    return loadRoute(props, { modal: !!matchedRoute.modal });
-};
+type Props = PreloadLinkProps & PreloadLinkActions & StateProps;
 
 const omitProps = [
     "history",
@@ -42,7 +21,14 @@ const omitProps = [
     "location",
     "staticContext",
     "loadRoute",
-    "preloadRoute"
+    "preload",
+    "active",
+    "eventTracker",
+    "isLoading",
+    "defaultValue",
+    "primary",
+    "medium",
+    "tertiary"
 ];
 
 const shouldDisable = (href: string): boolean => {
@@ -50,9 +36,19 @@ const shouldDisable = (href: string): boolean => {
     return protocol.match(/^(https?|mailto)$/) !== null;
 };
 
-const PreloadLink: React.FunctionComponent<PreloadLinkProps> = props => {
+const PreloadLink: React.FunctionComponent<Props> = props => {
     const {
-        onClick, href, children, title, className
+        onClick,
+        href,
+        children,
+        title,
+        className,
+        disabled,
+        eventTracker,
+        history,
+        replace,
+        preload,
+        isLoading
     } = props;
 
     if (shouldDisable(href)) {
@@ -63,15 +59,31 @@ const PreloadLink: React.FunctionComponent<PreloadLinkProps> = props => {
         <RoutesContext.Consumer>
             {context => (
                 <Link
+                    onTouchStart={e => e.stopPropagation()}
                     to={href}
                     title={title}
                     className={className}
                     onClick={e => {
+                        if (disabled || isLoading) {
+                            e.preventDefault();
+                            return;
+                        }
+
+                        if (typeof eventTracker !== "undefined") {
+                            eventTracker();
+                        }
+
                         if (context.routes) {
                             e.preventDefault();
+
                             onClick
-                                ? onClick()
-                                : navigate(props, context.routes);
+                                ? onClick(e)
+                                : preload(
+                                      href,
+                                      history,
+                                      context.routes,
+                                      replace
+                                  );
                         }
                     }}
                 >
@@ -82,16 +94,18 @@ const PreloadLink: React.FunctionComponent<PreloadLinkProps> = props => {
     );
 };
 
+const mapStateToProps: MapStateToProps<StateProps> = ({ loading }) => ({
+    isLoading: loading.isLoading
+});
+
 const mapDispatchToProps: MapDispatchToProps<
     PreloadLinkActions
 > = dispatch => ({
-    preloadRoute: (preLoad, props, match, modal) =>
-        dispatch(preloadRoute(preLoad, props, match, modal)),
-    loadRoute: (props, state) =>
-        dispatch(getLoadAction(props)(props.href, state))
+    preload: (path, history, routes, replace) =>
+        dispatch(preload(path, history, routes, replace))
 });
 
 export default connect(
-    null,
+    mapStateToProps,
     mapDispatchToProps
 )(withRouter(PreloadLink));

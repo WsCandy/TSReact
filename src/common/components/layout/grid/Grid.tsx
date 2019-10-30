@@ -15,6 +15,7 @@ interface GridProps {
     readonly withRows?: BreakpointProp<number | string[]>;
     readonly colGap?: number;
     readonly rowGap?: number;
+    readonly uniform?: boolean;
 }
 
 interface Props extends ThemeProps<Theme>, GridProps {}
@@ -59,9 +60,11 @@ const generateRows = (
     rows: number | string[],
     props: Props
 ): FlattenSimpleInterpolation => {
-    const { rowGap, theme } = props;
+    const { rowGap, theme, uniform } = props;
     const rowSpacing =
         typeof rowGap !== "undefined" ? rowGap : theme.globalSpacingUnit;
+
+    const size = uniform ? "1fr" : "minmax(min-content, max-content)";
 
     if (Array.isArray(rows)) {
         return css`
@@ -73,8 +76,8 @@ const generateRows = (
 
     // prettier-ignore
     return css`
-        -ms-grid-rows: ${ieGridTemplate(rowSpacing, rows, "minmax(min-content, max-content)")};
-        grid-template-rows: repeat(${rows}, minmax(min-content, max-content));
+        -ms-grid-rows: ${ieGridTemplate(rowSpacing, rows, size)};
+        grid-template-rows: repeat(${rows}, ${size});
         grid-row-gap: ${rowSpacing}px;
     `;
 };

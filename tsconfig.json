@@ -5,7 +5,7 @@
         "module": "esnext",
         "moduleResolution": "node",
         "allowSyntheticDefaultImports": true,
-        "target": "es5",
+        "target": "esnext",
         "allowJs": false,
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true,
@@ -34,6 +34,7 @@
             "_src/*": ["src/*"],
             "_server/*": ["src/server/*"],
             "_client/*": ["src/client/*"],
+            "_images/*": ["src/client/images/*"],
             "_common/*": ["src/common/*"],
             "_util/*": ["src/common/util/*"],
             "_model/*": ["src/common/model/*"],
@@ -43,8 +44,7 @@
             "_actions/*": ["src/common/actions/*"],
             "_reducers/*": ["src/common/reducers/*"],
             "_selectors/*": ["src/common/selectors/*"],
-            "_svg/*": ["src/common/svg/*"],
-            "_images/*": ["src/client/images/*"]
+            "_svg/*": ["src/common/svg/*"]
         }
     },
     "include": ["src/**/*"],

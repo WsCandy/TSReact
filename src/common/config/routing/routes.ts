@@ -1,8 +1,8 @@
 import AppRoute from "_common/model/routes/AppRoute";
 import Home from "_containers/Home";
-import NotFound from "_containers/NotFound";
 import LoadTest from "_containers/LoadTest";
 import LoadableTest from "_containers/LoadableTest";
+import get404Route from "_util/routes/get404Route";
 
 const routes: AppRoute[] = [
     {
@@ -11,7 +11,8 @@ const routes: AppRoute[] = [
         exact: true,
         title: "Hello World!",
         description: "This is the home page...!",
-        component: Home
+        component: Home,
+        priority: 1.0
     },
     {
         key: "load-test",
@@ -20,7 +21,8 @@ const routes: AppRoute[] = [
         description:
             "A simple test page to test the preLoad method on a route component",
         exact: true,
-        component: LoadTest
+        component: LoadTest,
+        priority: 0.7
     },
     {
         key: "react-loadable",
@@ -32,14 +34,10 @@ const routes: AppRoute[] = [
         component: LoadableTest,
         modal: {
             path: "/"
-        }
+        },
+        priority: 0.5
     },
-    {
-        key: "404",
-        title: "Error 404 - $s not found",
-        description: "Error 404 - $s not found",
-        component: NotFound
-    }
+    get404Route()
 ];
 
 export default routes;

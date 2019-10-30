@@ -5,7 +5,7 @@ const webpackNodeExternals = require("webpack-node-externals");
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
     .BundleAnalyzerPlugin;
 
-module.exports = merge(base, {
+const config = merge(base, {
     target: "node",
     node: {
         __dirname: false
@@ -17,7 +17,8 @@ module.exports = merge(base, {
     output: {
         filename: "index.js",
         chunkFilename: "[name].js",
-        path: path.resolve(__dirname, "../dist")
+        path: path.resolve(__dirname, "../dist"),
+        publicPath: "/"
     },
     externals: [
         webpackNodeExternals({
@@ -36,3 +37,5 @@ module.exports = merge(base, {
         })
     ]
 });
+
+module.exports = config;
