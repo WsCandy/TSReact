@@ -11,7 +11,8 @@ const routes: AppRoute[] = [
         exact: true,
         title: "Hello World!",
         description: "This is the home page...!",
-        component: Home
+        component: Home,
+        priority: 1.0
     },
     {
         key: "load-test",
@@ -20,7 +21,8 @@ const routes: AppRoute[] = [
         description:
             "A simple test page to test the preLoad method on a route component",
         exact: true,
-        component: LoadTest
+        component: LoadTest,
+        priority: 0.7
     },
     {
         key: "react-loadable",
@@ -32,7 +34,8 @@ const routes: AppRoute[] = [
         component: LoadableTest,
         modal: {
             path: "/"
-        }
+        },
+        priority: 0.5
     },
     get404Route()
 ];
