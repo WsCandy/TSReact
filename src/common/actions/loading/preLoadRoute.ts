@@ -2,28 +2,31 @@ import AsyncAction from "_model/redux/AsyncAction";
 import setLoadingState from "_actions/loading/setLoadingState";
 import RoutePreload from "_model/routes/RoutePreload";
 import getLoadAction from "_util/routes/getLoadAction";
-import PreloadLinkProps from "_model/routes/PreloadLinkProps";
 
 // eslint-disable-next-line
 import { match } from "react-router";
+import { History } from "history";
+import getParams from "_util/misc/getParams";
 
 const preloadRoute = (
     preLoad: RoutePreload,
-    props: PreloadLinkProps,
+    path: string,
     match: match,
-    modal: boolean
+    history: History,
+    modal: boolean,
+    replace: boolean = false
 ): AsyncAction<void> => dispatch => {
     let outerReject: (reason?: any) => void;
 
-    // Some requests are so fast it's not worth changing the loading state, add a small delay to prevent unnecessary loading state change on fast requests
-    const delay = setTimeout(
-        () => dispatch(setLoadingState({ isLoading: true })),
-        150
-    );
-    const { history } = props;
+    dispatch(setLoadingState({ isLoading: true }));
+
+    const loadAction = getLoadAction(replace)(path, { modal });
     const promise = new Promise((resolve, reject) => {
         outerReject = reject;
-        const pl = preLoad(dispatch, { ...match, query: {} });
+        const pl = preLoad(dispatch, {
+            ...match,
+            query: getParams(window.location.search)
+        });
 
         if (typeof pl !== "undefined") {
             return pl.then(resolve).catch(reject);
@@ -38,11 +41,12 @@ const preloadRoute = (
 
     promise.finally(() => {
         unRegister();
-        clearTimeout(delay);
 
         // Can't batch these, annoying!
-        dispatch(setLoadingState({ isLoading: false }));
-        dispatch(getLoadAction(props)(props.href, { modal }));
+        dispatch(loadAction);
+        setTimeout(() => {
+            dispatch(setLoadingState({ isLoading: false }));
+        }, 150);
     });
 };
 

@@ -5,7 +5,7 @@ const getMatchedRoute = (path: string, routes: AppRoute[]): AppRoute => {
     const matched = getMatchedRoutes(path, routes).reduce((a, b) => a || b);
 
     if (matched.routes) {
-        return getMatchedRoutes(path, matched.routes).reduce(
+        return getMatchedRoutes(path, matched.routes, matched).reduce(
             (_, b) => b,
             matched
         );

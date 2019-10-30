@@ -1,11 +1,22 @@
 import { matchPath } from "react-router";
 import AppRoute from "_common/model/routes/AppRoute";
-import get404Route from "_util/routes/get404Route";
 
-const getMatchedRoutes = (path: string, routes: AppRoute[]): AppRoute[] => {
+const getMatchedRoutes = (
+    path: string,
+    routes: AppRoute[],
+    fallback?: AppRoute
+): AppRoute[] => {
     const matchedRoutes = routes.filter(route => matchPath(path, route));
 
-    return matchedRoutes.length > 0 ? matchedRoutes : [get404Route()];
+    const fall = fallback || {
+        key: "404",
+        title: "Error 404 - $s Not Found",
+        headerTitle: "Not Found",
+        description: "Error 404 - $s not found",
+        scope: "all"
+    };
+
+    return matchedRoutes.length > 0 ? matchedRoutes : [fall];
 };
 
 export default getMatchedRoutes;

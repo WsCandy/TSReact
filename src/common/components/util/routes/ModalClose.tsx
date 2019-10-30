@@ -1,11 +1,10 @@
 import * as React from "react";
 import PreloadLink from "_components/util/routes/PreloadLink";
-import Modal from "_model/routes/Modal";
 import { useTranslation } from "react-i18next";
 import styled from "styled-components";
 import Icon from "_components/util/misc/Icon";
-import { RouteComponentProps, withRouter } from "react-router";
 import close from "_svg/close.svg";
+import { RouteComponentProps, withRouter } from "react-router";
 
 interface Props extends RouteComponentProps {
     readonly modal?: Modal;

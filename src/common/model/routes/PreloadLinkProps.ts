@@ -8,9 +8,12 @@ interface PreloadLinkProps
         PreloadLinkActions,
         RouteComponentProps<any> {
     readonly href: string;
-    readonly onClick?: () => void;
+    readonly to?: string;
     readonly routes?: AppRoute[];
     readonly replace?: boolean;
+    readonly disabled?: boolean;
+    readonly defaultValue?: string;
+    readonly eventTracker?: () => void;
 }
 
 export default PreloadLinkProps;

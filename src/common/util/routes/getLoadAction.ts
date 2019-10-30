@@ -1,12 +1,10 @@
-import PreloadLinkProps from "_model/routes/PreloadLinkProps";
 import { CallHistoryMethodAction, push, replace } from "connected-react-router";
 import { LocationState } from "history";
 
 const getLoadAction = (
-    props: PreloadLinkProps
+    replaceRoute: boolean
 ): ((path: string, state?: LocationState) => CallHistoryMethodAction) => {
-    const isReplace = props.replace;
-    return isReplace ? replace : push;
+    return replaceRoute ? replace : push;
 };
 
 export default getLoadAction;
