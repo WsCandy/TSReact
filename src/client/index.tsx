@@ -1,5 +1,5 @@
 import * as React from "react";
-import ReactDOM, { unmountComponentAtNode } from "react-dom";
+import ReactDOM from "react-dom";
 import Loadable from "react-loadable";
 import "core-js/es6/promise";
 import "core-js/es7/promise";
@@ -25,14 +25,7 @@ Loadable.preloadReady().then(() => {
 });
 
 if (module.hot) {
-    module.hot.accept("_containers/App", () => {
-        const node = document.getElementById("main");
-
-        if (node) {
-            unmountComponentAtNode(node);
-            ReactDOM.hydrate(app(), node);
-        }
-    });
+    module.hot.accept();
 }
 
 if (!module.hot && "serviceWorker" in navigator) {
