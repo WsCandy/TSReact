@@ -6,6 +6,7 @@ import routes from "_common/config/routing/routes";
 import { matchPath } from "react-router";
 import config from "_locales/config";
 import generateResponse from "_server/util/rendering/generateResponse";
+import appConfig from "_common/config/appConfig";
 
 const IndexController = async (req: Request, res: Response): Promise<any> => {
     const serverStore = store(req.url);
@@ -14,7 +15,7 @@ const IndexController = async (req: Request, res: Response): Promise<any> => {
     const lang: string =
         supportedLanguages.indexOf(req.i18n.language) > -1
             ? req.i18n.language
-            : config.fallbackLng[0];
+            : appConfig.baseLng;
 
     await req.i18n.changeLanguage(lang);
 

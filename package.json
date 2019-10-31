@@ -130,6 +130,7 @@
         "sitemap": "^5.0.1",
         "styled-components": "^5.0.0-rc.0",
         "svg-sprite-loader": "4.1.3",
+        "tld-extract": "^1.1.2",
         "yargs": "^12.0.5"
     }
 }

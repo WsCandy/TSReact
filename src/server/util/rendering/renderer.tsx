@@ -13,7 +13,7 @@ import { Store } from "redux";
 import path from "path";
 import { getBundles } from "react-loadable/webpack";
 import sprite from "svg-sprite-loader/runtime/sprite.build";
-import getAppUrl from "_util/misc/getAppUrl";
+import getAppUrl from "_server/util/getAppUrl";
 import appConfig from "_common/config/appConfig";
 
 const loadable = path.resolve(__dirname, "react-loadable.json");
@@ -48,9 +48,9 @@ const renderer = (
 
     const og = {
         title: appConfig.site_name,
-        description: appConfig.default_description,
-        url: getAppUrl(req.url),
-        image: getAppUrl("/img/social-image.jpg")
+        description: req.i18n.t("og.description"),
+        url: getAppUrl(req),
+        image: getAppUrl(req, "/img/social-image.jpg")
     };
 
     return {

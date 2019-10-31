@@ -1,10 +1,11 @@
-import enGB from "_locales/en-GB/common.json";
+import baseLng from "_locales/base/common.json";
 import it from "_locales/it/common.json";
+import appConfig from "_common/config/appConfig";
 
 const config = {
-    lng: "en-GB",
-    resources: { "en-GB": enGB, it },
-    fallbackLng: ["en-GB"],
+    lng: appConfig.baseLng,
+    resources: { [appConfig.baseLng]: baseLng, it },
+    fallbackLng: [appConfig.baseLng],
     debug: false,
     ns: ["common"],
     defaultNS: "common",
@@ -15,7 +16,7 @@ const config = {
     react: {
         wait: false
     },
-    preload: ["en-GB", "it"]
+    preload: [appConfig.baseLng, "it"]
 };
 
 export default config;
