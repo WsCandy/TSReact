@@ -7,13 +7,16 @@ import renderer from "_server/util/rendering/renderer";
 const generateResponse = (
     req: Request,
     res: Response,
-    context: Context,
     serverStore: Store<AppState>,
     is404?: boolean
 ): any => {
+    const context: Context = {
+        language: req.i18n.language
+    };
+
     const render = renderer(req, context, serverStore, is404);
 
-    const { title, description, status, url, language } = context;
+    const { url, status, title, description, language } = context;
 
     if (url) {
         return res.redirect(status || 301, url);
@@ -24,10 +27,10 @@ const generateResponse = (
     }
 
     return res.render("index", {
-        ...render,
         title,
         description,
-        language
+        language,
+        ...render
     });
 };
 
