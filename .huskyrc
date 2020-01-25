@@ -1,6 +1,6 @@
 {
     "skipCI": false,
     "hooks": {
-        "pre-commit": "pretty-quick --staged && lint-staged"
+        "pre-commit": "tsc --noEmit && pretty-quick --staged && lint-staged"
     }
 }
