@@ -5,7 +5,7 @@ const env = process.env.NODE_ENV;
 module.exports = merge({
     mode: env || "development",
     context: path.resolve(__dirname, "../"),
-    devtool: env === "production" ? "none" : "eval-source-map",
+    devtool: env === "production" ? "none" : "source-map",
     stats: {
         colors: true,
         env: true

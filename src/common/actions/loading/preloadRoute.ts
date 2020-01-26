@@ -23,11 +23,9 @@ const preloadRoute = (
         return resolve();
     });
 
-    return promise.finally(() => {
-        setTimeout(() => {
-            dispatch(setLoadingState({ isLoading: false }));
-        }, 150);
-    });
+    return promise.finally(() =>
+        dispatch(setLoadingState({ isLoading: false }))
+    );
 };
 
 export default preloadRoute;
