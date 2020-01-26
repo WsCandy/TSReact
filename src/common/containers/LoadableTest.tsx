@@ -1,17 +1,10 @@
-import * as React from "react";
-import Loadable from "react-loadable";
-import route from "_common/components/higher-order/route";
 import RoutePreload from "_model/routes/RoutePreload";
+import route from "_components/higher-order/route";
+import loadable from "@loadable/component";
 
-const LoadableTest = Loadable({
-    loader: () => import("_containers/LoadableContent"),
-    loading: () => <p>Loading</p>
-});
+const LoadableTest = loadable(() => import("_containers/LoadableContent"));
 
-const preLoad: RoutePreload = () => {
-    const component = LoadableTest.preload();
-    return Promise.all([component]);
-};
+const preLoad: RoutePreload = () => LoadableTest.load();
 
 export default route(LoadableTest, {
     preLoad

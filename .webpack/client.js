@@ -1,17 +1,13 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 const ForkTsCheckerNotifierWebpackPlugin = require("fork-ts-checker-notifier-webpack-plugin");
-const ScriptExtHtmlWebpackPlugin = require("script-ext-html-webpack-plugin");
+const LoadablePlugin = require("@loadable/webpack-plugin");
 const HtmlWebpackHarddiskPlugin = require("html-webpack-harddisk-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
-const imageminMozjpeg = require("imagemin-mozjpeg");
-const ImageminPlugin = require("imagemin-webpack-plugin").default;
 const path = require("path");
 const base = require("./base.js");
 const merge = require("webpack-merge");
 const { InjectManifest } = require("workbox-webpack-plugin");
-const ReactLoadablePlugin = require("react-loadable/webpack")
-    .ReactLoadablePlugin;
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
     .BundleAnalyzerPlugin;
 const TerserPlugin = require("terser-webpack-plugin");
@@ -97,10 +93,7 @@ const config = merge(base, {
     plugins: [
         new HtmlWebpackPlugin({
             filename: path.resolve(__dirname, "../dist/index.ejs"),
-            template: `!!handlebars-loader?helperDirs=${path.resolve(
-                __dirname,
-                "../src/client/helpers"
-            )}!src/client/index.ejs`,
+            template: "src/client/index.ejs",
             inject: false,
             chunksSortMode: "none",
             alwaysWriteToDisk: true,
@@ -114,10 +107,6 @@ const config = merge(base, {
                 conservativeCollapse: false
             }
         }),
-        new ScriptExtHtmlWebpackPlugin({
-            defer: /m.([0-9a-f]+).js/,
-            defaultAttribute: "async"
-        }),
         new HtmlWebpackHarddiskPlugin(),
         new BundleAnalyzerPlugin({
             analyzerMode: "static",
@@ -127,9 +116,6 @@ const config = merge(base, {
             ),
             excludeAssets: /\.hot-update.js$/,
             openAnalyzer: false
-        }),
-        new ReactLoadablePlugin({
-            filename: path.resolve(__dirname, "../dist/react-loadable.json")
         }),
         new CopyWebpackPlugin(
             [
@@ -152,16 +138,8 @@ const config = merge(base, {
             swSrc: "src/client/service-worker.js",
             exclude: [/.*\.(?:jpg|ejs|json|txt)$/]
         }),
-        new ImageminPlugin({
-            disable: env !== "production",
-            test: /\.(jpe?g|png|gif)$/,
-            pngquant: { quality: "50-75" },
-            plugins: [
-                imageminMozjpeg({
-                    quality: 60,
-                    progressive: true
-                })
-            ]
+        new LoadablePlugin({
+            writeToDisk: true
         })
     ]
 });

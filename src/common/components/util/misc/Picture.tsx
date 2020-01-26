@@ -44,7 +44,6 @@ const Picture: React.FunctionComponent<Props> = props => {
                 <>
                     <Placeholder
                         src={img.placeholder}
-                        srcSet={img.srcSet}
                         alt={alt}
                         width={img.width}
                         height={img.height}

@@ -1,3 +1,5 @@
+const imageminMozjpeg = require("imagemin-mozjpeg");
+const ImageminPlugin = require("imagemin-webpack-plugin").default;
 const merge = require("webpack-merge");
 const path = require("path");
 const env = process.env.NODE_ENV;
@@ -26,7 +28,8 @@ module.exports = merge({
             _actions: path.resolve(__dirname, "../src/common/actions"),
             _reducers: path.resolve(__dirname, "../src/common/reducers"),
             _selectors: path.resolve(__dirname, "../src/common/selectors"),
-            _svg: path.resolve(__dirname, "../src/common/svg")
+            _svg: path.resolve(__dirname, "../src/common/svg"),
+            _hooks: path.resolve(__dirname, "../src/common/hooks")
         }
     },
     module: {
@@ -75,7 +78,7 @@ module.exports = merge({
                             plugins: [
                                 "babel-plugin-styled-components",
                                 "syntax-dynamic-import",
-                                "react-loadable/babel",
+                                "@loadable/babel-plugin",
                                 "@babel/plugin-proposal-optional-chaining"
                             ]
                         }
@@ -91,7 +94,24 @@ module.exports = merge({
                         }
                     }
                 ]
+            },
+            {
+                test: /\.ejs$/,
+                use: "raw-loader"
             }
         ]
-    }
+    },
+    plugins: [
+        new ImageminPlugin({
+            disable: env !== "production",
+            test: /\.(jpe?g|png|gif)$/,
+            pngquant: { quality: "50-75" },
+            plugins: [
+                imageminMozjpeg({
+                    quality: 60,
+                    progressive: true
+                })
+            ]
+        })
+    ]
 });

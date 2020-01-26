@@ -14,13 +14,6 @@
     <meta property="og:image" content="<%- og.image %>"/>
     <link type="text/plain" rel="author" href="/humans.txt" />
     <%- scripts %>
-    {{#each htmlWebpackPlugin.files.chunks}}
-    {{#match this.entry}}
-    <script src="{{../this.entry}}" defer></script>
-    {{else}}
-    <script src="{{../this.entry}}" async></script>
-    {{/match}}
-    {{/each}}
     <%- styles %>
 </head>
 <body>

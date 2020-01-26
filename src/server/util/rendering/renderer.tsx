@@ -1,7 +1,6 @@
 import * as React from "react";
 import ViewParams from "_server/model/ViewParams";
 import { Request } from "express";
-import Loadable from "react-loadable";
 import App from "_containers/App";
 import { renderToString } from "react-dom/server";
 import { ServerStyleSheet } from "styled-components";
@@ -11,12 +10,13 @@ import { Provider } from "react-redux";
 import AppState from "_model/redux/AppState";
 import { Store } from "redux";
 import path from "path";
-import { getBundles } from "react-loadable/webpack";
 import sprite from "svg-sprite-loader/runtime/sprite.build";
 import getAppUrl from "_server/util/getAppUrl";
 import appConfig from "_common/config/appConfig";
+import { ChunkExtractor } from "@loadable/server";
+import generateScripts from "_server/util/rendering/generateScripts";
 
-const loadable = path.resolve(__dirname, "react-loadable.json");
+const statsFile = path.resolve(__dirname, "public/loadable-stats.json");
 
 const renderer = (
     req: Request,
@@ -24,27 +24,20 @@ const renderer = (
     serverStore: Store<AppState>,
     is404?: boolean
 ): ViewParams => {
-    const modules: string[] = [];
-    const data = __non_webpack_require__(loadable);
+    const extractor = new ChunkExtractor({ statsFile, entrypoints: ["m"] });
 
-    const app = (
-        <Loadable.Capture report={moduleName => modules.push(moduleName)}>
-            <Provider store={serverStore}>
-                <StaticRouter location={req.url} context={context}>
-                    <App locales={req.i18n} is404={is404} />
-                </StaticRouter>
-            </Provider>
-        </Loadable.Capture>
+    const app = extractor.collectChunks(
+        <Provider store={serverStore}>
+            <StaticRouter location={req.url} context={context}>
+                <App locales={req.i18n} is404={is404} />
+            </StaticRouter>
+        </Provider>
     );
 
     const sheet = new ServerStyleSheet();
     const appWithStyles = sheet.collectStyles(app);
     const appRender = renderToString(appWithStyles);
-    const bundles = getBundles(data, modules);
-    const scripts = bundles
-        .filter(b => !b.file.match(/\.hot-update.js$/))
-        .map(b => `<script src="/${b.file}" async></script>`)
-        .join("");
+    const scripts = generateScripts(extractor);
 
     const og = {
         title: appConfig.site_name,
