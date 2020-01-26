@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 
 const useIntersection = (
-    target: HTMLElement | null,
+    target: HTMLElement | undefined,
     onIntersect: IntersectionObserverCallback
 ): void => {
     useEffect(() => {
@@ -12,7 +12,7 @@ const useIntersection = (
         const observer = new IntersectionObserver(onIntersect);
         observer.observe(target);
         return () => observer.unobserve(target);
-    });
+    }, [target]);
 };
 
 export default useIntersection;

@@ -12,8 +12,7 @@ const Placeholder = styled.img<Props>`
     width: 100%;
     height: auto;
     display: block;
-    transform: scale(1.05);
-    
+
     ${({ lazyLoad, blur }) =>
         lazyLoad &&
         blur &&
@@ -27,7 +26,7 @@ const Placeholder = styled.img<Props>`
             height: 100%;
             object-fit: cover;
         `}
-    
+
     ${({ complete }) =>
         complete &&
         css`

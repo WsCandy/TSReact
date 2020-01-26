@@ -1,9 +1,8 @@
-import React, { useRef, useState } from "react";
+import React, { useCallback, useState } from "react";
 import { CSSTransition } from "react-transition-group";
 import styled from "styled-components";
 import Placeholder from "_components/util/misc/Placeholder";
 import LoadedImage from "_components/util/misc/LoadedImage";
-import useHydrateClientRender from "_common/hooks/useHydrateClientRender";
 import useIntersection from "_common/hooks/useIntersection";
 
 interface Props {
@@ -24,40 +23,36 @@ const WrapDiv = styled.div`
 `;
 
 const Picture: React.FunctionComponent<Props> = props => {
-    const ref = useRef(null);
     const [visible, setVisible] = useState(false);
     const [loaded, setLoaded] = useState(false);
     const [complete, setComplete] = useState(false);
-
+    const [element, setElement] = useState<HTMLDivElement>();
+    const refCallback = useCallback(element => setElement(element), []);
     const { className, lazyLoad, img, alt, cover } = props;
 
-    if (lazyLoad) {
-        useHydrateClientRender();
-        useIntersection(ref.current, ([{ isIntersecting }]) => {
-            if (visible) {
-                return;
+    useIntersection(element, entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                setVisible(entry.isIntersecting);
             }
-
-            setVisible(isIntersecting);
         });
-    }
+    });
 
     return (
-        <WrapDiv ref={ref} className={className}>
-            <Placeholder
-                src={lazyLoad ? img.placeholder : img.src}
-                srcSet={lazyLoad ? undefined : img.srcSet}
-                alt={alt}
-                width={img.width}
-                height={img.height}
-                lazyLoad={lazyLoad}
-                blur={!complete}
-                cover={cover}
-                complete={complete}
-            />
-
+        <WrapDiv ref={refCallback} className={className}>
             {lazyLoad ? (
                 <>
+                    <Placeholder
+                        src={img.placeholder}
+                        srcSet={img.srcSet}
+                        alt={alt}
+                        width={img.width}
+                        height={img.height}
+                        cover={cover}
+                        complete={complete}
+                        lazyLoad
+                        blur
+                    />
                     <noscript>
                         <NoScriptPic
                             src={img.src}
@@ -77,7 +72,16 @@ const Picture: React.FunctionComponent<Props> = props => {
                         onEntered={() => setComplete(true)}
                     >
                         <>
-                            {lazyLoad && !visible ? null : (
+                            {!visible ? (
+                                <LoadedImage
+                                    src=""
+                                    srcSet=""
+                                    height={img.height}
+                                    width={img.width}
+                                    alt={alt}
+                                    cover={cover}
+                                />
+                            ) : (
                                 <LoadedImage
                                     src={img.src}
                                     srcSet={img.srcSet}
@@ -91,7 +95,16 @@ const Picture: React.FunctionComponent<Props> = props => {
                         </>
                     </CSSTransition>
                 </>
-            ) : null}
+            ) : (
+                <LoadedImage
+                    src={img.src}
+                    srcSet={img.srcSet}
+                    height={img.height}
+                    width={img.width}
+                    alt={alt}
+                    cover={cover}
+                />
+            )}
         </WrapDiv>
     );
 };

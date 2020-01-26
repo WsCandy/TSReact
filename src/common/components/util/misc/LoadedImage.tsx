@@ -14,7 +14,6 @@ const LoadedImage = styled.img<Props>`
     width: 100%;
     height: 100%;
     display: block;
-    transform: scale(1.05);
 
     ${({ cover }) =>
         cover &&
@@ -25,16 +24,13 @@ const LoadedImage = styled.img<Props>`
     &.fade-enter {
         will-change: opacity;
         opacity: 0;
-        transform: scale(1.05);
     }
     &.fade-enter-active {
         opacity: 1;
         transition: opacity 600ms ease-out, transform 600ms ease-out;
-        transform: scale(1);
     }
     &.fade-enter-done {
         opacity: 1;
-        transform: scale(1);
     }
 `;
 
