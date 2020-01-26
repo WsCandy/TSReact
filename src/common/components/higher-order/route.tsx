@@ -3,9 +3,8 @@ import RouteProps from "_model/routes/RouteProps";
 import RouteMethods from "_model/routes/RouteMethods";
 import { UnregisterCallback } from "history";
 import AppRoute from "_model/routes/AppRoute";
-import get404Title from "_util/routes/get404Title";
-import get404Description from "_util/routes/get404Description";
 import RoutePreload from "_model/routes/RoutePreload";
+import getMatchedRoute from "_util/routes/getMatchedRoute";
 
 type Props = RouteProps;
 
@@ -24,7 +23,7 @@ const route = function(
             super(props, context);
 
             if (typeof window === "undefined") {
-                this.setTitles(props);
+                this.setMetas(props);
             }
         }
 
@@ -38,14 +37,14 @@ const route = function(
                     return;
                 }
 
-                this.setTitles(this.props);
+                this.setMetas(this.props);
             });
 
             if (match.url !== window.location.pathname && match.isExact) {
                 return;
             }
 
-            return this.setTitles(this.props);
+            return this.setMetas(this.props);
         }
 
         public componentDidUpdate(): void {
@@ -64,7 +63,7 @@ const route = function(
             this.unListen?.();
         }
 
-        private setTitles(props: Props) {
+        private setMetas(props: Props) {
             const { staticContext, route } = props;
             const title = this.getTitle(route);
 
@@ -79,31 +78,53 @@ const route = function(
         }
 
         public getTitle(matchedRoute: AppRoute): string {
-            const { history } = this.props;
+            const { location } = this.props;
 
-            if (routeMethods.getTitle) {
-                return (
-                    routeMethods.getTitle(this.props, matchedRoute.title) ||
-                    get404Title(history)
+            if (matchedRoute.routes) {
+                const matched = getMatchedRoute(
+                    location.pathname,
+                    matchedRoute.routes
                 );
+
+                if (matched.key !== "404") {
+                    return (
+                        routeMethods?.getTitle?.(this.props, matched.title) ||
+                        matched.title
+                    );
+                }
             }
 
-            return matchedRoute.title;
+            return (
+                routeMethods?.getTitle?.(this.props, matchedRoute.title) ||
+                matchedRoute.title
+            );
         }
 
         public getDescription(matchedRoute: AppRoute): string | undefined {
-            const { history } = this.props;
+            const { location } = this.props;
 
-            if (routeMethods.getDescription) {
-                return (
-                    routeMethods.getDescription(
-                        this.props,
-                        matchedRoute.description
-                    ) || get404Description(history)
+            if (matchedRoute.routes) {
+                const matched = getMatchedRoute(
+                    location.pathname,
+                    matchedRoute.routes
                 );
+
+                if (matched.key !== "404") {
+                    return (
+                        routeMethods?.getDescription?.(
+                            this.props,
+                            matched.description
+                        ) || matched.description
+                    );
+                }
             }
 
-            return matchedRoute.description;
+            return (
+                routeMethods?.getDescription?.(
+                    this.props,
+                    matchedRoute.description
+                ) || matchedRoute.description
+            );
         }
 
         public render() {

@@ -4,6 +4,8 @@ import LoadTest from "_containers/LoadTest";
 import LoadableTest from "_containers/LoadableTest";
 import get404Route from "_util/routes/get404Route";
 import i18next from "i18next";
+import SubRouteTest from "_containers/SubRouteTest";
+import NestedRoute from "_containers/NestedRoute";
 
 const routes: (i18n: i18next.i18n) => AppRoute[] = i18n => [
     {
@@ -37,6 +39,23 @@ const routes: (i18n: i18next.i18n) => AppRoute[] = i18n => [
             path: "/"
         },
         priority: 0.5
+    },
+    {
+        key: "sub-route-test",
+        path: "/test",
+        title: "Sub Route Test",
+        description: "Test nested routes and preloading!",
+        component: SubRouteTest,
+        priority: 0.5,
+        routes: [
+            {
+                key: "nested",
+                path: "/test/:name",
+                title: "Nested route test",
+                component: NestedRoute,
+                exact: true
+            }
+        ]
     },
     get404Route()
 ];
