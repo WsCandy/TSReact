@@ -52,22 +52,10 @@ const Home: React.FunctionComponent<Props> = props => {
                 <ul>
                     <li>
                         <Trans i18nKey="language" />
-                        <button
-                            onClick={() =>
-                                i18n.changeLanguage("en-gb", () => {
-                                    document.cookie = "i18next=en-gb";
-                                })
-                            }
-                        >
+                        <button onClick={() => i18n.changeLanguage("en-gb")}>
                             <Trans i18nKey="english" />
                         </button>
-                        <button
-                            onClick={() =>
-                                i18n.changeLanguage("it", () => {
-                                    document.cookie = "i18next=it";
-                                })
-                            }
-                        >
+                        <button onClick={() => i18n.changeLanguage("it")}>
                             <Trans i18nKey="italian" />
                         </button>
                     </li>
@@ -139,9 +127,4 @@ const mapDispatchToProps: MapDispatchToProps<Actions> = dispatch => ({
     setMessage: message => dispatch(setExampleMessage(message))
 });
 
-export default route(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(Home)
-);
+export default route(connect(mapStateToProps, mapDispatchToProps)(Home));

@@ -61,9 +61,7 @@ const route = function(
         }
 
         public componentWillUnmount(): void {
-            if (typeof this.unListen !== "undefined") {
-                this.unListen();
-            }
+            this.unListen?.();
         }
 
         private setTitles(props: Props) {

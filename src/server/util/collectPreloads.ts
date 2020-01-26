@@ -4,9 +4,7 @@ import getMatchedRoute from "_util/routes/getMatchedRoute";
 
 const getPreload = (route: AppRoute) => {
     const { component } = route;
-    return component && (component as any).preLoad
-        ? (component as any).preLoad()
-        : undefined;
+    return (component as any)?.preLoad?.();
 };
 
 const collectPreloads = (
