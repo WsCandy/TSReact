@@ -5,6 +5,7 @@ import { UnregisterCallback } from "history";
 import AppRoute from "_model/routes/AppRoute";
 import get404Title from "_util/routes/get404Title";
 import get404Description from "_util/routes/get404Description";
+import RoutePreload from "_model/routes/RoutePreload";
 
 type Props = RouteProps;
 
@@ -13,7 +14,7 @@ const route = function(
     routeMethods: RouteMethods<RouteProps> = {}
 ) {
     class RouteComponent extends React.Component<Props> {
-        public static preLoad() {
+        public static preLoad(): RoutePreload | undefined {
             return routeMethods.preLoad;
         }
 
