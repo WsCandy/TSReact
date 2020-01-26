@@ -36,6 +36,7 @@ module.exports = {
             "error",
             { extensions: [".tsx", ".jsx"] }
         ],
+        "jsx-a11y/anchor-has-content": "off",
         "react/prop-types": ["off"],
         "import/no-anonymous-default-export": "error",
         "prefer-arrow-callback": "error",

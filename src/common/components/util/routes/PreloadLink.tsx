@@ -1,13 +1,12 @@
 import React, { useContext } from "react";
 import { connect } from "react-redux";
-import { Link, withRouter } from "react-router-dom";
+import { Link } from "react-router-dom";
 import MapDispatchToProps from "_model/redux/MapDispatchToProps";
 import PreloadLinkActions from "_model/routes/PreloadLinkActions";
-import RoutesContext from "_components/util/routes/RoutesContext";
 import PreloadLinkProps from "_model/routes/PreloadLinkProps";
-import _omit from "lodash/omit";
 import preload from "_actions/loading/preload";
 import MapStateToProps from "_model/redux/MapStateToProps";
+import RoutesContext from "_components/util/routes/RoutesContext";
 
 interface StateProps {
     readonly isLoading: boolean;
@@ -15,57 +14,37 @@ interface StateProps {
 
 type Props = PreloadLinkProps & PreloadLinkActions & StateProps;
 
-const omitProps = [
-    "history",
-    "match",
-    "location",
-    "staticContext",
-    "loadRoute",
-    "preload",
-    "active",
-    "eventTracker",
-    "isLoading",
-    "defaultValue",
-    "primary",
-    "medium",
-    "tertiary"
-];
-
 const shouldDisable = (href: string): boolean => {
     const protocol = href.split(":")[0];
     return protocol.match(/^(https?|mailto)$/) !== null;
 };
 
 const PreloadLink: React.FunctionComponent<Props> = props => {
-    const routesContext = useContext(RoutesContext);
     const {
         onClick,
         href,
-        children,
-        title,
-        className,
         disabled,
         eventTracker,
-        history,
         replace,
         preload,
-        isLoading
+        isLoading,
+        ...rest
     } = props;
+    const { routes } = useContext(RoutesContext);
 
     if (shouldDisable(href)) {
-        return <a {..._omit(props, omitProps)}>{children}</a>;
+        return <a href={href} {...rest} />;
     }
 
     return (
         <Link
             onTouchStart={e => e.stopPropagation()}
             to={href}
-            title={title}
-            className={className}
             onClick={e => {
                 e.stopPropagation();
+                e.preventDefault();
+
                 if (disabled || isLoading) {
-                    e.preventDefault();
                     return;
                 }
 
@@ -73,15 +52,10 @@ const PreloadLink: React.FunctionComponent<Props> = props => {
                     eventTracker();
                 }
 
-                e.preventDefault();
-
-                onClick
-                    ? onClick(e)
-                    : preload(href, history, routesContext.routes, replace);
+                onClick ? onClick(e) : preload(href, routes, replace);
             }}
-        >
-            {children}
-        </Link>
+            {...rest}
+        />
     );
 };
 
@@ -90,11 +64,7 @@ const mapStateToProps: MapStateToProps<StateProps> = ({ loading }) => ({
 });
 
 const mapDispatchToProps: MapDispatchToProps<PreloadLinkActions> = dispatch => ({
-    preload: (path, history, routes, replace) =>
-        dispatch(preload(path, history, routes, replace))
+    preload: (path, routes, replace) => dispatch(preload(path, routes, replace))
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(withRouter(PreloadLink));
+export default connect(mapStateToProps, mapDispatchToProps)(PreloadLink);

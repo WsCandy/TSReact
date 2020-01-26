@@ -1,18 +1,16 @@
 import AsyncAction from "_model/redux/AsyncAction";
 import getMatchedRoute from "_util/routes/getMatchedRoute";
 import { matchPath } from "react-router";
-import AppRoute from "_model/routes/AppRoute";
-import preloadRoute from "_actions/loading/preLoadRoute";
-import { History } from "history";
+import preloadRoute from "_actions/loading/preloadRoute";
 import getLoadAction from "_util/routes/getLoadAction";
+import AppRoute from "_model/routes/AppRoute";
 
 const preload = (
     path: string,
-    history: History,
     routes: AppRoute[] | null,
     replace: boolean = false
 ): AsyncAction<void> => dispatch => {
-    if (routes === null) {
+    if (!routes) {
         return;
     }
 
@@ -26,9 +24,9 @@ const preload = (
         const load = Component.preLoad();
 
         if (load && match) {
-            return dispatch(
-                preloadRoute(load, path, match, history, modal, replace)
-            );
+            return dispatch(preloadRoute(load, match)).then(() => {
+                dispatch(getLoadAction(replace)(path, { modal }));
+            });
         }
     }
 
