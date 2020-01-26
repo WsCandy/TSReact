@@ -5,12 +5,12 @@ import LoadableTest from "_containers/LoadableTest";
 import get404Route from "_util/routes/get404Route";
 import i18next from "i18next";
 
-const routes: (i18n: i18next.i18n) => AppRoute[] = i18n => [
+const routes: (i18n: i18next.i18n) => AppRoute[] = ({ t }) => [
     {
         key: "home",
         path: "/",
         exact: true,
-        title: i18n.t("hello_world"),
+        title: t("hello_world"),
         description: "This is the home page...!",
         component: Home,
         priority: 1.0
