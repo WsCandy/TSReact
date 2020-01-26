@@ -75,7 +75,8 @@ module.exports = merge({
                             plugins: [
                                 "babel-plugin-styled-components",
                                 "syntax-dynamic-import",
-                                "react-loadable/babel"
+                                "react-loadable/babel",
+                                "@babel/plugin-proposal-optional-chaining"
                             ]
                         }
                     },

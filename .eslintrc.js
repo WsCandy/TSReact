@@ -45,7 +45,7 @@ module.exports = {
         "implicit-arrow-linebreak": "off",
         "function-paren-newline": "off",
         "no-undef": "off",
-        "no-unused-vars": "error",
+        "no-unused-vars": "off",
         "no-console": "off",
         "no-plusplus": "off",
         "no-shadow": "off",

@@ -1,27 +1,11 @@
-import * as React from "react";
+import React, { useContext } from "react";
 import PreloadLink from "_components/util/routes/PreloadLink";
 import { useTranslation } from "react-i18next";
 import styled from "styled-components";
 import Icon from "_components/util/misc/Icon";
 import close from "_svg/close.svg";
-import { RouteComponentProps, withRouter } from "react-router";
 import globalMargin from "_util/styles/globalMargin";
-
-interface Props extends RouteComponentProps {
-    readonly modal?: Modal;
-}
-
-const getBackPath = (modal?: Modal): string => {
-    if (typeof modal !== "object") {
-        return "/";
-    }
-
-    if (typeof modal.path === "undefined") {
-        return "/";
-    }
-
-    return modal.path;
-};
+import ModalContext from "_components/contexts/ModalContext";
 
 const StyledLink = styled(PreloadLink)`
     display: flex;
@@ -42,18 +26,17 @@ const StyledIcon = styled(Icon)`
     ${props => globalMargin(props, 0.33)("right")};
 `;
 
-const ModalClose: React.FunctionComponent<Props> = props => {
-    const { modal, history } = props;
+const ModalClose: React.FunctionComponent = () => {
+    const context = useContext(ModalContext);
+    const { closeModal, closeTarget } = context;
     const [t] = useTranslation();
 
     return (
         <StyledLink
             title={t("general.close")}
             replace
-            href={getBackPath(modal)}
-            onClick={
-                history.action === "PUSH" ? () => history.goBack() : undefined
-            }
+            href={closeTarget!}
+            onClick={closeModal}
         >
             <StyledIcon
                 tertiary
@@ -68,4 +51,4 @@ const ModalClose: React.FunctionComponent<Props> = props => {
     );
 };
 
-export default withRouter(ModalClose);
+export default ModalClose;

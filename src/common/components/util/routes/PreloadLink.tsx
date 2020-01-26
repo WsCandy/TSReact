@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useContext } from "react";
 import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
 import MapDispatchToProps from "_model/redux/MapDispatchToProps";
@@ -37,6 +37,7 @@ const shouldDisable = (href: string): boolean => {
 };
 
 const PreloadLink: React.FunctionComponent<Props> = props => {
+    const routesContext = useContext(RoutesContext);
     const {
         onClick,
         href,
@@ -56,41 +57,31 @@ const PreloadLink: React.FunctionComponent<Props> = props => {
     }
 
     return (
-        <RoutesContext.Consumer>
-            {context => (
-                <Link
-                    onTouchStart={e => e.stopPropagation()}
-                    to={href}
-                    title={title}
-                    className={className}
-                    onClick={e => {
-                        if (disabled || isLoading) {
-                            e.preventDefault();
-                            return;
-                        }
+        <Link
+            onTouchStart={e => e.stopPropagation()}
+            to={href}
+            title={title}
+            className={className}
+            onClick={e => {
+                e.stopPropagation();
+                if (disabled || isLoading) {
+                    e.preventDefault();
+                    return;
+                }
 
-                        if (typeof eventTracker !== "undefined") {
-                            eventTracker();
-                        }
+                if (typeof eventTracker !== "undefined") {
+                    eventTracker();
+                }
 
-                        if (context.routes) {
-                            e.preventDefault();
+                e.preventDefault();
 
-                            onClick
-                                ? onClick(e)
-                                : preload(
-                                      href,
-                                      history,
-                                      context.routes,
-                                      replace
-                                  );
-                        }
-                    }}
-                >
-                    {children}
-                </Link>
-            )}
-        </RoutesContext.Consumer>
+                onClick
+                    ? onClick(e)
+                    : preload(href, history, routesContext.routes, replace);
+            }}
+        >
+            {children}
+        </Link>
     );
 };
 
@@ -98,9 +89,7 @@ const mapStateToProps: MapStateToProps<StateProps> = ({ loading }) => ({
     isLoading: loading.isLoading
 });
 
-const mapDispatchToProps: MapDispatchToProps<
-    PreloadLinkActions
-> = dispatch => ({
+const mapDispatchToProps: MapDispatchToProps<PreloadLinkActions> = dispatch => ({
     preload: (path, history, routes, replace) =>
         dispatch(preload(path, history, routes, replace))
 });

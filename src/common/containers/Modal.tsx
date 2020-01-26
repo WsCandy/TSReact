@@ -4,11 +4,7 @@ import Scrollable from "_components/util/misc/Scrollable";
 import Wrap from "_components/layout/Wrap";
 import ModalClose from "_components/util/routes/ModalClose";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
-import { RouteComponentProps, withRouter } from "react-router";
-
-interface Props extends RouteComponentProps {
-    readonly modal?: Modal;
-}
+import { RouteComponentProps, useHistory, withRouter } from "react-router";
 
 const ModalContent = styled.div`
     background: ${props => props.theme.colours.tertiary};
@@ -32,8 +28,9 @@ const ModalWrap = styled(Wrap)`
     }
 `;
 
-const Modal: React.FunctionComponent<Props> = props => {
-    const { children, modal, history } = props;
+const Modal: React.FunctionComponent = props => {
+    const { children } = props;
+    const history = useHistory();
 
     return (
         <Scrollable>
@@ -48,7 +45,7 @@ const Modal: React.FunctionComponent<Props> = props => {
                         alignItems="flex-end"
                         onMouseDown={e => e.stopPropagation()}
                     >
-                        <ModalClose modal={modal} />
+                        <ModalClose />
                         <ModalContent>{children}</ModalContent>
                     </ModalWrap>
                 </CSSTransition>

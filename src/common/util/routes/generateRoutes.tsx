@@ -9,9 +9,7 @@ const render = (props: any, route: AppRoute, Component?: ComponentType<any>) =>
     ) : null;
 
 const renderModal = (props: RouteComponentProps<any>, route: AppRoute) => (
-    <Modal key={route.key} modal={route.modal}>
-        {render(props, route, route.component)}
-    </Modal>
+    <Modal key={route.key}>{render(props, route, route.component)}</Modal>
 );
 
 const generateRouteComponent = (route: AppRoute) => (
