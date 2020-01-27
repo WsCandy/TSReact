@@ -86,11 +86,8 @@ const route = function(
                     matchedRoute.routes
                 );
 
-                if (matched.key !== "404") {
-                    return (
-                        routeMethods?.getTitle?.(this.props, matched.title) ||
-                        matched.title
-                    );
+                if (matched.key !== "404" && typeof document !== "undefined") {
+                    return document.title;
                 }
             }
 

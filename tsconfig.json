@@ -45,7 +45,8 @@
             "_reducers/*": ["src/common/reducers/*"],
             "_selectors/*": ["src/common/selectors/*"],
             "_svg/*": ["src/common/svg/*"],
-            "_hooks/*": ["src/common/hooks/*"]
+            "_hooks/*": ["src/common/hooks/*"],
+            "_contexts/*": ["src/common/contexts/*"]
         }
     },
     "include": ["src/**/*"],

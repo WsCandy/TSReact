@@ -4,7 +4,7 @@ import Scrollable from "_components/util/misc/Scrollable";
 import Wrap from "_components/layout/Wrap";
 import ModalClose from "_components/util/routes/ModalClose";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
-import { RouteComponentProps, useHistory, withRouter } from "react-router";
+import { useHistory, withRouter } from "react-router";
 
 const ModalContent = styled.div`
     background: ${props => props.theme.colours.tertiary};

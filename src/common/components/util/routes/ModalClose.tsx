@@ -5,7 +5,7 @@ import styled from "styled-components";
 import Icon from "_components/util/misc/Icon";
 import close from "_svg/close.svg";
 import globalMargin from "_util/styles/globalMargin";
-import ModalContext from "_components/contexts/ModalContext";
+import ModalContext from "_contexts/ModalContext";
 
 const StyledLink = styled(PreloadLink)`
     display: flex;

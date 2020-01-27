@@ -29,7 +29,8 @@ module.exports = merge({
             _reducers: path.resolve(__dirname, "../src/common/reducers"),
             _selectors: path.resolve(__dirname, "../src/common/selectors"),
             _svg: path.resolve(__dirname, "../src/common/svg"),
-            _hooks: path.resolve(__dirname, "../src/common/hooks")
+            _hooks: path.resolve(__dirname, "../src/common/hooks"),
+            _contexts: path.resolve(__dirname, "../src/common/contexts")
         }
     },
     module: {
