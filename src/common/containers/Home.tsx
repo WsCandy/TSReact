@@ -90,6 +90,11 @@ const Home: React.FunctionComponent<Props> = props => {
                             React Loadable Test - Modal
                         </PreloadLink>
                     </li>
+                    <li>
+                        <PreloadLink href="/test/sub">
+                            Sub Route Test
+                        </PreloadLink>
+                    </li>
                 </ul>
 
                 <div>
