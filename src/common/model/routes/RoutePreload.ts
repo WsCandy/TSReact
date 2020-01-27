@@ -4,6 +4,6 @@ import Match from "_model/misc/Match";
 type RoutePreload<M = {}> = (
     dispatch: Dispatch,
     match: Match<M>
-) => Promise<any> | void;
+) => Promise<any>;
 
 export default RoutePreload;

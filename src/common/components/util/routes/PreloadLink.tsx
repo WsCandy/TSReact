@@ -5,15 +5,10 @@ import MapDispatchToProps from "_model/redux/MapDispatchToProps";
 import PreloadLinkActions from "_model/routes/PreloadLinkActions";
 import PreloadLinkProps from "_model/routes/PreloadLinkProps";
 import preload from "_actions/loading/preload";
-import MapStateToProps from "_model/redux/MapStateToProps";
 import RoutesContext from "_components/util/routes/RoutesContext";
 import { useLocation } from "react-router";
 
-interface StateProps {
-    readonly isLoading: boolean;
-}
-
-type Props = PreloadLinkProps & PreloadLinkActions & StateProps;
+type Props = PreloadLinkProps & PreloadLinkActions;
 
 const shouldDisable = (href: string): boolean => {
     const protocol = href.split(":")[0];
@@ -29,7 +24,6 @@ const PreloadLink: React.FunctionComponent<Props> = props => {
         eventTracker,
         replace,
         preload,
-        isLoading,
         ...rest
     } = props;
     const { routes } = useContext(RoutesContext);
@@ -46,7 +40,7 @@ const PreloadLink: React.FunctionComponent<Props> = props => {
                 e.stopPropagation();
                 e.preventDefault();
 
-                if (disabled || isLoading || location.pathname === href) {
+                if (disabled || location.pathname === href) {
                     return;
                 }
 
@@ -61,12 +55,8 @@ const PreloadLink: React.FunctionComponent<Props> = props => {
     );
 };
 
-const mapStateToProps: MapStateToProps<StateProps> = ({ loading }) => ({
-    isLoading: loading.isLoading
-});
-
 const mapDispatchToProps: MapDispatchToProps<PreloadLinkActions> = dispatch => ({
     preload: (path, routes, replace) => dispatch(preload(path, routes, replace))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(PreloadLink);
+export default connect(null, mapDispatchToProps)(PreloadLink);

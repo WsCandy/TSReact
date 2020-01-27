@@ -1,6 +1,4 @@
-import {
-    applyMiddleware, compose, createStore, Store
-} from "redux";
+import { applyMiddleware, compose, createStore, Store } from "redux";
 import thunk from "redux-thunk";
 import AppState from "_model/redux/AppState";
 import reducers from "_reducers/index";
@@ -9,6 +7,7 @@ import { createBrowserHistory } from "history";
 import { enableBatching } from "redux-batched-actions";
 import analyticsMiddleware from "_client/middleware/analyticsMiddleware";
 import serviceMiddleware from "_client/middleware/serviceMiddleware";
+import loadingMiddleware from "_client/middleware/loadingMiddleware";
 
 const history = createBrowserHistory();
 
@@ -24,7 +23,8 @@ const store = (): Store<AppState> => {
                 routerMiddleware(history),
                 thunk,
                 analyticsMiddleware,
-                serviceMiddleware
+                serviceMiddleware,
+                loadingMiddleware
             )
         )
     );

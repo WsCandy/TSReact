@@ -7,20 +7,18 @@ import getAllMatchedRoutes from "_util/routes/getAllMatchedRoutes";
 import Match from "_model/misc/Match";
 import getParams from "_util/misc/getParams";
 import AsyncAction from "_model/redux/AsyncAction";
-import setState from "_actions/loading/setState";
+import setLoading from "_actions/loading/setLoading";
+import generateKey from "_util/misc/generateKey";
+import endLoading from "_actions/loading/endLoading";
 
 const preload = (
     path: string,
     routes: AppRoute[] | null,
     replace: boolean = false
-): AsyncAction<any> => (dispatch, getState) => {
-    const { loading } = getState();
-
-    if (!routes || loading.isLoading) {
+): AsyncAction<any> => dispatch => {
+    if (!routes) {
         return;
     }
-
-    dispatch(setState({ isLoading: true }));
 
     const p = path.split("?")[0];
     const allMatched = getAllMatchedRoutes(p, routes);
@@ -32,19 +30,24 @@ const preload = (
         ...matchPath(p, matchedRoute)
     };
 
-    const promises = Promise.all(
-        preloads.map(l => l(dispatch, match as Match<any>))
-    );
+    const key = generateKey();
+    const promises = preloads.map(l => l(dispatch, match as Match<any>));
 
-    promises
-        .then(() => {
-            dispatch(
-                getLoadAction(replace)(path, { modal: !!matchedRoute.modal })
-            );
-        })
-        .finally(() => {
-            dispatch(setState({ isLoading: false }));
-        });
+    const load = new Promise((resolve, reject) => {
+        dispatch(setLoading({ key, reject }));
+
+        return Promise.all(promises).then(resolve);
+    });
+
+    load.then(() => {
+        dispatch(getLoadAction(replace)(path, { modal: !!matchedRoute.modal }));
+
+        dispatch(endLoading(key));
+    }).catch(err => {
+        if (err !== "Aborted") {
+            dispatch(endLoading(key));
+        }
+    });
 };
 
 export default preload;
