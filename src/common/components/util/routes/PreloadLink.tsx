@@ -7,6 +7,7 @@ import PreloadLinkProps from "_model/routes/PreloadLinkProps";
 import preload from "_actions/loading/preload";
 import MapStateToProps from "_model/redux/MapStateToProps";
 import RoutesContext from "_components/util/routes/RoutesContext";
+import { useLocation } from "react-router";
 
 interface StateProps {
     readonly isLoading: boolean;
@@ -20,6 +21,7 @@ const shouldDisable = (href: string): boolean => {
 };
 
 const PreloadLink: React.FunctionComponent<Props> = props => {
+    const location = useLocation();
     const {
         onClick,
         href,
@@ -44,7 +46,7 @@ const PreloadLink: React.FunctionComponent<Props> = props => {
                 e.stopPropagation();
                 e.preventDefault();
 
-                if (disabled || isLoading) {
+                if (disabled || isLoading || location.pathname === href) {
                     return;
                 }
 
