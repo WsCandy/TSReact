@@ -22,14 +22,14 @@ jobs:
       - attach_workspace:
           at: ~/app
       - restore_cache:
-          key: v1-{{ checksum "yarn.lock" }}
+          key: v2-{{ checksum "yarn.lock" }}
       - run:
           name: Yarn
           command: yarn
       - save_cache:
           paths:
             - node_modules
-          key: v1-{{ checksum "yarn.lock" }}
+          key: v2-{{ checksum "yarn.lock" }}
   lint:
     docker:
       - image: circleci/node:12.14
@@ -39,7 +39,7 @@ jobs:
       - attach_workspace:
           at: ~/app
       - restore_cache:
-          key: v1-{{ checksum "yarn.lock" }}
+          key: v2-{{ checksum "yarn.lock" }}
       - run:
           name: Lint
           command: yarn lint
@@ -51,7 +51,7 @@ jobs:
       - attach_workspace:
           at: ~/app
       - restore_cache:
-          key: v1-{{ checksum "yarn.lock" }}
+          key: v2-{{ checksum "yarn.lock" }}
       - run:
           name: Production Build
           command: yarn build
