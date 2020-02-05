@@ -1,7 +1,7 @@
 import { css, ThemeProps } from "styled-components";
 import Theme from "_model/theming/Theme";
 
-const globalPadding = (props: ThemeProps<Theme>, multiplier: number = 1) => (
+const globalPadding = (props: ThemeProps<Theme>, multiplier = 1) => (
     ...side: Side[]
 ) => {
     return css`

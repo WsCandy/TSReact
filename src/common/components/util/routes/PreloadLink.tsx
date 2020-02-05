@@ -29,6 +29,7 @@ const PreloadLink: React.FunctionComponent<Props> = props => {
     const { routes } = useContext(RoutesContext);
 
     if (shouldDisable(href)) {
+        // eslint-disable-next-line jsx-a11y/anchor-has-content
         return <a href={href} {...rest} />;
     }
 

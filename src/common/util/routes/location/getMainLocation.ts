@@ -3,7 +3,7 @@ import { Location } from "history";
 import { useRouteMatch } from "react-router";
 import usePreviousLocation from "_hooks/usePreviousLocation";
 
-const DEFAULT_MODAL_LOCATION = (pathname: string = "/") => ({
+const DEFAULT_MODAL_LOCATION = (pathname = "/") => ({
     pathname,
     search: "",
     hash: "",

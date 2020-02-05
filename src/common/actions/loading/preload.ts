@@ -14,7 +14,7 @@ import endLoading from "_actions/loading/endLoading";
 const preload = (
     path: string,
     routes: AppRoute[] | null,
-    replace: boolean = false
+    replace = false
 ): AsyncAction<any> => dispatch => {
     if (!routes) {
         return;

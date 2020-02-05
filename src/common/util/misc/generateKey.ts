@@ -1,4 +1,4 @@
-const generateKey = (length: number = 5): string => {
+const generateKey = (length = 5): string => {
     const char_list =
         "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     let text = "";

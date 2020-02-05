@@ -11,66 +11,35 @@ module.exports = {
             webpack: {
                 config: path.resolve(__dirname, ".webpack/base.js")
             }
+        },
+        react: {
+            version: "detect"
         }
     },
+    overrides: [
+        {
+            files: ["src/**/*"],
+            excludedFiles: "*.ejs"
+        }
+    ],
     extends: [
-        "airbnb",
-        "plugin:@typescript-eslint/recommended",
-        "prettier",
-        "prettier/@typescript-eslint"
+        "prettier/@typescript-eslint",
+        "eslint:recommended",
+        "plugin:jsx-a11y/recommended",
+        "plugin:react/recommended",
+        "plugin:@typescript-eslint/eslint-recommended",
+        "plugin:@typescript-eslint/recommended"
     ],
     parser: "@typescript-eslint/parser",
-    plugins: ["@typescript-eslint"],
+    plugins: ["@typescript-eslint", "jsx-a11y"],
     rules: {
         "@typescript-eslint/explicit-function-return-type": "off",
         "@typescript-eslint/no-non-null-assertion": "off",
-        "@typescript-eslint/camelcase": "off",
         "@typescript-eslint/no-explicit-any": "off",
-        "global-require": "off",
-        "react/no-find-dom-node": "off",
-        "react/button-has-type": "off",
-        "react/jsx-indent": ["error", 4],
-        "react/jsx-one-expression-per-line": "off",
-        "react/jsx-indent-props": ["error", 4],
-        "react/jsx-filename-extension": [
-            "error",
-            { extensions: [".tsx", ".jsx"] }
-        ],
-        "jsx-a11y/anchor-has-content": "off",
-        "react/prop-types": ["off"],
-        "import/no-anonymous-default-export": "error",
-        "prefer-arrow-callback": "error",
-        "arrow-parens": "off",
-        "space-before-function-paren": "off",
-        "operator-linebreak": "off",
-        "implicit-arrow-linebreak": "off",
-        "function-paren-newline": "off",
-        "no-undef": "off",
-        "no-unused-vars": "off",
-        "no-console": "off",
-        "no-plusplus": "off",
-        "no-shadow": "off",
-        "no-continue": "off",
-        "no-param-reassign": "off",
-        "no-new": "off",
-        "wrap-iife": "off",
-        "class-methods-use-this": "off",
-        "no-underscore-dangle": "off",
-        "no-use-before-define": ["error", "nofunc"],
-        "no-loop-func": "off",
-        "no-multi-assign": "off",
-        strict: ["error", "never"],
-        "consistent-return": "off",
-        "max-len": "off",
-        "one-var": "off",
-        "func-names": [1, "never"],
-        "no-mixed-spaces-and-tabs": "error",
-        "no-unused-expressions": [
-            "error",
-            {
-                allowTernary: true
-            }
-        ],
-        camelcase: ["off"]
+        "@typescript-eslint/camelcase": "off",
+        "@typescript-eslint/no-var-requires": "off",
+        "@typescript-eslint/no-unused-vars": "error",
+        "react/prop-types": "off",
+        "react/no-find-dom-node": "off"
     }
 };

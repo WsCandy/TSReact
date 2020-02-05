@@ -10,9 +10,7 @@ interface Params {
     readonly test: string;
 }
 
-const preLoad: RoutePreload<Params> = (_, match) => {
-    console.log(match.params.test);
-
+const preLoad: RoutePreload<Params> = () => {
     return new Promise(resolve => {
         setTimeout(() => resolve(), 2000);
     });

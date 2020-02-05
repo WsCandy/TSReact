@@ -1,7 +1,7 @@
 import { Request } from "express";
 import createFullDomain from "_server/util/createFullDomain";
 
-const getAppUrl = (req: Request, path: string = ""): string => {
+const getAppUrl = (req: Request, path = ""): string => {
     const host = req.get("host");
     const { protocol } = req;
 
