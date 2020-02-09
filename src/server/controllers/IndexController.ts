@@ -25,7 +25,7 @@ const IndexController = async (req: Request, res: Response): Promise<any> => {
     try {
         await promises;
     } catch (err) {
-        return generateResponse(req, res, serverStore, true);
+        return generateResponse(req, res, serverStore, 404);
     }
 
     return generateResponse(req, res, serverStore);

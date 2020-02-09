@@ -8,22 +8,22 @@ const generateResponse = (
     req: Request,
     res: Response,
     serverStore: Store<AppState>,
-    is404?: boolean
+    status?: number
 ): any => {
     const context: Context = {
         language: req.i18n.language
     };
 
-    const render = renderer(req, context, serverStore, is404);
+    const render = renderer(req, context, serverStore, status);
 
-    const { url, status, title, description, language } = context;
+    const { url, title, description, language } = context;
 
     if (url) {
-        return res.redirect(status || 301, url);
+        return res.redirect(context.status || 301, url);
     }
 
-    if (status) {
-        res.status(status);
+    if (context.status) {
+        res.status(context.status);
     }
 
     return res.render("index", {

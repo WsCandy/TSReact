@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import AppRoute from "_model/routes/AppRoute";
 import { Switch, useHistory, useLocation } from "react-router";
 import { generateRouteComponent } from "_util/routes/generateRoutes";
@@ -8,13 +8,18 @@ import getMatchedRoute from "_util/routes/getMatchedRoute";
 import getMainLocation from "_util/routes/location/getMainLocation";
 import ModalContext from "_contexts/ModalContext";
 import Overlay from "_containers/Overlay";
+import get404Route from "_util/routes/get404Route";
+import StatusContext from "_contexts/StatusContext";
 
 interface Props {
     readonly routes?: AppRoute[];
+    readonly status?: number;
 }
 
 const AppSwitch: React.FunctionComponent<Props> = props => {
-    const { routes } = props;
+    const { routes, status } = props;
+    const [statusCode, setStatus] = useState(status);
+    const [animate, setAnimate] = useState(false);
     const location = useLocation();
     const history = useHistory();
 
@@ -26,13 +31,18 @@ const AppSwitch: React.FunctionComponent<Props> = props => {
         const mainLocation = getMainLocation(route, location);
 
         const closeModal = () => {
+            setAnimate(true);
             history.action === "POP"
                 ? history.replace(mainLocation.pathname)
                 : history.goBack();
         };
 
+        if (statusCode === 404) {
+            return generateRouteComponent(get404Route());
+        }
+
         return (
-            <>
+            <StatusContext.Provider value={{ status, setStatus }}>
                 <Switch location={mainLocation}>
                     {coreRoutes.map(route => generateRouteComponent(route))}
                 </Switch>
@@ -41,9 +51,10 @@ const AppSwitch: React.FunctionComponent<Props> = props => {
                         <CSSTransition
                             classNames="appear"
                             timeout={300}
-                            exit
+                            exit={animate}
                             enter
                             appear
+                            onExit={() => setAnimate(false)}
                         >
                             <Overlay onMouseDown={() => closeModal()}>
                                 <ModalContext.Provider
@@ -62,7 +73,7 @@ const AppSwitch: React.FunctionComponent<Props> = props => {
                         </CSSTransition>
                     ) : null}
                 </TransitionGroup>
-            </>
+            </StatusContext.Provider>
         );
     }
 

@@ -13,21 +13,21 @@ const Overlay = styled(Wrap)`
     z-index: 1000;
     background-color: rgba(0, 0, 0, 0.25);
 
-    &.fade-enter {
+    &.appear-enter {
         opacity: 0;
     }
-    &.fade-enter-active {
+    &.appear-enter-active {
         opacity: 1;
         transition: opacity 0.3s linear;
     }
-    &.fade-exit {
+    &.appear-exit {
         opacity: 1;
     }
-    &.fade-exit-active {
+    &.appear-exit-active {
         opacity: 0;
         transition: opacity 0.3s linear;
     }
-    &.fade-exit-done {
+    &.appear-exit-done {
         opacity: 0;
     }
 `;

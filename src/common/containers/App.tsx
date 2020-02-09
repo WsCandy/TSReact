@@ -20,10 +20,11 @@ interface StateProps {
 
 interface Props extends RouteComponentProps, StateProps {
     readonly locales: i18next.i18n;
-    readonly is404?: boolean;
+    readonly status?: number;
 }
 
-const App: React.FunctionComponent<Props> = ({ loading, locales }) => {
+const App: React.FunctionComponent<Props> = props => {
+    const { loading, locales, status } = props;
     const r = routes(locales);
     return (
         <ThemeProvider theme={theme}>
@@ -34,7 +35,7 @@ const App: React.FunctionComponent<Props> = ({ loading, locales }) => {
                     <>
                         {loading.isLoading ? "Page loading" : "Idle"}
                         <RoutesContext.Provider value={{ routes: r }}>
-                            <AppSwitch routes={r} />
+                            <AppSwitch routes={r} status={status} />
                         </RoutesContext.Provider>
                     </>
                 </I18nextProvider>

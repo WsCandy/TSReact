@@ -3,6 +3,7 @@ import OpenGraph from "_server/model/OpenGraph";
 interface ViewParams {
     readonly title?: string;
     readonly scripts?: string;
+    readonly status?: number;
     readonly html: string;
     readonly state: string;
     readonly styles: string;

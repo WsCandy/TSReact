@@ -22,20 +22,23 @@ const renderer = (
     req: Request,
     context: Context,
     serverStore: Store<AppState>,
-    is404?: boolean
+    status?: number
 ): ViewParams => {
     const extractor = new ChunkExtractor({ statsFile, entrypoints: ["m"] });
 
-    const app = extractor.collectChunks(
-        <Provider store={serverStore}>
-            <StaticRouter location={req.url} context={context}>
-                <App locales={req.i18n} is404={is404} />
-            </StaticRouter>
-        </Provider>
-    );
+    const app = (status?: number) =>
+        extractor.collectChunks(
+            <Provider store={serverStore}>
+                <StaticRouter location={req.url} context={context}>
+                    <App locales={req.i18n} status={status} />
+                </StaticRouter>
+            </Provider>
+        );
+
+    renderToString(app(status));
 
     const sheet = new ServerStyleSheet();
-    const appWithStyles = sheet.collectStyles(app);
+    const appWithStyles = sheet.collectStyles(app(context.status));
     const appRender = renderToString(appWithStyles);
     const scripts = generateScripts(extractor);
 
@@ -52,6 +55,7 @@ const renderer = (
         state: JSON.stringify(serverStore.getState()),
         styles: sheet.getStyleTags(),
         svg: sprite.stringify(),
+        status: context.status,
         og: {
             ...og,
             ...context.og

@@ -20,6 +20,9 @@
 
 <main id="main"><%- html %></main>
 <%- svg %>
+<% if (status) { %>
+<script>window.INITIAL_STATUS = <%- status %>;</script>
+<% } %>
 <script id="state-script">window.INITIAL_STATE = <%- state %>;</script>
 </body>
 </html>

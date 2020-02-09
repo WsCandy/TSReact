@@ -15,7 +15,7 @@ const clientStore = store();
 const app = (
     <Provider store={clientStore}>
         <ConnectedRouter history={history}>
-            <App locales={locales} />
+            <App locales={locales} status={(window as any).INITIAL_STATUS} />
         </ConnectedRouter>
     </Provider>
 );
