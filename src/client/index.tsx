@@ -15,10 +15,12 @@ const clientStore = store();
 const app = (
     <Provider store={clientStore}>
         <ConnectedRouter history={history}>
-            <App locales={locales} status={(window as any).INITIAL_STATUS} />
+            <App locales={locales} status={window.INITIAL_STATUS} />
         </ConnectedRouter>
     </Provider>
 );
+
+delete window.INITIAL_STATUS;
 
 if (module.hot) {
     module.hot.accept();

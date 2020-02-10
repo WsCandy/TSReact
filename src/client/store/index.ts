@@ -17,7 +17,7 @@ const store = (): Store<AppState> => {
 
     const store = createStore(
         enableBatching(reducers(history)),
-        (window as any).INITIAL_STATE,
+        window.INITIAL_STATE,
         composeEnhancers(
             applyMiddleware(
                 routerMiddleware(history),

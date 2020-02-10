@@ -38,7 +38,11 @@ const AppSwitch: React.FunctionComponent<Props> = props => {
         };
 
         if (statusCode === 404) {
-            return generateRouteComponent(get404Route());
+            return (
+                <StatusContext.Provider value={{ status, setStatus }}>
+                    {generateRouteComponent(get404Route())}
+                </StatusContext.Provider>
+            );
         }
 
         return (
