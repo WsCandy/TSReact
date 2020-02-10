@@ -27,37 +27,29 @@ const config = merge(base, {
         ],
         splitChunks: {
             automaticNameDelimiter: ".",
+            chunks: "all",
             cacheGroups: {
-                components: {
-                    reuseExistingChunk: false,
-                    test: /components/,
-                    name: "c",
-                    chunks: "initial",
-                    priority: -11,
-                    enforce: true
-                },
                 lib: {
-                    reuseExistingChunk: false,
+                    reuseExistingChunk: true,
                     test: /node_modules/,
                     name: "l",
-                    chunks: "initial",
-                    priority: -10,
-                    enforce: true
-                },
-                react: {
-                    reuseExistingChunk: false,
-                    test: /react/,
-                    name: "r",
                     chunks: "initial",
                     priority: -9,
                     enforce: true
                 },
+                react: {
+                    reuseExistingChunk: true,
+                    test: /react/,
+                    name: "r",
+                    chunks: "initial",
+                    priority: -8
+                },
                 dom: {
-                    reuseExistingChunk: false,
+                    reuseExistingChunk: true,
                     test: /react-dom/,
                     name: "rd",
                     chunks: "initial",
-                    priority: -8
+                    priority: -7
                 }
             }
         }
