@@ -11,6 +11,7 @@ import locales from "_client/locales/locales";
 import { loadableReady } from "@loadable/component";
 
 const clientStore = store();
+const main = document.getElementById("main");
 
 const app = (
     <Provider store={clientStore}>
@@ -32,6 +33,4 @@ if (!module.hot && "serviceWorker" in navigator) {
     });
 }
 
-loadableReady().then(() => {
-    ReactDOM.hydrate(app, document.getElementById("main"));
-});
+loadableReady().then(() => ReactDOM.hydrate(app, main));
