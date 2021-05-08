@@ -116,7 +116,7 @@
         "html-entities": "^1.2.1",
         "i18next": "^15.0.8",
         "i18next-express-middleware": "^1.8.0",
-        "lodash": "^4.17.11",
+        "lodash": "^4.17.21",
         "moment": "^2.24.0",
         "react": "^16.7.0-alpha.2",
         "react-dom": "^16.7.0-alpha.2",
