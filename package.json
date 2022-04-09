@@ -117,7 +117,7 @@
         "i18next": "^15.0.8",
         "i18next-express-middleware": "^1.8.0",
         "lodash": "^4.17.11",
-        "moment": "^2.24.0",
+        "moment": "^2.29.2",
         "react": "^16.7.0-alpha.2",
         "react-dom": "^16.7.0-alpha.2",
         "react-i18next": "10.12.4",
